@@ -3,6 +3,7 @@
 namespace SquadMS\Foundation\Helpers;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Config;
 
 class UserHelper
 {
@@ -11,7 +12,7 @@ class UserHelper
      */
     public static function getUserModel() : Model
     {
-        $model = config('auth.providers.users.model');
+        $model = Config::get('sqms.user.model');
         return new $model();
     }
 
@@ -20,8 +21,8 @@ class UserHelper
      */
     public static function checkUserModel(Model $user) : void
     {
-        if (get_class($user) !== config('auth.providers.users.model')) {
-            throw new \InvalidArgumentException('$user must be of type ' . config('auth.providers.users.model'));
+        if (get_class($user) !== Config::get('sqms.user.model')) {
+            throw new \InvalidArgumentException('$user must be of type ' . Config::get('sqms.user.model'));
         }
     }
 }
