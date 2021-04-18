@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace SquadMS\Foundation\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use SquadMS\Foundation\Models\User;
