@@ -18,6 +18,8 @@ class ProfileController extends Controller
         $user = User::where('steam_id_64', $steamId64)->firstOrFail();
 
         /* Show profile page */
-        return view('squadms-foundation::pages.profile.index', compact($user));
+        return view('squadms-foundation::pages.profile.index', [
+            'user' => $user,
+        ]);
     }
 }
