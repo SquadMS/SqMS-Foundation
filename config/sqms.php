@@ -5,7 +5,7 @@ return [
         'route' => [
             'name' => 'profile',
             'url'  => 'profile',
-            'controller' => \App\Http\Controllers\ProfileController::class,
+            'controller' => \SquadMS\Foundation\Http\Controllers\ProfileController::class,
         ],
         'defaults' => [
             'name' => 'No Username :(',
