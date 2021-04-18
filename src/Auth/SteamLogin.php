@@ -6,6 +6,7 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use SquadMS\Foundation\Auth\Contracts\SteamLoginInterface;
 
 class SteamLogin implements SteamLoginInterface
@@ -162,8 +163,8 @@ class SteamLogin implements SteamLoginInterface
             $this->app->get('url')->forceScheme('https');
         }
 
-        $this->loginRoute = route(config('sqms.routes.login'));
-        $this->authRoute = route(config('sqms.routes.auth'));
+        $this->loginRoute = route(Config::get('sqms.auth.routes.login'));
+        $this->authRoute = route(Config::get('sqms.auth.routes.auth'));
 
         $this->app->get('url')->forceScheme(self::$originalScheme);
 

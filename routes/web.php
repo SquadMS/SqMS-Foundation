@@ -7,5 +7,5 @@ use Illuminate\Support\Facades\Route;
 Route::get(Config::get('sqms.user.route.url') . '/{steam_id_64}', [Config::get('sqms.user.route.controller'), 'show'])->name(Config::get('sqms.user.route.name'));
 
 /* SteamLogin */
-Route::get('steam/login', [Config::get('sqms.auth.controller'), 'login'])->name('steam.login');
-Route::get('steam/auth', [Config::get('sqms.auth.controller'), 'authenticate'])->name('steam.auth');
+Route::get('steam/login', [Config::get('sqms.auth.controller'), 'login'])->name(Config::get('sqms.auth.routes.login'));
+Route::get('steam/auth', [Config::get('sqms.auth.controller'), 'authenticate'])->name(Config::get('sqms.auth.routes.auth'));
