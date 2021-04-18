@@ -1,6 +1,6 @@
 <?php
 
-namespace SquadMS\Foundation\Models;
+namespace SquadMS\Foundation\Contracts;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
