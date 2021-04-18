@@ -26,12 +26,12 @@ class SquadMSFoundationServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-
-        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        $this->mergeConfigFrom(__DIR__ . '/../config/sqms.php', 'sqms');
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'squadms-foundation');
 
-        $this->mergeConfigFrom(__DIR__ . '/../config/sqms.php', 'sqms');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
     }
 }
