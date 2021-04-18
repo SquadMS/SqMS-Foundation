@@ -9,4 +9,4 @@ Route::get(Config::get('sqms.user.route.url'), [Config::get('sqms.user.route.con
 
 /* SteamLogin */
 Route::get('steam/login', [Config::get('sqms.auth.controller'), 'login'])->name('steam.login');
-Route::get('steam/auth', [SteamLoginController::class, 'authenticate'])->name('steam.auth');
+Route::get('steam/auth', [Config::get('sqms.auth.controller'), 'authenticate'])->name('steam.auth');
