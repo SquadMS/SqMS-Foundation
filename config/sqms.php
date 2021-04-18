@@ -2,6 +2,7 @@
 
 return [
     'user' => [
+        'model' => \App\Models\User::class,
         'route' => [
             'name' => 'profile',
             'url'  => 'profile',

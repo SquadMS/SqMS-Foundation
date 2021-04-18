@@ -1,12 +1,23 @@
 <?php
 
-namespace SquadMS\Foundation\Auth;
+namespace SquadMS\Foundation\Repositories;
 
 use Carbon\Carbon;
-use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Config;
+use SquadMS\Foundation\Auth\SteamUser;
+use SquadMS\Foundation\Models\SquadMSUser;
 
-class SteamUserRepository
+class UserRepository
 {
+    /**
+     * Returns a query builder for the configured user model.
+     */
+    public static function getUserModelQuery() : Builder {
+        $class = Config::get('sqms.user.model');
+        return call_user_func($class . '::query');
+    }
+
     public static function createOrUpdateBulk(array $steamUsers, bool $shallow = false)
     {
         $rows = [];
@@ -33,12 +44,12 @@ class SteamUserRepository
             ]);
         }
 
-        return User::upsert($rows, ['steam_account_id'], $updateRows);
+        return self::getUserModelQuery()->upsert($rows, ['steam_account_id'], $updateRows);
     }
 
-    public static function createOrUpdate(SteamUser $steamUser, bool $shallow = false) : User
+    public static function createOrUpdate(SteamUser $steamUser, bool $shallow = false) : SquadMSUser
     {
-        return User::updateOrCreate([
+        return self::getUserModelQuery()->updateOrCreate([
             'steam_account_id' => $steamUser->accountId,
         ], self::createUserData($steamUser, !$shallow));
     }
@@ -56,7 +67,7 @@ class SteamUserRepository
 
         if ($fetch) {
             /* Fetch the User from the SteamAPI if it is not already fetched */
-            if (!self::isFetched($steamUser)) {
+            if (!$steamUser->isFetched()) {
                 $steamUser->getUserInfo();
             }
             
@@ -72,10 +83,5 @@ class SteamUserRepository
 
         /* Return the created data badge */
         return $data;
-    }
-
-    private static function isFetched(SteamUser $steamUser) : bool
-    {
-        return !is_null($steamUser->name) && !is_null($steamUser->avatar) && !is_null($steamUser->avatarMedium) && !is_null($steamUser->avatarSmall);
     }
 }

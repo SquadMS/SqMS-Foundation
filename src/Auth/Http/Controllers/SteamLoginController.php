@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use SquadMS\Foundation\Auth\SteamUser;
-use SquadMS\Foundation\Auth\SteamUserRepository;
+use SquadMS\Foundation\Repositories\UserRepository;
 
 class SteamLoginController extends AbstractSteamLoginController
 {
@@ -21,7 +21,7 @@ class SteamLoginController extends AbstractSteamLoginController
     public function authenticated(Request $request, SteamUser $steamUser)
     {
         /* Create or Update user, fetch data from SteamAPI */
-        $user = SteamUserRepository::createOrUpdate($steamUser);
+        $user = UserRepository::createOrUpdate($steamUser);
 
         /* Login the user using the Auth facade */
         Auth::login($user, true);

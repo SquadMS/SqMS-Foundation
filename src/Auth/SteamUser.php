@@ -304,4 +304,9 @@ class SteamUser extends Fluent
     {
         return $this->response;
     }
+
+    public function isFetched(): bool
+    {
+        return !is_null($this->name) && !is_null($this->avatar) && !is_null($this->avatarMedium) && !is_null($this->avatarSmall);
+    }
 }

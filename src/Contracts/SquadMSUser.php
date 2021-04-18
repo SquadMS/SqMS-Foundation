@@ -4,7 +4,7 @@ namespace SquadMS\Foundation\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-abstract class User extends Authenticatable
+abstract class SquadMSUser extends Authenticatable
 {
     /**
      * The table associated with the model.
@@ -12,7 +12,7 @@ abstract class User extends Authenticatable
      * @var string
      */
     protected $table = 'users';
-    
+
     /* Disable Laravel's mass assignment protection */
     protected $guarded = [
         //
