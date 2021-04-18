@@ -3,6 +3,7 @@
 namespace SquadMS\Foundation;
 
 use Illuminate\Support\ServiceProvider;
+use SquadMS\Foundation\Auth\SteamLogin;
 
 class SquadMSFoundationServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,9 @@ class SquadMSFoundationServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(SteamLogin::class, function ($app) {
+            return new SteamLogin($app);
+        });
     }
 
     /**
