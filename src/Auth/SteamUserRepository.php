@@ -3,7 +3,7 @@
 namespace SquadMS\Foundation\Auth;
 
 use Carbon\Carbon;
-use SquadMS\Foundation\Models\User;
+use App\Models\User;
 
 class SteamUserRepository
 {

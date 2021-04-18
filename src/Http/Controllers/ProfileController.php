@@ -3,7 +3,7 @@
 namespace SquadMS\Foundation\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use SquadMS\Foundation\Models\User;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -14,7 +14,7 @@ class ProfileController extends Controller
      */
     public function show(string $steamId64)
     {
-        /** @var \SquadMS\Foundation\Models\User Find user given steamId64 */
+        /** @var \App\Models\User Find user given steamId64 */
         $user = User::where('steam_id_64', $steamId64)->firstOrFail();
 
         /* Show profile page */
