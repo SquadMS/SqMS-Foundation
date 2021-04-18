@@ -1,0 +1,1 @@
+<h1>Showing profile of {{ $user->name }}</h1>
