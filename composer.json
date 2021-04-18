@@ -13,11 +13,7 @@
     ],
     "require": {
         "illuminate/support": "^8.0",
-        "illuminate/database": "^8.0",
-        "restcord/restcord": "dev-develop",
-        "anlutro/l4-settings": "^1.0.0",
-        "skyraptor/laravel-steam-login": "2.7.1",
-        "nesbot/carbon": "^2.46"
+        "illuminate/database": "^8.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~9.0",
@@ -37,7 +33,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "SquadMS\\Foundation\\SquadMSFoundationServiceProvider"            ]
+                "SquadMS\\Foundation\\SquadMSFoundationServiceProvider"
+            ]
         }
     }
 }
