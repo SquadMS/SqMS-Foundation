@@ -1,6 +1,6 @@
 <?php
 
-namespace JohnDoe\BlogPackage\Models;
+namespace SquadMS\Foundation\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

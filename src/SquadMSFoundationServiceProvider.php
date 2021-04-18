@@ -1,6 +1,6 @@
 <?php
 
-namespace SquadMS\AdminConfig;
+namespace SquadMS\Foundation;
 
 use Illuminate\Support\ServiceProvider;
 
