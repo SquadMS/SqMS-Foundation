@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
-use SquadMS\Foundation\Auth\Http\Controllers\SteamLoginController;
 
 /* User Profile */
 Route::get(Config::get('sqms.user.route.url'), [Config::get('sqms.user.route.controller'), 'show'])->name(Config::get('sqms.user.route.name'));

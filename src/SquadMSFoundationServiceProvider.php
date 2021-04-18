@@ -32,6 +32,6 @@ class SquadMSFoundationServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'squadms-foundation');
 
-        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'sqms');
+        $this->mergeConfigFrom(__DIR__ . '/../config/sqms.php', 'sqms');
     }
 }

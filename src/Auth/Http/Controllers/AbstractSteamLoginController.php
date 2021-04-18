@@ -56,20 +56,6 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
     }
 
     /**
-     * Keep for deprecation purposes.
-     *
-     * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
-     *
-     * @deprecated
-     */
-    public function auth()
-    {
-        return $this->authenticate();
-    }
-
-    /**
      * {@inheritdoc}
      *
      * @throws \Exception
