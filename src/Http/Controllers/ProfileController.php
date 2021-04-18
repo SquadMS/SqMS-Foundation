@@ -3,6 +3,7 @@
 namespace SquadMS\Foundation\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Config;
 use SquadMS\Foundation\Repositories\UserRepository;
 
 class ProfileController extends Controller
@@ -18,7 +19,7 @@ class ProfileController extends Controller
         $user = UserRepository::getUserModelQuery()->where('steam_id_64', $steamId64)->firstOrFail();
 
         /* Show profile page */
-        return view('squadms-foundation::pages.profile.index', [
+        return view(Config::get('sqms.theme') . '::pages.profile', [
             'user' => $user,
         ]);
     }

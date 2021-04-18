@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
+use SquadMS\Foundation\Http\Controllers\HomeController;
+
+/* Home Page */
+Route::get('/', [HomeController::class, 'show'])->name('home');
 
 /* User Profile */
 Route::get(Config::get('sqms.user.route.url') . '/{steam_id_64}', [Config::get('sqms.user.route.controller'), 'show'])->name(Config::get('sqms.user.route.name'));
