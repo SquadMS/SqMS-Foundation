@@ -1,4 +1,3 @@
-
 <?php
 
 namespace SquadMS\Foundation\Auth\Contracts;
