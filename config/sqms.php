@@ -40,5 +40,7 @@ return [
 
     'routes' => [
         
-    ]
+    ],
+
+    'theme' => env('SQUADMS_THEME', 'squadms-default-theme')
 ];
