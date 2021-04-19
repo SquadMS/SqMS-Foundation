@@ -84,4 +84,24 @@ class UserRepository
         /* Return the created data badge */
         return $data;
     }
+
+    /**
+     * Get 100 users that have not been fetched for 12 Hours or provided list.
+     */
+    static function getUnfetchedSteamIDs() : array
+    {
+        return self::getUserModelQuery()->whereNull('last_fetched')
+                                       ->orWhere('last_fetched', '<=', Carbon::now()->subHours(Config::get('sqms.user.fetch_interval')))
+                                       ->orderBy('last_fetched')
+                                       ->limit(1000) // Max limit for the SteamAPI
+                                       ->pluck('steam_id_64')
+                                       ->toArray();
+    }
+
+    static function excludeFetchedSteamIDs(array $steamIDs) : array
+    {
+        return self::getUserModelQuery()->whereIn('steam_id_64', $steamIDs)->where(function(Builder $q) {
+            $q->whereNull('last_fetched')->orWhere('last_fetched', '<=', Carbon::now()->subHours(Config::get('sqms.user.fetch_interval')));
+        })->pluck('steam_id_64')->toArray();
+    }
 }
