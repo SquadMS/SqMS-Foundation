@@ -36,7 +36,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "SquadMS\\Foundation\\SquadMSFoundationServiceProvider"
+                "SquadMS\\Foundation\\SquadMSFoundationServiceProvider",
+                "SquadMS\\Foundation\\Providers\\ScheduleServiceProvider"
             ]
         }
     }
