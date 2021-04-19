@@ -40,7 +40,11 @@ return [
     ],
 
     'routes' => [
-        
+        'prefix' => null,
+        'middleware' => ['web'],
+        'definitions' => [
+
+        ],
     ],
 
     'theme' => env('SQUADMS_THEME', 'squadms-default-theme')
