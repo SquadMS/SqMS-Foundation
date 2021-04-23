@@ -4,11 +4,6 @@ return [
     'user' => [
         'model' => \App\Models\User::class,
         'fetch_interval' => 12,
-        'route' => [
-            'name' => 'profile',
-            'url'  => 'profile',
-            'controller' => \SquadMS\Foundation\Http\Controllers\ProfileController::class,
-        ],
         'defaults' => [
             'name' => 'No Username :(',
             'avatar' => [
@@ -31,20 +26,53 @@ return [
         'method'  => env('STEAM_LOGIN_PROFILE_DATA_METHOD', env('STEAM_LOGIN_PROFILE_METHOD', 'api')),
 
         'timeout' => env('STEAM_LOGIN_TIMEOUT', 5),
-
-        'routes'  => [
-            'login'    => env('STEAM_LOGIN_ROUTE', env('STEAM_LOGIN_ROUTE_NAME', 'steam.login')),
-            'auth'     => env('STEAM_LOGIN_AUTH_ROUTE', env('STEAM_AUTH_ROUTE_NAME', 'steam.auth')),
-            'redirect' => env('STEAM_LOGIN_REDIRECT_ROUTE', env('STEAM_REDIRECT_ROUTE_NAME', 'profile')),
-        ],
     ],
 
     'routes' => [
         'prefix' => null,
         'middleware' => ['web'],
-        'definitions' => [
-
-        ],
+        'def' => [
+            'home' => [
+                'type' => 'get',
+                'name' => 'home',
+                'path' => '/',
+                'middlewares' => [],
+                'controller' => \SquadMS\Foundation\Http\Controllers\HomeController::class,
+                'executor' => 'show'
+            ],
+            'profile' => [
+                'type' => 'get',
+                'name' => 'profile',
+                'path' => 'profile/{steam_id_64}',
+                'middlewares' => [],
+                'controller' => \SquadMS\Foundation\Http\Controllers\ProfileController::class,
+                'executor' => 'show'
+            ],
+            'admin-dashboard' => [
+                'type' => 'get',
+                'name' => 'admin.dashboard',
+                'path' => 'admin/dashboard',
+                'middlewares' => ['checkAdminAreaAccess'],
+                'controller' => \SquadMS\Foundation\Http\Controllers\ProfileController::class,
+                'executor' => 'show'
+            ],
+            'steam-login' => [
+                'type' => 'get',
+                'name' => 'steam.login',
+                'path' => 'steam/login',
+                'middlewares' => [],
+                'controller' => \SquadMS\Foundation\Auth\Http\Controllers\SteamLoginController::class,
+                'executor' => 'authenticate'
+            ],
+            'steam-auth' => [
+                'type' => 'get',
+                'name' => 'steam.auth',
+                'path' => 'steam/auth',
+                'middlewares' => [],
+                'controller' => \SquadMS\Foundation\Auth\Http\Controllers\SteamLoginController::class,
+                'executor' => 'login'
+            ]
+        ]
     ],
 
     'theme' => env('SQUADMS_THEME', 'squadms-default-theme')
