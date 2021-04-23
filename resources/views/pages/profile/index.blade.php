@@ -1,1 +1,0 @@
-<h1>Showing profile of {{ $user->name }} | {{ $user->steam_id_64 }}</h1>
