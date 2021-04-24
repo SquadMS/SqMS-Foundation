@@ -2,6 +2,7 @@
 
 namespace SquadMS\Foundation;
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use SquadMS\Foundation\Auth\SteamLogin;
