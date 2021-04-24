@@ -4,7 +4,6 @@ namespace SquadMS\Foundation\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Config;
-use SquadMS\Foundation\Repositories\UserRepository;
 
 class HomeController extends Controller
 {

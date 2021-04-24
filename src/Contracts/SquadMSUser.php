@@ -36,4 +36,9 @@ abstract class SquadMSUser extends Authenticatable
     protected $casts = [
         'last_fetched' => 'datetime',
     ];
+
+    public function isSystemAdmin() : bool
+    {
+        return in_array($this->steam_id_64, config('sqms.admins'));
+    }
 }

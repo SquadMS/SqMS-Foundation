@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'admins' => [
+        // List of SteamID64s
+    ],
     'user' => [
         'model' => \App\Models\User::class,
         'fetch_interval' => 12,
