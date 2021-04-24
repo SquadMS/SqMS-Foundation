@@ -53,7 +53,7 @@ return [
                 'name' => 'admin.dashboard',
                 'path' => 'admin/dashboard',
                 'middlewares' => ['checkAdminAreaAccess'],
-                'controller' => \SquadMS\Foundation\Http\Controllers\ProfileController::class,
+                'controller' => \SquadMS\Foundation\Admin\Http\Controllers\DashboardController::class,
                 'executor' => 'show'
             ],
             'steam-login' => [
