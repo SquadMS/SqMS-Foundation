@@ -41,7 +41,8 @@ return [
                 'path' => '/',
                 'middlewares' => [],
                 'controller' => \SquadMS\Foundation\Http\Controllers\HomeController::class,
-                'executor' => 'show'
+                'executor' => 'show',
+                'localized' => true,
             ],
             'profile' => [
                 'type' => 'get',
@@ -49,7 +50,8 @@ return [
                 'path' => 'profile/{steam_id_64}',
                 'middlewares' => [],
                 'controller' => \SquadMS\Foundation\Http\Controllers\ProfileController::class,
-                'executor' => 'show'
+                'executor' => 'show',
+                'localized' => true,
             ],
             'admin-dashboard' => [
                 'type' => 'get',
@@ -57,7 +59,8 @@ return [
                 'path' => 'admin/dashboard',
                 'middlewares' => ['checkAdminAreaAccess'],
                 'controller' => \SquadMS\Foundation\Admin\Http\Controllers\DashboardController::class,
-                'executor' => 'show'
+                'executor' => 'show',
+                'localized' => false,
             ],
             'steam-login' => [
                 'type' => 'get',
@@ -65,7 +68,8 @@ return [
                 'path' => 'steam/login',
                 'middlewares' => [],
                 'controller' => \SquadMS\Foundation\Auth\Http\Controllers\SteamLoginController::class,
-                'executor' => 'authenticate'
+                'executor' => 'authenticate',
+                'localized' => false,
             ],
             'steam-auth' => [
                 'type' => 'get',
@@ -73,7 +77,8 @@ return [
                 'path' => 'steam/auth',
                 'middlewares' => [],
                 'controller' => \SquadMS\Foundation\Auth\Http\Controllers\SteamLoginController::class,
-                'executor' => 'login'
+                'executor' => 'login',
+                'localized' => false,
             ]
         ]
     ],
