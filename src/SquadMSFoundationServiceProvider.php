@@ -3,6 +3,7 @@
 namespace SquadMS\Foundation;
 
 use Illuminate\Container\Container;
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -25,8 +26,9 @@ class SquadMSFoundationServiceProvider extends ServiceProvider
             return new SquadMSRouter();
         });
 
-        $this->app->alias('NavigationHelper', \SquadMS\Foundation\Helpers\NavigationHelper::class);
-        $this->app->alias('LocaleHelper', \SquadMS\Foundation\Helpers\LocaleHelper::class);
+        $loader = AliasLoader::getInstance();
+        $loader->alias('NavigationHelper', \SquadMS\Foundation\Helpers\NavigationHelper::class);
+        $loader->alias('LocaleHelper', \SquadMS\Foundation\Helpers\LocaleHelper::class);
     }
 
     /**
