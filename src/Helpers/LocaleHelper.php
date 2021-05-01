@@ -3,19 +3,18 @@
 namespace SquadMS\Foundation\Helpers;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
+use PeterColes\Languages\LanguagesFacade;
 
 class LocaleHelper {
     static function getHumanReadableName(string $locale) : ?string
     {
-        switch($locale) {
-            case 'de':
-                return 'Deutsch';
-            case 'en':
-                return 'English';
-            default:
-                return null;
-        }
+        /* Lookup language names for the current language */
+        $lookup = LanguagesFacade::lookup(self::getAvailableLocales(), App::getLocale());
+
+        /* Get the translated locale or null */
+        return Arr::get($lookup, $locale, null);
     }
 
     static function getAvailableLocales(bool $excludeCurrent = false) : array
