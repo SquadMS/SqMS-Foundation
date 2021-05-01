@@ -6,6 +6,8 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use SquadMS\Foundation\Auth\Contracts\SteamLoginControllerInterface;
 use SquadMS\Foundation\Auth\SteamLogin;
 
@@ -47,6 +49,20 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
     public function login(Request $request): RedirectResponse
     {
         return $this->redirectToSteam($request);
+    }
+
+    /**
+     * Logout the current user and redirect to the configured home route.
+     * 
+     * @param \Illuminate\Http\Request $request
+     * 
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function logout(Request $request): RedirectResponse
+    {
+        Auth::logout();
+
+        return $this->redirect()->route(Config::get('sqms.routes.def.home.name'));
     }
 
     /**
