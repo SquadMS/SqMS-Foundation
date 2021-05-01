@@ -103,7 +103,7 @@ class SteamLogin implements SteamLoginInterface
             URL::forceScheme('https');
         }
 
-        $authRoute = route(Config::get('sqms.auth.routes.auth'));
+        $authRoute = route(Config::get('sqms.auth.routes.auth.name'));
 
         URL::forceScheme($secure ? 'https' : 'http');
 
@@ -112,7 +112,7 @@ class SteamLogin implements SteamLoginInterface
         }
 
         if (empty($return) && empty($authRoute)) {
-            $authRoute = $return = route(config('steam-login.routes.auth'));
+            $authRoute = $return = route(config('steam-login.routes.auth.name'));
         }
 
         $this->setRedirectTo($redirectTo);
@@ -155,7 +155,7 @@ class SteamLogin implements SteamLoginInterface
             $redirectTo = URL::previous();
         }
 
-        if (in_array($redirectTo, [route(Config::get('sqms.auth.routes.login')), route(Config::get('sqms.auth.routes.auth'))])) {
+        if (in_array($redirectTo, [route(Config::get('sqms.auth.routes.login.name')), route(Config::get('sqms.auth.routes.auth.name'))])) {
             $redirectTo = route(Config::get('sqms.routes.def.home.name'));
         } elseif (!filter_var($redirectTo, FILTER_VALIDATE_URL)) {
             throw new \InvalidArgumentException('$redirectTo: `'.$redirectTo.'` is not a valid URL');
