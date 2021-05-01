@@ -24,6 +24,8 @@ class SquadMSFoundationServiceProvider extends ServiceProvider
         $this->app->singleton(SquadMSRouter::class, function () {
             return new SquadMSRouter();
         });
+
+        $this->app->alias('NavigationHelper', \SquadMS\Foundation\Helpers\NavigationHelper::class);
     }
 
     /**
