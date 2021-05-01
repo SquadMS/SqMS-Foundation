@@ -2,6 +2,8 @@
 
 namespace SquadMS\Foundation\Helpers;
 
+use Illuminate\Support\Arr;
+
 class LocaleHelper {
     static function getHumanReadableName(string $locale) : ?string
     {
@@ -13,5 +15,19 @@ class LocaleHelper {
             default:
                 return null;
         }
+    }
+
+    static function getAvailableLocales(bool $excludeCurrent) : array
+    {
+        $available = config('localized-routes.supported-locales', []);
+
+        if ($excludeCurrent) {
+            $available = array_values(Arr::except(array_combine($available, $available), [
+                app()->getLocale(),
+                app()->getLocale(),
+            ]));
+        }
+
+        return $available;
     }
 }
