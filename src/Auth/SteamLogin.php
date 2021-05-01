@@ -252,7 +252,7 @@ class SteamLogin implements SteamLoginInterface
                 throw new \Exception('OpenID Error: '.$request->input('openid_error'));
             }
 
-            return false;
+            return null;
         }
 
         $steamid = $this->validate($request);

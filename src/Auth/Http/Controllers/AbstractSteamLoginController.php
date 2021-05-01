@@ -13,19 +13,9 @@ use SquadMS\Foundation\Auth\SteamLogin;
 
 abstract class AbstractSteamLoginController extends Controller implements SteamLoginControllerInterface
 {
-    /**
-     * SteamLogin instance.
-     *
-     * @var \Illuminate\Http\Request
-     */
-    protected $request;
+    protected Request $request;
 
-    /**
-     * SteamLogin instance.
-     *
-     * @var \SquadMS\Foundation\Auth\SteamLogin
-     */
-    protected $steam;
+    protected SteamLogin $steam;
 
     /**
      * AbstractSteamLoginController constructor.
