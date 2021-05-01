@@ -34,7 +34,7 @@ class LocaleHelper {
 
     static function localeToFlagIconsCSS(string $locale) : string
     {
-        return (string)Str::of($locale)
+        return 'flag-icon-' . (string)Str::of($locale)
             ->replace('en', 'us')
             ->replace('he', 'il');
     }
