@@ -31,4 +31,11 @@ class LocaleHelper {
 
         return $available;
     }
+
+    static function isRTL(string $locale) : bool
+    {
+        return in_array($locale, [
+            'ar',
+        ]);
+    }
 }
