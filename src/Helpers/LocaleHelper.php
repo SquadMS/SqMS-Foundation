@@ -3,6 +3,7 @@
 namespace SquadMS\Foundation\Helpers;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Config;
 
 class LocaleHelper {
     static function getHumanReadableName(string $locale) : ?string
@@ -19,7 +20,7 @@ class LocaleHelper {
 
     static function getAvailableLocales(bool $excludeCurrent) : array
     {
-        $available = config('localized-routes.supported-locales', []);
+        $available = Config::get('localized-routes.supported-locales', []);
 
         if ($excludeCurrent) {
             $available = array_values(Arr::except(array_combine($available, $available), [
