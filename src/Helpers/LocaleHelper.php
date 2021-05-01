@@ -31,6 +31,13 @@ class LocaleHelper {
         return $available;
     }
 
+    static function localeToFlagIconsCSS(string $locale) : string
+    {
+        return (string)\Illuminate\Support\Str::of($locale)
+            ->replace('en', 'us')
+            ->replace('he', 'il');
+    }
+
     static function isRTL(string $locale) : bool
     {
         return in_array($locale, [
