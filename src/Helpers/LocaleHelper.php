@@ -3,6 +3,7 @@
 namespace SquadMS\Foundation\Helpers;
 
 use Illuminate\Support\Arr;
+use \Illuminate\Support\Str;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use PeterColes\Languages\LanguagesFacade;
@@ -33,7 +34,7 @@ class LocaleHelper {
 
     static function localeToFlagIconsCSS(string $locale) : string
     {
-        return (string)\Illuminate\Support\Str::of($locale)
+        return (string)Str::of($locale)
             ->replace('en', 'us')
             ->replace('he', 'il');
     }
