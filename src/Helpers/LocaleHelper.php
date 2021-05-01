@@ -35,6 +35,18 @@ class LocaleHelper {
     {
         return in_array($locale, [
             'ar',
+            'arc',
+            'ckb',
+            'dv',
+            'fa',
+            'ha	',
+            'he',
+            'khw',
+            'ks',
+            'ps',
+            'ur',
+            'uz_AF',
+            'yi',
         ]);
     }
 }
