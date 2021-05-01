@@ -62,7 +62,7 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
     {
         Auth::logout();
 
-        return $this->redirect()->route(Config::get('sqms.routes.def.home.name'));
+        return redirect()->route(Config::get('sqms.routes.def.home.name'));
     }
 
     /**
