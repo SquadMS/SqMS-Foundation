@@ -3,10 +3,10 @@
 namespace SquadMS\Foundation\Auth;
 
 use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\URL;
 use SquadMS\Foundation\Auth\Contracts\SteamLoginInterface;
 
 class SteamLogin implements SteamLoginInterface
@@ -26,20 +26,6 @@ class SteamLogin implements SteamLoginInterface
     const OPENID_SPECS = 'http://specs.openid.net/auth/2.0';
 
     /**
-     * Defines if app is HTTPS.
-     *
-     * @var bool
-     */
-    protected static $isHttps;
-
-    /**
-     * The app's original http scheme in case of reverse proxy with ssl.
-     *
-     * @var string
-     */
-    protected static $originalScheme;
-
-    /**
      * Default OpenID form params.
      *
      * @var array
@@ -52,18 +38,9 @@ class SteamLogin implements SteamLoginInterface
     ];
 
     /**
-     * Laravel/Lumen Application/Container.
-     *
-     * @var \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Container\Container
+     * Laravel Application
      */
-    protected $app;
-
-    /**
-     * Request instance.
-     *
-     * @var \Illuminate\Http\Request
-     */
-    protected $request;
+    protected \Illuminate\Contracts\Foundation\Application $app;
 
     /**
      * Guzzle instance.
@@ -73,39 +50,11 @@ class SteamLogin implements SteamLoginInterface
     protected $guzzle;
 
     /**
-     * Guzzle response.
-     *
-     * @var \GuzzleHttp\Psr7\Response
-     */
-    protected $response;
-
-    /**
-     * OpenID body response.
-     *
-     * @var string
-     */
-    protected $openIdResponse;
-
-    /**
      * OpenID realm.
      *
      * @var string
      */
     protected $realm;
-
-    /**
-     * Login route to redirect to steam.
-     *
-     * @var string
-     */
-    protected $loginRoute;
-
-    /**
-     * Auth handle route for openid.return_to.
-     *
-     * @var string
-     */
-    protected $authRoute;
 
     /**
      * ?redirect parameter used for automatic handling to the previous page a user was on.
@@ -122,34 +71,23 @@ class SteamLogin implements SteamLoginInterface
     protected $loginUrl;
 
     /**
-     * SteamUser instance of player details.
-     *
-     * @var SteamUser
+     * SteamLogin constructor.
+     * 
+     * @throws \Exception Throws an exception if the current PHP installation can not calculate SteamID's
      */
-    protected $steamUser;
-
-    /**
-     * SteamLoginFixed constructor.
-     *
-     * @param \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Container\Container $app
-     */
-    public function __construct($app = null)
+    public function __construct()
     {
         if (PHP_INT_SIZE !== 8) {
-            trigger_error('64-bit PHP is required to convert steamids', E_USER_WARNING);
+            throw new \Exception('x86_64 PHP is required to convert SteamID\'s!');
         }
 
-        $this->app = $app;
-        $this->request = $app->get('request');
-        self::$isHttps = $this->request->server('HTTPS', 'off') !== 'off' || $this->request->server('SERVER_PORT') == 443 || $this->request->server('HTTP_X_FORWARDED_PROTO') === 'https';
-        self::$originalScheme = $this->request->getScheme();
-
-        $this->setGuzzle(new GuzzleClient())->setRealm();
+        $this->setGuzzle(new GuzzleClient());
     }
 
     /**
      * Build the login url with optional openid.return_to and ?redirect.
      *
+     * @param \Illuminate\Http\Request $request
      * @param string|null $return
      * @param string|null $redirectTo
      *
@@ -157,29 +95,30 @@ class SteamLogin implements SteamLoginInterface
      *
      * @return string
      */
-    public function buildLoginUrl(?string $return = null, ?string $redirectTo = null): string
+    public function buildLoginUrl(Request $request, ?string $return = null, ?string $redirectTo = null): string
     {
-        if (self::$isHttps && !$this->request->isSecure() && self::$originalScheme !== 'https') {
-            $this->app->get('url')->forceScheme('https');
+        $secure = $request->secure();
+
+        if ($secure && !$request->isSecure()) {
+            URL::forceScheme('https');
         }
 
-        $this->loginRoute = route(Config::get('sqms.auth.routes.login'));
-        $this->authRoute = route(Config::get('sqms.auth.routes.auth'));
+        $authRoute = route(Config::get('sqms.auth.routes.auth'));
 
-        $this->app->get('url')->forceScheme(self::$originalScheme);
+        URL::forceScheme($secure ? 'https' : 'http');
 
-        if (empty($return) && !empty($this->authRoute)) {
-            $return = $this->authRoute;
+        if (empty($return) && !empty($authRoute)) {
+            $return = $authRoute;
         }
 
-        if (empty($return) && empty($this->authRoute)) {
-            $this->authRoute = $return = route(config('steam-login.routes.auth'));
+        if (empty($return) && empty($authRoute)) {
+            $authRoute = $return = route(config('steam-login.routes.auth'));
         }
 
         $this->setRedirectTo($redirectTo);
 
         $params = self::$openIdParams;
-        $this->realm = $this->getRealm();
+        $this->realm = $this->getRealm($request);
 
         if (parse_url($this->realm, PHP_URL_HOST) !== parse_url($return, PHP_URL_HOST)) {
             throw new \InvalidArgumentException(sprintf('realm: `%s` and return_to: `%s` do not have matching hosts', $this->realm, $return));
@@ -198,9 +137,9 @@ class SteamLogin implements SteamLoginInterface
      *
      * @deprecated
      */
-    public function createLoginUrl(?string $return = null): string
+    public function createLoginUrl(Request $request, ?string $return = null): string
     {
-        return $this->buildLoginUrl($return);
+        return $this->buildLoginUrl($request, $return);
     }
 
     /**
@@ -208,16 +147,16 @@ class SteamLogin implements SteamLoginInterface
      *
      * @throws InvalidArgumentException
      *
-     *@return \SquadMS\Foundation\Auth\SteamLogin
+     * @return \SquadMS\Foundation\Auth\SteamLogin
      */
     public function setRedirectTo(string $redirectTo = null): self
     {
         if (empty($redirectTo)) {
-            $redirectTo = url()->previous();
+            $redirectTo = URL::previous();
         }
 
-        if (in_array($redirectTo, [$this->loginRoute, $this->authRoute])) {
-            $redirectTo = url('/');
+        if (in_array($redirectTo, [route(Config::get('sqms.auth.routes.login')), route(Config::get('sqms.auth.routes.auth'))])) {
+            $redirectTo = route(Config::get('sqms.routes.def.home.name'));
         } elseif (!filter_var($redirectTo, FILTER_VALIDATE_URL)) {
             throw new \InvalidArgumentException('$redirectTo: `'.$redirectTo.'` is not a valid URL');
         }
@@ -230,12 +169,14 @@ class SteamLogin implements SteamLoginInterface
     /**
      * Return the ?redirect URL.
      *
+     * @param \Illuminate\Http\Request $request
+     * 
      * @return string
      */
-    public function getRedirectTo(): string
+    public function getRedirectTo(Request $request): string
     {
-        if ($this->request->has('redirect')) {
-            $this->setRedirectTo($this->request->query('redirect'));
+        if ($request->has('redirect')) {
+            $this->setRedirectTo($request->query('redirect'));
         } elseif (empty($this->redirectTo)) {
             $this->setRedirectTo();
         }
@@ -248,31 +189,30 @@ class SteamLogin implements SteamLoginInterface
      *
      * @param \GuzzleHttp\Client $guzzle
      *
-     * @return \SquadMS\Foundation\Auth\SteamLogin
+     * @return void
      */
-    public function setGuzzle(GuzzleClient $guzzle): self
+    public function setGuzzle(GuzzleClient $guzzle): void
     {
         $this->guzzle = $guzzle;
-
-        return $this;
     }
 
     /**
      * Set the openid.realm either by passing the URL or the domain only.
      *
+     * @param \Illuminate\Http\Request $request
      * @param string $realm
      *
      * @return \SquadMS\Foundation\Auth\SteamLogin
      */
-    public function setRealm(?string $realm = null): self
+    public function setRealm(Request $request, ?string $realm = null): self
     {
         $host = str_replace(['https://', 'http://'], '', $realm);
 
         if (empty($host) || filter_var($host, FILTER_VALIDATE_DOMAIN) === false) {
-            $host = $this->request->getHttpHost();
+            $host = $request->getHttpHost();
         }
 
-        $realm = (self::$isHttps ? 'https' : 'http').'://'.$host;
+        $realm = ($request->secure() ? 'https' : 'http').'://'.$host;
 
         if (!filter_var($realm, FILTER_VALIDATE_URL)) {
             throw new \InvalidArgumentException('$realm: `'.$realm.'` is not a valid URL.');
@@ -284,12 +224,14 @@ class SteamLogin implements SteamLoginInterface
     }
 
     /**
+     * @param \Illuminate\Http\Request $request
+     * 
      * @return string
      */
-    public function getRealm(): string
+    public function getRealm(Request $request): string
     {
         if (empty($this->realm)) {
-            $this->setRealm();
+            $this->setRealm($request);
         }
 
         return $this->realm;
@@ -298,45 +240,44 @@ class SteamLogin implements SteamLoginInterface
     /**
      * Check if login is valid.
      *
+     * @param \Illuminate\Http\Request $request
+     * @return SteamUser|null
+     * 
      * @throws Exception
-     *
-     * @return bool
      */
-    public function validated(): bool
+    public function validated(Request $request): ?SteamUser
     {
-        if (!$this->validRequest()) {
-            if ($this->request->has('openid_error')) {
-                throw new \Exception('OpenID Error: '.$this->request->input('openid_error'));
+        if (!$this->validRequest($request)) {
+            if ($request->has('openid_error')) {
+                throw new \Exception('OpenID Error: '.$request->input('openid_error'));
             }
 
             return false;
         }
 
-        $steamid = $this->validate();
+        $steamid = $this->validate($request);
 
-        if ($validated = !empty($steamid)) {
-            $this->steamUser = new SteamUser($steamid);
-        }
-
-        return $validated;
+        return !empty($steamid) ? new SteamUser($steamid) : null;
     }
 
     /**
      * Return the steamid if validated.
+     * 
+     * @param \Illuminate\Http\Request $request
      *
      * @return string|null
      */
-    public function validate(): ?string
+    public function validate(Request $request): ?string
     {
-        if (!$this->request->has('openid_signed') || $this->request->query('openid_claimed_id') !== $this->request->query('openid_identity')) {
+        if (!$request->has('openid_signed') || $request->query('openid_claimed_id') !== $request->query('openid_identity')) {
             return null;
         }
 
         $params = [
-            'openid.sig'    => $this->request->query('openid_sig'),
+            'openid.sig'    => $request->query('openid_sig'),
             'openid.ns'     => self::OPENID_SPECS,
             'openid.mode'   => 'check_authentication',
-            'openid.signed' => $this->request->query('openid_signed'),
+            'openid.signed' => $request->query('openid_signed'),
         ];
 
         foreach (explode(',', $params['openid.signed']) as $param) {
@@ -344,17 +285,23 @@ class SteamLogin implements SteamLoginInterface
                 continue;
             }
 
-            $params['openid.'.$param] = $this->request->query('openid_'.$param);
+            $params['openid.'.$param] = $request->query('openid_'.$param);
         }
 
-        $this->response = $this->guzzle->post($this->request->query('openid_op_endpoint'), [
+        $response = $this->guzzle->post($request->query('openid_op_endpoint'), [
             'timeout'     => config('steam-login.timeout'),
             'form_params' => $params,
         ]);
 
-        $this->openIdResponse = $result = $this->response->getBody()->getContents();
+        $result = $response->getBody()->getContents();
 
-        return preg_match('#is_valid\s*:\s*true#i', $result) === 1 && preg_match('#^https?://steamcommunity.com/openid/id/([0-9]{17,25})#', $this->request->query('openid_claimed_id'), $matches) === 1 ? (is_numeric($matches[1]) ? $matches[1] : null) : null;
+        if (preg_match('#is_valid\s*:\s*true#i', $result) === 1 && preg_match('#^https?://steamcommunity.com/openid/id/([0-9]{17,25})#', $request->query('openid_claimed_id'), $matches) === 1) {
+            if (is_numeric($matches[1])) {
+                return $matches[1];
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -362,9 +309,9 @@ class SteamLogin implements SteamLoginInterface
      *
      * @return RedirectResponse
      */
-    public function redirectToSteam(): RedirectResponse
+    public function redirectToSteam(Request $request): RedirectResponse
     {
-        return redirect($this->getLoginUrl());
+        return redirect($this->getLoginUrl($request));
     }
 
     /**
@@ -373,9 +320,9 @@ class SteamLogin implements SteamLoginInterface
      *
      * @return RedirectResponse
      */
-    public function previousPage(): RedirectResponse
+    public function previousPage(Request $request): RedirectResponse
     {
-        return redirect($this->getRedirectTo());
+        return redirect($this->getRedirectTo($request));
     }
 
     /**
@@ -383,73 +330,23 @@ class SteamLogin implements SteamLoginInterface
      *
      * @return string
      */
-    public function getLoginUrl(): string
+    public function getLoginUrl(Request $request): string
     {
         if (empty($this->loginUrl)) {
-            $this->loginUrl = $this->buildLoginUrl();
+            $this->loginUrl = $this->buildLoginUrl($request);
         }
 
         return $this->loginUrl;
     }
 
     /**
-     * Return player object and optionally choose to retrieve profile info.
-     *
-     * @param bool $info
-     *
-     * @return \SquadMS\Foundation\Auth\SteamUser
-     */
-    public function getSteamUser(bool $info = false): SteamUser
-    {
-        return $info ? $this->steamUser->getUserInfo() : $this->steamUser;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getPlayer(bool $info = false): SteamUser
-    {
-        return $this->getSteamUser($info);
-    }
-
-    /**
-     * Return Guzzle response of POSTing to Steam's OpenID.
-     *
-     * @return \GuzzleHttp\Psr7\Response
-     */
-    public function getResponse(): Response
-    {
-        return $this->response;
-    }
-
-    /**
-     * Return the OpenID response.
-     *
-     * @return string
-     */
-    public function getOpenIdResponse(): string
-    {
-        return $this->openIdResponse;
-    }
-
-    /**
-     * Check if HTTPS.
-     *
-     * @return bool
-     */
-    public function isHttps(): bool
-    {
-        return self::$isHttps;
-    }
-
-    /**
      * Check if query parameters are valid post steam login.
      *
-     * @param \Illuminate\Http\Request|null $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return bool
      */
-    public function validRequest(?Request $request = null): bool
+    public function validRequest(Request $request): bool
     {
         $params = [
             'openid_assoc_handle',
@@ -458,7 +355,7 @@ class SteamLogin implements SteamLoginInterface
             'openid_signed',
         ];
 
-        return $request ? $request->filled($params) : $this->request->filled($params);
+        return $request->filled($params);
     }
 
     /**
@@ -468,9 +365,9 @@ class SteamLogin implements SteamLoginInterface
      *
      * @return string
      */
-    public function loginButton(string $type = 'small'): string
+    public function loginButton(Request $request, string $type = 'small'): string
     {
-        return sprintf('<a href="%s" class="laravel-steam-login-button"><img src="%s" alt="Sign In Through Steam" /></a>', $this->getLoginUrl(), self::button($type));
+        return sprintf('<a href="%s" class="laravel-steam-login-button"><img src="%s" alt="Sign In Through Steam" /></a>', $this->getLoginUrl($request), self::button($type));
     }
 
     /**

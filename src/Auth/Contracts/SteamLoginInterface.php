@@ -12,21 +12,21 @@ interface SteamLoginInterface
      *
      * @return string|null
      */
-    public function validate(): ?string;
+    public function validate(Request $request): ?string;
 
     /**
      * Redirect the user to steam's login page.
      *
      * @return RedirectResponse
      */
-    public function redirectToSteam(): RedirectResponse;
+    public function redirectToSteam(Request $request): RedirectResponse;
 
     /**
      * Return the steam login url.
      *
      * @return string
      */
-    public function getLoginUrl(): string;
+    public function getLoginUrl(Request $request): string;
 
     /**
      * Is the current request valid for.
@@ -35,5 +35,5 @@ interface SteamLoginInterface
      *
      * @return bool
      */
-    public function validRequest(?Request $request = null): bool;
+    public function validRequest(Request $request): bool;
 }

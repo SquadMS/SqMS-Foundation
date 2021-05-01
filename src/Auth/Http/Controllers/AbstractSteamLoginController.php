@@ -39,20 +39,22 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
 
     /**
      * Redirect to steam login page or maybe show a login page if overridden.
-     *
+     * 
+     * @param \Illuminate\Http\Request $request
+     * 
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function login(): RedirectResponse
+    public function login(Request $request): RedirectResponse
     {
-        return $this->redirectToSteam();
+        return $this->redirectToSteam($request);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function redirectToSteam(): RedirectResponse
+    public function redirectToSteam(Request $request): RedirectResponse
     {
-        return $this->steam->redirectToSteam();
+        return $this->steam->redirectToSteam($request);
     }
 
     /**
@@ -60,18 +62,18 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
      *
      * @throws \Exception
      */
-    public function authenticate()
+    public function authenticate(Request $request)
     {
-        if ($this->steam->validated()) {
-            $result = $this->authenticated($this->request, $this->steam->getPlayer());
+        if ($steamUser = $this->steam->validated($request)) {
+            $result = $this->authenticated($this->request, $steamUser);
 
             if (!empty($result)) {
                 return $result;
             }
         } else {
-            throw new Exception('Steam Login failed. Response: '.$this->steam->getOpenIdResponse());
+            throw new Exception('Steam Login failed.');
         }
 
-        return $this->steam->previousPage();
+        return $this->steam->previousPage($request);
     }
 }

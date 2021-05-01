@@ -82,13 +82,6 @@ class SteamUser extends Fluent
     protected GuzzleClient $guzzle;
 
     /**
-     * Guzzle response.
-     *
-     * @var \GuzzleHttp\Psr7\Response
-     */
-    protected Response $response;
-
-    /**
      * SteamUser constructor. Extends SteamID and constructs that first.
      *
      * @param string|int        $steamId
@@ -151,10 +144,10 @@ class SteamUser extends Fluent
      *
      * @return void
      */
-    protected function userInfo() : void
+    protected function userInfo() : Response
     {
-        $this->response = $this->guzzle->get($this->profileDataUrl, ['connect_timeout' => config('steam-login.timeout')]);
-        $body = $this->response->getBody()->getContents();
+        $response = $this->guzzle->get($this->profileDataUrl, ['connect_timeout' => config('steam-login.timeout')]);
+        $body = $response->getBody()->getContents();
 
         switch ($this->method) {
             case 'api':
@@ -169,6 +162,8 @@ class SteamUser extends Fluent
         }
 
         $this->attributes = array_merge($this->attributes, $data);
+
+        return $response;
     }
 
     /**
@@ -293,16 +288,6 @@ class SteamUser extends Fluent
             'avatarLarge'     => (string) $xml->avatarFull,
             'avatar'          => (string) $xml->avatarFull,
         ];
-    }
-
-    /**
-     * Return Guzzle response of retrieving player's profile data.
-     *
-     * @return Response
-     */
-    public function getResponse(): Response
-    {
-        return $this->response;
     }
 
     public function isFetched(): bool

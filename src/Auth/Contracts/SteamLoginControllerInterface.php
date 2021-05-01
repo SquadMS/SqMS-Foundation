@@ -13,14 +13,16 @@ interface SteamLoginControllerInterface
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function redirectToSteam(): RedirectResponse;
+    public function redirectToSteam(Request $request): RedirectResponse;
 
     /**
      * Authenticate the incoming request.
+     * 
+     * @param \Illuminate\Http\Request $request
      *
      * @return mixed
      */
-    public function authenticate();
+    public function authenticate(Request $request);
 
     /**
      * Called when the request is successfully authenticated.
