@@ -68,7 +68,7 @@ return [
                 'path' => 'steam/login',
                 'middlewares' => ['guest'],
                 'controller' => \SquadMS\Foundation\Auth\Http\Controllers\SteamLoginController::class,
-                'executor' => 'authenticate',
+                'executor' => 'login',
                 'localized' => false,
             ],
             'steam-auth' => [
@@ -77,7 +77,7 @@ return [
                 'path' => 'steam/auth',
                 'middlewares' => ['guest'],
                 'controller' => \SquadMS\Foundation\Auth\Http\Controllers\SteamLoginController::class,
-                'executor' => 'login',
+                'executor' => 'authenticate',
                 'localized' => false,
             ],
             'logout' => [
