@@ -2,6 +2,7 @@
 
 namespace SquadMS\Foundation;
 
+use Illuminate\Container\Container;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -16,8 +17,12 @@ class SquadMSFoundationServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(SteamLogin::class, function ($app) {
-            return new SteamLogin($app);
+        $this->app->singleton(SteamLogin::class, function () {
+            return new SteamLogin(fn () => Container::getInstance());
+        });
+
+        $this->app->singleton(SquadMSRouter::class, function () {
+            return new SquadMSRouter();
         });
     }
 
@@ -39,11 +44,13 @@ class SquadMSFoundationServiceProvider extends ServiceProvider
         $router->aliasMiddleware('checkAdminAreaAccess', \SquadMS\Foundation\Admin\Http\Middleware\CheckAdminAreaAccess::class);
 
         /* Routes */
-        Route::group([
-            'prefix' => config('sqms.routes.prefix'),
-            'middleware' => config('sqms.routes.middleware'),
-        ], function () {
-            $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        SquadMSRouter::getInstance()->define('squadms-foundation', function () {
+            Route::group([
+                'prefix' => config('sqms.routes.prefix'),
+                'middleware' => config('sqms.routes.middleware'),
+            ], function () {
+                $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+            });
         });
     }
 }
