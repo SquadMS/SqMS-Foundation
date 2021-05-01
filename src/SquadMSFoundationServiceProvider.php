@@ -26,6 +26,7 @@ class SquadMSFoundationServiceProvider extends ServiceProvider
         });
 
         $this->app->alias('NavigationHelper', \SquadMS\Foundation\Helpers\NavigationHelper::class);
+        $this->app->alias('LocaleHelper', \SquadMS\Foundation\Helpers\LocaleHelper::class);
     }
 
     /**
