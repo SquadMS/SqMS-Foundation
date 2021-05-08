@@ -19,7 +19,7 @@ class SquadMSFoundationServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(SteamLogin::class, function () {
-            return new SteamLogin(fn () => Container::getInstance());
+            return new SteamLogin();
         });
 
         $this->app->singleton(SquadMSRouter::class, function () {

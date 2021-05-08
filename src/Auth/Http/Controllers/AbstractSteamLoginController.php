@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\URL;
 use SquadMS\Foundation\Auth\Contracts\SteamLoginControllerInterface;
 use SquadMS\Foundation\Auth\SteamLogin;
 
@@ -30,11 +32,7 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
     }
 
     /**
-     * Redirect to steam login page or maybe show a login page if overridden.
-     * 
-     * @param \Illuminate\Http\Request $request
-     * 
-     * @return \Illuminate\Http\RedirectResponse
+     * {@inheritdoc}
      */
     public function login(Request $request): RedirectResponse
     {
@@ -42,11 +40,7 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
     }
 
     /**
-     * Logout the current user and redirect to the configured home route.
-     * 
-     * @param \Illuminate\Http\Request $request
-     * 
-     * @return \Illuminate\Http\RedirectResponse
+     * {@inheritdoc}
      */
     public function logout(Request $request): RedirectResponse
     {
@@ -60,7 +54,19 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
      */
     public function redirectToSteam(Request $request): RedirectResponse
     {
-        return $this->steam->redirectToSteam($request);
+        /* Redirect to Home on default */
+        $redirectTo = route(Config::get('sqms.routes.def.home.name'));
+
+        switch (Config::get('sqms.auth.redirect')) {
+            case 1: // Previous
+                $redirectTo = URL::current();
+                break;
+            case 2: // Profile
+                $redirectTo = 'profile';
+                break;
+        }
+
+        return $this->steam->redirectToSteam($request, $redirectTo);
     }
 
     /**
@@ -68,18 +74,27 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
      *
      * @throws \Exception
      */
-    public function authenticate(Request $request)
+    public function authenticate(Request $request) : RedirectResponse
     {
-        if ($steamUser = $this->steam->validated($request)) {
-            $result = $this->authenticated($this->request, $steamUser);
+        $locale = $request->get('locale', Config::get('app.locale', 'en'));
 
-            if (!empty($result)) {
-                return $result;
+        if ($steamUser = $this->steam->validated($request)) {
+            $this->authenticated($this->request, $steamUser);
+
+            if ($request->has('redirect')) {
+                if ($request->get('redirect') === 'profile') {
+                    return redirect()->route('profile', [
+                        'steam_id_64' => $steamUser->steamId
+                    ], true, $locale);
+                } else {
+                    return redirect($request->get('redirect'));
+                }
+            } else {
+                return redirect()->route(Config::get('sqms.routes.def.home.name'), [], true, $locale);
             }
         } else {
-            throw new Exception('Steam Login failed.');
+            Log::error('Steam Login failed!');
+            return redirect()->route(Config::get('sqms.routes.def.home.name'), [], true, $locale)->withErrors('Steam Login failed.');
         }
-
-        return $this->steam->previousPage($request);
     }
 }

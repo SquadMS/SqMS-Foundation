@@ -19,14 +19,14 @@ interface SteamLoginInterface
      *
      * @return RedirectResponse
      */
-    public function redirectToSteam(Request $request): RedirectResponse;
+    public function redirectToSteam(Request $request, ?string $redirectTo): RedirectResponse;
 
     /**
      * Return the steam login url.
      *
      * @return string
      */
-    public function getLoginUrl(Request $request): string;
+    public function buildLoginUrl(Request $request): string;
 
     /**
      * Is the current request valid for.

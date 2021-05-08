@@ -11,14 +11,9 @@ use SquadMS\Foundation\Repositories\UserRepository;
 class SteamLoginController extends AbstractSteamLoginController
 {
     /**
-     * Called when the request is successfully authenticated.
-     *
-     * @param \Illuminate\Http\Request               $request
-     * @param \SquadMS\Foundation\Auth\SteamUser $steamUser
-     *
-     * @return mixed|void
+     * {@inheritdoc}
      */
-    public function authenticated(Request $request, SteamUser $steamUser)
+    public function authenticated(Request $request, SteamUser $steamUser) : void
     {
         /* Create or Update user, fetch data from SteamAPI */
         $user = UserRepository::createOrUpdate($steamUser);
@@ -32,9 +27,5 @@ class SteamLoginController extends AbstractSteamLoginController
                 'api_token' => Str::random(60),
             ]);
         }
-
-        return redirect(route('profile', [
-            'steam_id_64' => $steamUser->steamId
-        ]));
     }
 }

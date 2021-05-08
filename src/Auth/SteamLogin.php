@@ -3,8 +3,10 @@
 namespace SquadMS\Foundation\Auth;
 
 use GuzzleHttp\Client as GuzzleClient;
+use Illuminate\Container\Container;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\URL;
 use SquadMS\Foundation\Auth\Contracts\SteamLoginInterface;
@@ -26,23 +28,6 @@ class SteamLogin implements SteamLoginInterface
     const OPENID_SPECS = 'http://specs.openid.net/auth/2.0';
 
     /**
-     * Default OpenID form params.
-     *
-     * @var array
-     */
-    protected static $openIdParams = [
-        'openid.ns'         => self::OPENID_SPECS,
-        'openid.mode'       => 'checkid_setup',
-        'openid.identity'   => self::OPENID_SPECS.'/identifier_select',
-        'openid.claimed_id' => self::OPENID_SPECS.'/identifier_select',
-    ];
-
-    /**
-     * Laravel Application
-     */
-    protected \Illuminate\Contracts\Foundation\Application $app;
-
-    /**
      * Guzzle instance.
      *
      * @var \GuzzleHttp\Client
@@ -55,20 +40,6 @@ class SteamLogin implements SteamLoginInterface
      * @var string
      */
     protected $realm;
-
-    /**
-     * ?redirect parameter used for automatic handling to the previous page a user was on.
-     *
-     * @var string
-     */
-    protected $redirectTo;
-
-    /**
-     * Login URL to Steam.
-     *
-     * @var string
-     */
-    protected $loginUrl;
 
     /**
      * SteamLogin constructor.
@@ -95,93 +66,33 @@ class SteamLogin implements SteamLoginInterface
      *
      * @return string
      */
-    public function buildLoginUrl(Request $request, ?string $return = null, ?string $redirectTo = null): string
+    public function buildLoginUrl(Request $request, ?string $redirectTo = null): string
     {
+        /* Get auth route with https prefix (required) */
         $secure = $request->secure();
-
-        if ($secure && !$request->isSecure()) {
-            URL::forceScheme('https');
-        }
-
+        URL::forceScheme('https'); // Force the use og HTTPS
         $authRoute = route(Config::get('sqms.routes.def.steam-auth.name'));
+        URL::forceScheme($secure ? 'https' : 'http'); // Revert forced use of HTTPS
 
-        URL::forceScheme($secure ? 'https' : 'http');
-
-        if (empty($return) && !empty($authRoute)) {
-            $return = $authRoute;
-        }
-
-        if (empty($return) && empty($authRoute)) {
-            $authRoute = $return = route(config('sqms.routes.def.steam-auth.name'));
-        }
-
-        $this->setRedirectTo($redirectTo);
-
-        $params = self::$openIdParams;
         $this->realm = $this->getRealm($request);
-
-        if (parse_url($this->realm, PHP_URL_HOST) !== parse_url($return, PHP_URL_HOST)) {
-            throw new \InvalidArgumentException(sprintf('realm: `%s` and return_to: `%s` do not have matching hosts', $this->realm, $return));
+        if (parse_url($this->realm, PHP_URL_HOST) !== parse_url($authRoute, PHP_URL_HOST)) {
+            throw new \InvalidArgumentException(sprintf('realm: `%s` and return_to: `%s` do not have matching hosts', $this->realm, $authRoute));
         }
 
-        $params['openid.realm'] = $this->realm;
-        $params['openid.return_to'] = $return . (!empty($this->redirectTo) ? '?' . http_build_query(['redirect' => $this->redirectTo]) : '');
+        $redirectParams = [
+            'lang' => App::getLocale(),
+        ];
+
+        if (!is_null($redirectTo)) {
+            $redirectParams['redirect'] = $redirectTo;
+        }
+
+        $params = self::buildOpenIDParams([
+            'openid.realm' => $this->realm,
+            'openid.return_to' => $authRoute . '?' . http_build_query($redirectParams),
+        ]);
 
         return self::OPENID_STEAM . '?' . http_build_query($params);
-    }
-
-    /**
-     * @param string|null $return
-     *
-     * @return string
-     *
-     * @deprecated
-     */
-    public function createLoginUrl(Request $request, ?string $return = null): string
-    {
-        return $this->buildLoginUrl($request, $return);
-    }
-
-    /**
-     * @param string $redirectTo
-     *
-     * @throws InvalidArgumentException
-     *
-     * @return \SquadMS\Foundation\Auth\SteamLogin
-     */
-    public function setRedirectTo(string $redirectTo = null): self
-    {
-        if (empty($redirectTo)) {
-            $redirectTo = URL::previous();
-        }
-
-        if (in_array($redirectTo, [route(Config::get('sqms.routes.def.steam-login.name')), route(Config::get('sqms.routes.def.steam-auth.name'))])) {
-            $redirectTo = route(Config::get('sqms.routes.def.home.name'));
-        } elseif (!filter_var($redirectTo, FILTER_VALIDATE_URL)) {
-            throw new \InvalidArgumentException('$redirectTo: `'.$redirectTo.'` is not a valid URL');
-        }
-
-        $this->redirectTo = $redirectTo;
-
-        return $this;
-    }
-
-    /**
-     * Return the ?redirect URL.
-     *
-     * @param \Illuminate\Http\Request $request
-     * 
-     * @return string
-     */
-    public function getRedirectTo(Request $request): string
-    {
-        if ($request->has('redirect')) {
-            $this->setRedirectTo($request->query('redirect'));
-        } elseif (empty($this->redirectTo)) {
-            $this->setRedirectTo();
-        }
-
-        return $this->redirectTo;
     }
 
     /**
@@ -309,30 +220,9 @@ class SteamLogin implements SteamLoginInterface
      *
      * @return RedirectResponse
      */
-    public function redirectToSteam(Request $request): RedirectResponse
+    public function redirectToSteam(Request $request, ?string $redirectTo = null): RedirectResponse
     {
-        return redirect($this->getLoginUrl($request));
-    }
-
-    /**
-     * Return the user to the page they were on before logging in
-     * or home if no valid ?redirect given.
-     *
-     * @return RedirectResponse
-     */
-    public function previousPage(Request $request): RedirectResponse
-    {
-        return redirect($this->getRedirectTo($request));
-    }
-
-    /**
-     * Return the steam login url.
-     *
-     * @return string
-     */
-    public function getLoginUrl(Request $request): string
-    {
-        return $this->buildLoginUrl($request);
+        return redirect($this->buildLoginUrl($request, $redirectTo));
     }
 
     /**
@@ -363,7 +253,7 @@ class SteamLogin implements SteamLoginInterface
      */
     public function loginButton(Request $request, string $type = 'small'): string
     {
-        return sprintf('<a href="%s" class="laravel-steam-login-button"><img src="%s" alt="Sign In Through Steam" /></a>', $this->getLoginUrl($request), self::button($type));
+        return sprintf('<a href="%s" class="laravel-steam-login-button"><img src="%s" alt="Sign In Through Steam" /></a>', $this->buildLoginUrl($request), self::button($type));
     }
 
     /**
@@ -376,5 +266,15 @@ class SteamLogin implements SteamLoginInterface
     public static function button(string $type = 'small'): string
     {
         return 'https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_0'.($type === 'small' ? 1 : 2).'.png';
+    }
+
+    static private function buildOpenIDParams(array $custom) : array
+    {
+        return array_merge([
+            'openid.ns'         => self::OPENID_SPECS,
+            'openid.mode'       => 'checkid_setup',
+            'openid.identity'   => self::OPENID_SPECS.'/identifier_select',
+            'openid.claimed_id' => self::OPENID_SPECS.'/identifier_select',
+        ], $custom);
     }
 }

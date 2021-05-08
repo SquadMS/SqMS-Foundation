@@ -9,6 +9,24 @@ use SquadMS\Foundation\Auth\SteamUser;
 interface SteamLoginControllerInterface
 {
     /**
+     * Redirect to steam login page or maybe show a login page if overridden.
+     * 
+     * @param \Illuminate\Http\Request $request
+     * 
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function login(Request $request): RedirectResponse;
+
+    /**
+     * Logout the current user and redirect to the configured home route.
+     * 
+     * @param \Illuminate\Http\Request $request
+     * 
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function logout(Request $request): RedirectResponse;
+    
+    /**
      * Redirect the user to the Steam login page.
      *
      * @return \Illuminate\Http\RedirectResponse
@@ -30,16 +48,7 @@ interface SteamLoginControllerInterface
      * @param \Illuminate\Http\Request               $request
      * @param \SquadMS\Foundation\Auth\SteamUser $steamUser
      *
-     * @return mixed|void
+     * @return void
      */
-    public function authenticated(Request $request, SteamUser $steamUser);
-
-    /**
-     * Logout the current user and redirect to the configured home route.
-     * 
-     * @param \Illuminate\Http\Request $request
-     * 
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function logout(Request $request): RedirectResponse;
+    public function authenticated(Request $request, SteamUser $steamUser) : void;
 }
