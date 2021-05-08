@@ -40,7 +40,9 @@
         "laravel": {
             "providers": [
                 "SquadMS\\Foundation\\SquadMSFoundationServiceProvider",
-                "SquadMS\\Foundation\\Providers\\ScheduleServiceProvider"
+                "SquadMS\\Foundation\\Providers\\ScheduleServiceProvider",
+                "SquadMS\\Foundation\\Providers\\PermissionsServiceProvider",
+                "SquadMS\\Foundation\\Providers\\RouteServiceProvider"
             ]
         }
     }

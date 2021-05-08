@@ -22,14 +22,6 @@ class SquadMSFoundationServiceProvider extends ServiceProvider
             return new SteamLogin();
         });
 
-        $this->app->singleton(SquadMSRouter::class, function () {
-            return new SquadMSRouter();
-        });
-
-        $this->app->singleton(SquadMSPermissions::class, function () {
-            return new SquadMSPermissions();
-        });
-
         $loader = AliasLoader::getInstance();
         $loader->alias('NavigationHelper', \SquadMS\Foundation\Helpers\NavigationHelper::class);
         $loader->alias('LocaleHelper', \SquadMS\Foundation\Helpers\LocaleHelper::class);
@@ -47,24 +39,5 @@ class SquadMSFoundationServiceProvider extends ServiceProvider
 
         /* Migrations */
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-
-        /* Middlewares */
-        $router = $this->app->make(Router::class);
-        $router->aliasMiddleware('checkAdminAreaAccess', \SquadMS\Foundation\Admin\Http\Middleware\CheckAdminAreaAccess::class);
-
-        /* Routes */
-        SquadMSRouter::getInstance()->define('squadms-foundation', function () {
-            Route::group([
-                'prefix' => config('sqms.routes.prefix'),
-                'middleware' => config('sqms.routes.middleware'),
-            ], function () {
-                $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-            });
-        });
-
-        /* Permissions */
-        foreach (Config::get('sqms.permissions.definitions') as $definition => $displayName) {
-            SquadMSPermissions::getInstance()->define(Config::get('sqms.permissions.module'), $definition, $displayName);
-        }
     }
 }
