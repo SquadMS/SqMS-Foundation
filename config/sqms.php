@@ -89,7 +89,7 @@ return [
                 'middlewares' => ['auth'],
                 'controller' => \SquadMS\Foundation\Auth\Http\Controllers\SteamLoginController::class,
                 'executor' => 'logout',
-                'localized' => false,
+                'localized' => true,
             ]
         ]
     ],

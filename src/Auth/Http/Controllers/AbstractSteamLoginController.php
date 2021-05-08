@@ -47,7 +47,11 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
     {
         Auth::logout();
 
-        return redirect()->route(Config::get('sqms.routes.def.home.name'));
+        if (Config::get('sqms.auth.redirect', 0) >= 1) {
+            return redirect(URL::previous());
+        } else {
+            return redirect()->route(Config::get('sqms.routes.def.home.name'), [], true, App::getLocale());
+        }
     }
 
     /**
@@ -58,7 +62,7 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
         /* Redirect to Home on default */
         $redirectTo = route(Config::get('sqms.routes.def.home.name'), [], true, App::getLocale());
 
-        switch (Config::get('sqms.auth.redirect')) {
+        switch (Config::get('sqms.auth.redirect', 0)) {
             case 1: // Previous
                 $redirectTo = URL::current();
                 break;
