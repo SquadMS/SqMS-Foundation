@@ -64,7 +64,7 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
 
         switch (Config::get('sqms.auth.redirect', 0)) {
             case 1: // Previous
-                $redirectTo = URL::current();
+                $redirectTo = URL::previous();
                 break;
             case 2: // Profile
                 $redirectTo = 'profile';
@@ -92,6 +92,7 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
                         'steam_id_64' => $steamUser->steamId
                     ], true, $locale));
                 } else {
+                    $t = $request->get('redirect');
                     return redirect($request->get('redirect'));
                 }
             } else {
