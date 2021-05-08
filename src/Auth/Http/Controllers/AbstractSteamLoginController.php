@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
@@ -55,7 +56,7 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
     public function redirectToSteam(Request $request): RedirectResponse
     {
         /* Redirect to Home on default */
-        $redirectTo = route(Config::get('sqms.routes.def.home.name'), [], true, $request->getLocale());
+        $redirectTo = route(Config::get('sqms.routes.def.home.name'), [], true, App::getLocale());
 
         switch (Config::get('sqms.auth.redirect')) {
             case 1: // Previous
