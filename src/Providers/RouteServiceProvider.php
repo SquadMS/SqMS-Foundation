@@ -22,7 +22,7 @@ class RouteServiceProvider extends ServiceProvider
         //$router->aliasMiddleware('can', \SquadMS\Foundation\Admin\Http\Middleware\CheckPermissions::class);
 
         /* Routes */
-        $routesPath = __DIR__ . '/../routes';
+        $routesPath = __DIR__ . '/../../routes';
         SquadMSRouter::getInstance()->define('squadms-foundation', function () use ($routesPath) {
             Route::group([
                 'prefix' => config('sqms.routes.prefix'),
