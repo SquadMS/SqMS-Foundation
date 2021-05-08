@@ -70,7 +70,7 @@ class SteamLogin implements SteamLoginInterface
     {
         /* Get auth route with https prefix (required) */
         $secure = $request->secure();
-        URL::forceScheme('https'); // Force the use og HTTPS
+        $secure && !$request->isSecure() && URL::forceScheme('https'); // Force the use og HTTPS
         $authRoute = route(Config::get('sqms.routes.def.steam-auth.name'));
         URL::forceScheme($secure ? 'https' : 'http'); // Revert forced use of HTTPS
 
