@@ -19,7 +19,7 @@ class PermissionsServiceProvider extends ServiceProvider
     public function register()
     {
         /* Permissions */
-        foreach (Config::get('sqms.permissions.definitions') as $definition => $displayName) {
+        foreach (Config::get('sqms.permissions.definitions', []) as $definition => $displayName) {
             SquadMSPermissions::getInstance()->define(Config::get('sqms.permissions.module'), $definition, $displayName);
         }
 
