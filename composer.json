@@ -18,7 +18,8 @@
         "xpaw/steamid": "^2.0.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "codezero/laravel-localized-routes": "^2.5",
-        "petercoles/multilingual-language-list": "^1.16"
+        "petercoles/multilingual-language-list": "^1.16",
+        "spatie/laravel-permission": "^4.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~9.0",
