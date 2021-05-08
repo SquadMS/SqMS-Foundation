@@ -22,12 +22,13 @@ class RouteServiceProvider extends ServiceProvider
         //$router->aliasMiddleware('can', \SquadMS\Foundation\Admin\Http\Middleware\CheckPermissions::class);
 
         /* Routes */
-        SquadMSRouter::getInstance()->define('squadms-foundation', function () {
+        $routesPath = __DIR__ . '/../routes';
+        SquadMSRouter::getInstance()->define('squadms-foundation', function () use ($routesPath) {
             Route::group([
                 'prefix' => config('sqms.routes.prefix'),
                 'middleware' => config('sqms.routes.middleware'),
-            ], function () {
-                $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+            ], function () use ($routesPath) {
+                $this->loadRoutesFrom($routesPath . '/web.php');
             });
         });
     }
