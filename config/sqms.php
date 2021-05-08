@@ -62,7 +62,7 @@ return [
                 'type' => 'get',
                 'name' => 'admin.dashboard',
                 'path' => 'admin/dashboard',
-                'middlewares' => ['auth', 'checkAdminAreaAccess,sqms admin,sqms admin dashboard'],
+                'middlewares' => ['auth', 'checkAdminAreaAccess,sqms admin'],
                 'controller' => \SquadMS\Foundation\Admin\Http\Controllers\DashboardController::class,
                 'executor' => 'show',
                 'localized' => false,
@@ -110,7 +110,6 @@ return [
         'module' => 'sqms',
         'definitions' => [
             'admin'           => 'Grant access to the AdminCP',
-            'admin dashboard' => 'Grant access to the Dashboard',
             'admin rbac'      => 'Grant access to the RBAC Management',
         ]
     ]
