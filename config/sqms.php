@@ -62,7 +62,7 @@ return [
                 'type' => 'get',
                 'name' => 'admin.dashboard',
                 'path' => 'admin/dashboard',
-                'middlewares' => ['auth', 'checkAdminAreaAccess,sqms admin'],
+                'middlewares' => ['auth', 'checkAdminAreaAccess:sqms admin'],
                 'controller' => \SquadMS\Foundation\Admin\Http\Controllers\DashboardController::class,
                 'executor' => 'show',
                 'localized' => false,
