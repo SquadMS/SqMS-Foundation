@@ -50,7 +50,7 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
         if (Config::get('sqms.auth.redirect', 0) >= 1) {
             return redirect(URL::previous());
         } else {
-            return redirect()->route(Config::get('sqms.routes.def.home.name'), [], true, App::getLocale());
+            return redirect(route(Config::get('sqms.routes.def.home.name'), [], true, App::getLocale()));
         }
     }
 
@@ -88,18 +88,18 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
 
             if ($request->has('redirect')) {
                 if ($request->get('redirect') === 'profile') {
-                    return redirect()->route('profile', [
+                    return redirect(route('profile', [
                         'steam_id_64' => $steamUser->steamId
-                    ], true, $locale);
+                    ], true, $locale));
                 } else {
                     return redirect($request->get('redirect'));
                 }
             } else {
-                return redirect()->route(Config::get('sqms.routes.def.home.name'), [], true, $locale);
+                return redirect(route(Config::get('sqms.routes.def.home.name'), [], true, $locale));
             }
         } else {
             Log::error('Steam Login failed!');
-            return redirect()->route(Config::get('sqms.routes.def.home.name'), [], true, $locale)->withErrors('Steam Login failed.');
+            return redirect(route(Config::get('sqms.routes.def.home.name'), [], true, $locale))->withErrors('Steam Login failed.');
         }
     }
 }
