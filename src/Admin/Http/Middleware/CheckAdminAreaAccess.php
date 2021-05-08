@@ -9,10 +9,8 @@ class CheckAdminAreaAccess
 {
     public function handle(Request $request, \Closure $next, ?string $permissionDefinitions = null)
     {
-        if ($request->user() && ($request->user()->isSystemAdmin() || $request->user()->can('admin'))) {
-            if (!is_null($permissionDefinitions) && $this->checkPermissionDefinitions($request, $permissionDefinitions)) {
-                return $next($request);
-            }
+        if ($request->user() && ($request->user()->isSystemAdmin() || (!is_null($permissionDefinitions) && $this->checkPermissionDefinitions($request, $permissionDefinitions)))) {
+            return $next($request);
         }
         
         return redirect(route(Config::get('sqms.routes.def.home.name')))->withErrors('You have no permisson to do this!');
