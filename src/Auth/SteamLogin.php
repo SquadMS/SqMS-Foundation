@@ -332,11 +332,7 @@ class SteamLogin implements SteamLoginInterface
      */
     public function getLoginUrl(Request $request): string
     {
-        if (empty($this->loginUrl)) {
-            $this->loginUrl = $this->buildLoginUrl($request);
-        }
-
-        return $this->loginUrl;
+        return $this->buildLoginUrl($request);
     }
 
     /**

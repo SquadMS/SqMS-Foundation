@@ -33,4 +33,13 @@ interface SteamLoginControllerInterface
      * @return mixed|void
      */
     public function authenticated(Request $request, SteamUser $steamUser);
+
+    /**
+     * Logout the current user and redirect to the configured home route.
+     * 
+     * @param \Illuminate\Http\Request $request
+     * 
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function logout(Request $request): RedirectResponse;
 }
