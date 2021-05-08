@@ -71,7 +71,7 @@ return [
                 'middlewares' => ['guest'],
                 'controller' => \SquadMS\Foundation\Auth\Http\Controllers\SteamLoginController::class,
                 'executor' => 'login',
-                'localized' => false,
+                'localized' => true,
             ],
             'steam-auth' => [
                 'type' => 'get',
