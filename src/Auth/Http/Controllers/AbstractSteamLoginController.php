@@ -81,7 +81,7 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
      */
     public function authenticate(Request $request) : RedirectResponse
     {
-        $locale = $request->get('locale', Config::get('app.locale', 'en'));
+        $locale = $request->get('lang', Config::get('app.locale', 'en'));
 
         if ($steamUser = $this->steam->validated($request)) {
             $this->authenticated($this->request, $steamUser);
