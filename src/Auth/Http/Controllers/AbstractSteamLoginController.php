@@ -55,7 +55,7 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
     public function redirectToSteam(Request $request): RedirectResponse
     {
         /* Redirect to Home on default */
-        $redirectTo = route(Config::get('sqms.routes.def.home.name'));
+        $redirectTo = route(Config::get('sqms.routes.def.home.name'), [], true, $request->getLocale());
 
         switch (Config::get('sqms.auth.redirect')) {
             case 1: // Previous
