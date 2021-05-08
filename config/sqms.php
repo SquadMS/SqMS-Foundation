@@ -1,9 +1,12 @@
 <?php
 
 return [
+    'theme' => env('SQUADMS_THEME', 'squadms-default-theme'),
+
     'admins' => [
         // List of SteamID64s
     ],
+
     'user' => [
         'model' => \App\Models\User::class,
         'fetch_interval' => 12,
@@ -59,8 +62,17 @@ return [
                 'type' => 'get',
                 'name' => 'admin.dashboard',
                 'path' => 'admin/dashboard',
-                'middlewares' => ['auth', 'checkAdminAreaAccess'],
+                'middlewares' => ['auth', 'checkAdminAreaAccess,sqms admin,sqms admin dashboard'],
                 'controller' => \SquadMS\Foundation\Admin\Http\Controllers\DashboardController::class,
+                'executor' => 'show',
+                'localized' => false,
+            ],
+            'admin-dashboard' => [
+                'type' => 'get',
+                'name' => 'admin.rbac',
+                'path' => 'admin/rbac',
+                'middlewares' => ['auth', 'checkAdminAreaAccess:sqms admin,sqms admin rbac'],
+                'controller' => \SquadMS\Foundation\Admin\Http\Controllers\RBACController::class,
                 'executor' => 'show',
                 'localized' => false,
             ],
@@ -94,5 +106,12 @@ return [
         ]
     ],
 
-    'theme' => env('SQUADMS_THEME', 'squadms-default-theme')
+    'permissions' => [
+        'module' => 'sqms',
+        'definitions' => [
+            'admin'           => 'Grant access to the AdminCP',
+            'admin dashboard' => 'Grant access to the Dashboard',
+            'admin rbac'      => 'Grant access to the RBAC Management',
+        ]
+    ]
 ];

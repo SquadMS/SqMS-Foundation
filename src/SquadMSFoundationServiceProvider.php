@@ -2,9 +2,9 @@
 
 namespace SquadMS\Foundation;
 
-use Illuminate\Container\Container;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use SquadMS\Foundation\Auth\SteamLogin;
@@ -24,6 +24,10 @@ class SquadMSFoundationServiceProvider extends ServiceProvider
 
         $this->app->singleton(SquadMSRouter::class, function () {
             return new SquadMSRouter();
+        });
+
+        $this->app->singleton(SquadMSPermissions::class, function () {
+            return new SquadMSPermissions();
         });
 
         $loader = AliasLoader::getInstance();
@@ -57,5 +61,10 @@ class SquadMSFoundationServiceProvider extends ServiceProvider
                 $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
             });
         });
+
+        /* Permissions */
+        foreach (Config::get('sqms.permissions.definitions') as $definition => $displayName) {
+            SquadMSPermissions::getInstance()->define(Config::get('sqms.permissions.module'), $definition, $displayName);
+        }
     }
 }
