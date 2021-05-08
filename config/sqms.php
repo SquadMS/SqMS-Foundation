@@ -67,7 +67,7 @@ return [
                 'executor' => 'show',
                 'localized' => false,
             ],
-            'admin-dashboard' => [
+            'admin-rbac' => [
                 'type' => 'get',
                 'name' => 'admin.rbac',
                 'path' => 'admin/rbac',
