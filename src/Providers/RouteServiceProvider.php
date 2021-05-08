@@ -8,14 +8,14 @@ use SquadMS\Foundation\SquadMSRouter;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function register()
     {
         $this->app->singleton(SquadMSRouter::class, function () {
             return new SquadMSRouter();
         });
     }
 
-    public function register()
+    public function boot()
     {
         /* Middlewares */
         //$router = $this->app->make(Router::class);

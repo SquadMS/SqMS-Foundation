@@ -9,14 +9,14 @@ use SquadMS\Foundation\SquadMSPermissions;
 
 class PermissionsServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function register()
     {
         $this->app->singleton(SquadMSPermissions::class, function () {
             return new SquadMSPermissions();
         });
     }
 
-    public function register()
+    public function boot()
     {
         /* Permissions */
         foreach (Config::get('sqms.permissions.definitions', []) as $definition => $displayName) {
