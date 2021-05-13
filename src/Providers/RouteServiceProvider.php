@@ -4,7 +4,7 @@ namespace SquadMS\Foundation\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
-use SquadMS\Foundation\SquadMSRouter;
+use SquadMS\Foundation\Facades\SquadMSRouter;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -23,7 +23,7 @@ class RouteServiceProvider extends ServiceProvider
 
         /* Routes */
         $routesPath = __DIR__ . '/../../routes';
-        SquadMSRouter::getInstance()->define('squadms-foundation', function () use ($routesPath) {
+        SquadMSRouter::define('squadms-foundation', function () use ($routesPath) {
             Route::group([
                 'prefix' => config('sqms.routes.prefix'),
                 'middleware' => config('sqms.routes.middleware'),

@@ -1,6 +1,6 @@
 <?php
 
-namespace SquadMS\Foundation\Facade;
+namespace SquadMS\Foundation\Facades;
 
 use Illuminate\Support\Facades\Facade;
 use SquadMS\Foundation\SquadMSRouter as FoundationSquadMSRouter;

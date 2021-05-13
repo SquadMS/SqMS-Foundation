@@ -5,7 +5,7 @@ namespace SquadMS\Foundation\Providers;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use SquadMS\Foundation\SquadMSPermissions;
+use SquadMS\Foundation\Facades\SquadMSPermissions;
 
 class PermissionsServiceProvider extends ServiceProvider
 {
@@ -20,7 +20,7 @@ class PermissionsServiceProvider extends ServiceProvider
     {
         /* Permissions */
         foreach (Config::get('sqms.permissions.definitions', []) as $definition => $displayName) {
-            SquadMSPermissions::getInstance()->define(Config::get('sqms.permissions.module'), $definition, $displayName);
+            SquadMSPermissions::define(Config::get('sqms.permissions.module'), $definition, $displayName);
         }
 
         // Implicitly grant system admins all permissions
