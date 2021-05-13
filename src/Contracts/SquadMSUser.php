@@ -3,9 +3,12 @@
 namespace SquadMS\Foundation\Contracts;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 abstract class SquadMSUser extends Authenticatable
 {
+    use HasRoles;
+    
     /**
      * The table associated with the model.
      *

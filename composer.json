@@ -42,7 +42,8 @@
                 "SquadMS\\Foundation\\SquadMSFoundationServiceProvider",
                 "SquadMS\\Foundation\\Providers\\ScheduleServiceProvider",
                 "SquadMS\\Foundation\\Providers\\PermissionsServiceProvider",
-                "SquadMS\\Foundation\\Providers\\RouteServiceProvider"
+                "SquadMS\\Foundation\\Providers\\RouteServiceProvider",
+                "SquadMS\\Foundation\\Providers\\AuthServiceProvider"
             ]
         }
     }
