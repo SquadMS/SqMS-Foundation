@@ -2,7 +2,6 @@
 
 namespace SquadMS\Foundation;
 
-use Illuminate\Container\Container;
 use Illuminate\Support\Arr;
 
 class SquadMSRouter {
@@ -18,10 +17,5 @@ class SquadMSRouter {
         foreach ($this->registry as $definition) {
             $definition();
         }
-    }
-
-    public static function getInstance() : self
-    {
-        return Container::getInstance()->make(self::class);
     }
 }

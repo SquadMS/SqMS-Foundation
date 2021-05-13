@@ -2,7 +2,6 @@
 
 namespace SquadMS\Foundation;
 
-use Illuminate\Container\Container;
 use Illuminate\Support\Arr;
 
 class SquadMSPermissions {
@@ -24,10 +23,5 @@ class SquadMSPermissions {
     public function getPermissions() : array
     {
         return $this->permissions;
-    }
-
-    public static function getInstance() : self
-    {
-        return Container::getInstance()->make(self::class);
     }
 }

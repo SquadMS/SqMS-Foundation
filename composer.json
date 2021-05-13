@@ -44,7 +44,11 @@
                 "SquadMS\\Foundation\\Providers\\PermissionsServiceProvider",
                 "SquadMS\\Foundation\\Providers\\RouteServiceProvider",
                 "SquadMS\\Foundation\\Providers\\AuthServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "SquadMSPermissions": "SquadMS\\Foundation\\Facade\\SquadMSPermissions",
+                "SquadMSRouter": "SquadMS\\Foundation\\Facade\\SquadMSRouter"
+            }
         }
     }
 }
