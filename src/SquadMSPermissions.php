@@ -5,10 +5,10 @@ namespace SquadMS\Foundation;
 use Illuminate\Support\Collection;
 
 class SquadMSPermissions {
-    protected Collection $store = new Collection();
+    protected Collection $store;
 
     function __construct() {
-        //
+        $this->store = new Collection();
     }
 
     public function define(string $modulePrefix, string $definition, string $displayName) : void
