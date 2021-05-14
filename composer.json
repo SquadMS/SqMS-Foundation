@@ -28,7 +28,8 @@
     },
     "autoload": {
         "psr-4": {
-            "SquadMS\\Foundation\\": "src/"
+            "SquadMS\\Foundation\\": "src/",
+            "SquadMS\\Foundation\\Database\\Seeders": "database/seeders/"
         }
     },
     "autoload-dev": {
