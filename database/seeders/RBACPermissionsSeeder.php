@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use SquadMS\Foundation\Facades\SquadMSPermissions;
 
-class DatabaseSeeder extends Seeder
+class RBACPermissionsSeeder extends Seeder
 {
     /**
      * Seed the application's database.
