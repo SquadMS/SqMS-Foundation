@@ -18,7 +18,7 @@ class RBACPermissionsSeeder extends Seeder
     {
         /* Properly format the permission definitions array and prefix it with the name key for upserting */
         $pairs = [];
-        foreach (SquadMSPermissions::getPermissions() as $definition) {
+        foreach (array_keys(SquadMSPermissions::getPermissions()) as $definition) {
             $pairs[] = [
                 'name' => $definition,
                 'guard_name' => Config::get('auth.defaults.guard', 'web'),
