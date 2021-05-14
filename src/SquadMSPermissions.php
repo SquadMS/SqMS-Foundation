@@ -50,7 +50,7 @@ class SquadMSPermissions {
 
         foreach ($filteredStore as $modulePrefix => $definitions) {
             foreach ($definitions as $definition => $displayName) {
-                $output[] = $modulePrefix . ' ' . $definition;
+                $output[$modulePrefix . ' ' . $definition] = $displayName;
             }
         }
 
