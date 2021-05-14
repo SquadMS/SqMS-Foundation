@@ -3,6 +3,7 @@
 namespace SquadMS\Foundation\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Config;
 use Spatie\Permission\Models\Permission;
 use SquadMS\Foundation\Facades\SquadMSPermissions;
 
@@ -20,6 +21,7 @@ class RBACPermissionsSeeder extends Seeder
         foreach (SquadMSPermissions::getPermissions() as $definition) {
             $pairs[] = [
                 'name' => $definition,
+                'guard_name' => Config::get('auth.defaults.guard', 'web'),
             ];
         }
 
