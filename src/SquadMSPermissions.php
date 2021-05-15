@@ -15,9 +15,9 @@ class SquadMSPermissions {
     {
         $this->store->put(
             $modulePrefix,
-            array_merge($this->store->get($modulePrefix, [
+            array_merge($this->store->get($modulePrefix, []), [
                 $definition => $displayName,
-            ]))
+            ])
         );
     }
 
