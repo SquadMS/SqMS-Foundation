@@ -33,5 +33,7 @@ class RBACPermissionsSeeder extends Seeder
 
         /* Remove obsolete Permissions */
         Permission::whereNotIn('name', array_keys($definitions))->delete();
+
+        $this->command->info('Synchronized SquadMS Permissions.');
     }
 }
