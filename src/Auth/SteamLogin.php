@@ -3,7 +3,6 @@
 namespace SquadMS\Foundation\Auth;
 
 use GuzzleHttp\Client as GuzzleClient;
-use Illuminate\Container\Container;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
