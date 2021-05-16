@@ -11,7 +11,7 @@ class SquadMSMenuEntry
     private bool $isRoute;
     private callable|array $routeParameters;
 
-    private callable|bool $active = null;
+    private callable|bool $active = false;
     private callable|array|string|bool $condition = true;
 
     function __construct(string $routeOrUrl, string $title, bool $isRoute = false, callable|array $routeParameters = [])
