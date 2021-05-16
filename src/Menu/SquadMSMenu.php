@@ -41,7 +41,7 @@ class SquadMSMenu {
      */
     public function getMenu(string $menu) : Menu
     {
-        return $this->cache->get($menu, function () {
+        return $this->cache->get($menu, function () use ($menu) {
             $menu = $this->buildNewMenuInstance();
 
             if (!$this->registry->has($menu)) {
