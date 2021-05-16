@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
-use Spatie\Menu\Laravel\Link;
 use SquadMS\Foundation\SquadMSRouter;
 use SquadMS\Foundation\Facades\SquadMSRouter as FacadesSquadMSRouter;
 use SquadMS\Foundation\Menu\SquadMSMenu;
@@ -48,7 +47,7 @@ class RouteServiceProvider extends ServiceProvider
         FacadesSquadMSMenu::register(
             'main-left',
             (new SquadMSMenuEntry(Config::get('sqms.routes.def.home.name'), 'Home', true))
-            ->setActive( fn (Link $link) => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.home.name')) )
+            ->setActive( fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.home.name')) )
         );
 
         FacadesSquadMSMenu::register(
@@ -73,13 +72,13 @@ class RouteServiceProvider extends ServiceProvider
         FacadesSquadMSMenu::register(
             'admin',
             (new SquadMSMenuEntry(Config::get('sqms.routes.def.admin-dashboard.name'), 'Dashboard', true))
-            ->setActive( fn (Link $link) => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.admin-dashboard.name')) )
+            ->setActive( fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.admin-dashboard.name')) )
         );
 
         FacadesSquadMSMenu::register(
             'admin',
             (new SquadMSMenuEntry(Config::get('sqms.routes.def.admin-dashboard.name'), 'RBAC', true))
-            ->setActive( fn (Link $link) => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.admin-dashboard.name')) )
+            ->setActive( fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.admin-dashboard.name')) )
             ->setCondition(Config::get('sqms.permissions.module') . ' admin rbac')
         );
     }

@@ -36,7 +36,7 @@ class SquadMSMenuEntry
             $url = route($url, is_callable($this->routeParameters) ? ($this->routeParameters)() : $this->routeParameters);
         }
         
-        return (new Link($url, $this->title))->setActive($this->isActive());
+        return Link::to($url, $this->title)->setActive($this->isActive());
     }
 
     public function setCondition(mixed $condition) : self
@@ -70,7 +70,7 @@ class SquadMSMenuEntry
     {
         if (is_callable($this->active)) {
             /* Execute the condition callable and return its result */
-            return ($this->active)();
+            return ($this->active)($this);
         } else {
             /* Not supported or bool, make sure the return value is bool anyways by double flipping the condition */
             return !!$this->active;
