@@ -2,6 +2,7 @@
 
 namespace SquadMS\Foundation\Menu;
 
+use InvalidArgumentException;
 use Spatie\Menu\Laravel\Link;
 
 class SquadMSMenuEntry
@@ -9,17 +10,22 @@ class SquadMSMenuEntry
     private string $definition;
     private string $title;
     private bool $isRoute;
-    private callable|array $routeParameters;
+    private mixed $routeParameters;
 
-    private callable|bool $active = false;
-    private callable|array|string|bool $condition = true;
+    private mixed $active = false;
+    private mixed $condition = true;
 
-    function __construct(string $routeOrUrl, string $title, bool $isRoute = false, callable|array $routeParameters = [])
+    function __construct(string $routeOrUrl, string $title, bool $isRoute = false, mixed $routeParameters = [])
     {
         $this->definition = $routeOrUrl;
         $this->title = $title;
         $this->isRoute = $isRoute;
-        $this->routeParameters = $routeParameters;
+
+        if (is_callable($this->routeParameters) || is_array($this->routeParameters)) {
+            $this->routeParameters = $routeParameters;
+        } else {
+            throw new InvalidArgumentException('The $routeParameters parameter has to be of type callable or array.');
+        }
     }
 
     public function toLink() : Link
@@ -33,9 +39,13 @@ class SquadMSMenuEntry
         return (new Link($url, $this->title))->setActive($this->isActive());
     }
 
-    public function setCondition(callable|array|string|bool $condition) : self
+    public function setCondition(mixed $condition) : self
     {
-        $this->condition = $condition;
+        if (is_callable($condition) || is_array($condition) || is_string($condition) || is_bool($condition)) {
+            $this->condition = $condition;
+        } else {
+            throw new InvalidArgumentException('The $condition parameter has to be of type callable, array, string or bool.');
+        }
 
         return $this;
     }
@@ -45,10 +55,14 @@ class SquadMSMenuEntry
         return $this->condition; 
     }
 
-    public function setActive(callable|bool $active) : self
+    public function setActive(mixed $active) : self
     {
-        $this->active = $active;
-
+        if (is_callable($active) || is_bool($active)) {
+            $this->active = $active;
+        } else {
+            throw new InvalidArgumentException('The $active parameter has to be of type callable or bool.');
+        }
+        
         return $this;
     }
 
