@@ -50,7 +50,8 @@
             ],
             "aliases": {
                 "SquadMSPermissions": "SquadMS\\Foundation\\Facades\\SquadMSPermissions",
-                "SquadMSRouter": "SquadMS\\Foundation\\Facades\\SquadMSRouter"
+                "SquadMSRouter": "SquadMS\\Foundation\\Facades\\SquadMSRouter",
+                "SquadMSMenu": "SquadMS\\Foundation\\Facades\\SquadMSMenu"
             }
         }
     }
