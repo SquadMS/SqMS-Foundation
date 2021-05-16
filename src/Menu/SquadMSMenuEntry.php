@@ -21,7 +21,7 @@ class SquadMSMenuEntry
         $this->title = $title;
         $this->isRoute = $isRoute;
 
-        if (is_callable($this->routeParameters) || is_array($this->routeParameters)) {
+        if (is_callable($routeParameters) || is_array($routeParameters)) {
             $this->routeParameters = $routeParameters;
         } else {
             throw new InvalidArgumentException('The $routeParameters parameter has to be of type callable or array.');
