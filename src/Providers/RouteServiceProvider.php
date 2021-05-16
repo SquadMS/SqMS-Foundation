@@ -65,7 +65,7 @@ class RouteServiceProvider extends ServiceProvider
         FacadesSquadMSMenu::register(
             'main-right',
             (new SquadMSMenuEntry(Config::get('sqms.routes.def.steam-login.name'), 'Login', true))
-            ->setCondition(fn () => Auth::check())
+            ->setCondition(fn () => !Auth::check())
         );
 
         /* Admin Menu */
