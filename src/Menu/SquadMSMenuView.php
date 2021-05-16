@@ -6,14 +6,15 @@ use Spatie\Menu\Laravel\View;
 
 class SquadMSMenuView extends View
 {
-    protected mixed $active = false;
+    protected mixed $activeOverride = false;
 
     /**
      * @inheritDoc
      */
     public function setActive($active = true)
     {
-        $this->active = $active;
+        $this->activeOverride = $active;
+        return $this;
     }
 
     /**
@@ -21,7 +22,7 @@ class SquadMSMenuView extends View
      */
     public function isActive(): bool
     {
-        return is_callable($this->active) ? ($this->active)() : !!$this->active;
+        return is_callable($this->activeOverride) ? ($this->activeOverride)() : !!$this->activeOverride;
     }
 
     public function render(): string

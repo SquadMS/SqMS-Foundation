@@ -35,7 +35,7 @@ class SquadMSMenuEntry
         $url = $this->definition;
 
         if ($this->isRoute) {
-            $url = route($url, is_callable($this->routeParameters) ? ($this->routeParameters)() : $this->routeParameters);
+            $url =  fn () => route($url, is_callable($this->routeParameters) ? ($this->routeParameters)() : $this->routeParameters);
         }
         
         return SquadMSMenuView::create(Config::get('sqms.theme') . '::' . Config::get('sqms.menu.entry-view'), [
