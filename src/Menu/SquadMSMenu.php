@@ -48,23 +48,22 @@ class SquadMSMenu {
                 ]);
             } else {
                 $instance = $this->buildNewMenuInstance();
-                
+
                 foreach ($this->registry->get($menu, []) as $entry) {
                     /* Get the condition from the entry, this should be bool, callable or array/string */
                     $condition = $entry->getCondition();
 
-                    /* Execute the callable if it is one */
-                    if (is_callable($condition)) {
-                        $condition = $condition();
-                    }
-
                     /* Add the item conditionally based on Permissions or the boolean equiv of the $condition */
                     if (is_array($condition) || is_string($condition)) {
-                        $instance->addIfCan($condition, $entry->toLink());
+                        $instance->addIfCan($condition, $entry->render());
                     } else {
-                        $instance->addIf(!!$condition, $entry->toLink());
+                        $instance->addIf($condition, $entry->render());
                     }
                 }
+
+                $this->cache->put($menu, $instance);
+
+                return $instance;
             }
         });
     }

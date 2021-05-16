@@ -108,6 +108,7 @@ return [
 
     'menu' => [
         'activeClassOnLink' => true,
+        'entry-view' => 'components.navigation.item',
     ],
 
     'permissions' => [

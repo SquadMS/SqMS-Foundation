@@ -3,7 +3,9 @@
 namespace SquadMS\Foundation\Menu;
 
 use InvalidArgumentException;
-use Spatie\Menu\Laravel\Link;
+use Illuminate\Support\Facades\Config;
+use Illuminate\View\ComponentAttributeBag;
+use Spatie\Menu\Laravel\View;
 
 class SquadMSMenuEntry
 {
@@ -28,7 +30,7 @@ class SquadMSMenuEntry
         }
     }
 
-    public function toLink() : Link
+    public function render() : View
     {
         $url = $this->definition;
 
@@ -36,7 +38,11 @@ class SquadMSMenuEntry
             $url = route($url, is_callable($this->routeParameters) ? ($this->routeParameters)() : $this->routeParameters);
         }
         
-        return Link::to($url, $this->title)->setActive($this->isActive());
+        return SquadMSMenuView::create(Config::get('sqms.theme') . '::' . Config::get('sqms.menu.entry-view'), [
+            'attributes' => new ComponentAttributeBag([]),
+            'link'   => $url,
+            'title'  => $this->title,
+        ])->setActive(fn () => $this->isActive());
     }
 
     public function setCondition(mixed $condition) : self
@@ -66,7 +72,7 @@ class SquadMSMenuEntry
         return $this;
     }
 
-    private function isActive() : bool
+    public function isActive() : bool
     {
         if (is_callable($this->active)) {
             /* Execute the condition callable and return its result */
