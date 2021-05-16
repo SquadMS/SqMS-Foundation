@@ -42,13 +42,13 @@ class SquadMSMenu {
     public function getMenu(string $menu) : Menu
     {
         return $this->cache->get($menu, function () use ($menu) {
-            $menu = $this->buildNewMenuInstance();
-
             if (!$this->registry->has($menu)) {
                 Log::warning('The menu instance has not been registered!', [
                     'menu' => $menu
                 ]);
             } else {
+                $instance = $this->buildNewMenuInstance();
+                
                 foreach ($this->registry->get($menu, []) as $entry) {
                     /* Get the condition from the entry, this should be bool, callable or array/string */
                     $condition = $entry->getCondition();
@@ -60,9 +60,9 @@ class SquadMSMenu {
 
                     /* Add the item conditionally based on Permissions or the boolean equiv of the $condition */
                     if (is_array($condition) || is_string($condition)) {
-                        $menu->addIfCan($condition, $entry->toLink());
+                        $instance->addIfCan($condition, $entry->toLink());
                     } else {
-                        $menu->addIf(!!$condition, $entry->toLink());
+                        $instance->addIf(!!$condition, $entry->toLink());
                     }
                 }
             }
