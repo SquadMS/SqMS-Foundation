@@ -9,12 +9,12 @@ class SquadMSMenuEntry
     private string $definition;
     private string $title;
     private bool $isRoute;
-    private array $routeParameters;
+    private callable|array $routeParameters;
 
-    private mixed $active = null;
-    private mixed $condition = true;
+    private callable|bool $active = null;
+    private callable|array|string|bool $condition = true;
 
-    function __construct(string $routeOrUrl, string $title, bool $isRoute = false, array $routeParameters = [])
+    function __construct(string $routeOrUrl, string $title, bool $isRoute = false, callable|array $routeParameters = [])
     {
         $this->definition = $routeOrUrl;
         $this->title = $title;
@@ -27,13 +27,13 @@ class SquadMSMenuEntry
         $url = $this->definition;
 
         if ($this->isRoute) {
-            $url = route($url, $this->routeParameters);
+            $url = route($url, is_callable($this->routeParameters) ? ($this->routeParameters)() : $this->routeParameters);
         }
         
         return (new Link($url, $this->title))->setActive($this->isActive());
     }
 
-    public function setCondition(mixed $condition) : self
+    public function setCondition(callable|array|string|bool $condition) : self
     {
         $this->condition = $condition;
 
@@ -45,7 +45,7 @@ class SquadMSMenuEntry
         return $this->condition; 
     }
 
-    public function setActive(mixed $active) : self
+    public function setActive(callable|bool $active) : self
     {
         $this->active = $active;
 
