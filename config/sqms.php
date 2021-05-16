@@ -106,6 +106,10 @@ return [
         ]
     ],
 
+    'menu' => [
+        'activeClassOnLink' => true,
+    ],
+
     'permissions' => [
         'module' => 'sqms',
         'definitions' => [

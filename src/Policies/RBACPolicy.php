@@ -18,7 +18,8 @@ class RBACPolicy
      */
     public function viewAny(SquadMSUser $user)
     {
-        return $user->can('admin rbac');    }
+        return $user->can('admin rbac');
+    }
 
     /**
      * Determine whether the user can view the model.
