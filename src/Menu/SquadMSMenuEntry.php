@@ -11,8 +11,8 @@ class SquadMSMenuEntry
     private bool $isRoute;
     private array $routeParameters;
 
-    private ?mixed $active = null;
-    private ?mixed $condition = true;
+    private mixed $active = null;
+    private mixed $condition = true;
 
     function __construct(string $routeOrUrl, string $title, bool $isRoute = false, array $routeParameters = [])
     {
