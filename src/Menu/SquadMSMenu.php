@@ -13,7 +13,8 @@ class SquadMSMenu {
     protected Collection $cache;
 
     function __construct() {
-        $this->menus = new Collection();
+        $this->registry = new Collection();
+        $this->cache    = new Collection();
     }
 
     public function register(string $menu, SquadMSMenuEntry $entry) : void
