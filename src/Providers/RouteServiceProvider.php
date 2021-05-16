@@ -4,6 +4,7 @@ namespace SquadMS\Foundation\Providers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use SquadMS\Foundation\SquadMSRouter;
@@ -58,8 +59,11 @@ class RouteServiceProvider extends ServiceProvider
 
         FacadesSquadMSMenu::register(
             'main-right',
-            (new SquadMSMenuEntry(Config::get('sqms.routes.def.profile.name'), 'Profile', true, fn () => ['steam_id_64' => Auth::user()->steam_id_64]))
+            (new SquadMSMenuEntry(Config::get('sqms.routes.def.profile.name'), 'Profile', true, function () {
+                return ['steam_id_64' => Auth::user()->steam_id_64];
+            }))
             ->setCondition(fn () => Auth::check())
+            ->setActive(fn () => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.profile.name')) && Request::route('steam_id_64') === Auth::user()->steam_id_64)
         );
 
         FacadesSquadMSMenu::register(
