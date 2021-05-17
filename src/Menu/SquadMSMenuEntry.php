@@ -5,17 +5,15 @@ namespace SquadMS\Foundation\Menu;
 use InvalidArgumentException;
 use Illuminate\Support\Facades\Config;
 use Illuminate\View\ComponentAttributeBag;
-use Spatie\Menu\Laravel\View;
+use Spatie\Menu\Item;
+use SquadMS\Foundation\Menu\Contracts\SquadMSMenuEntry as AbstractSquadMSMenuEntry;
 
-class SquadMSMenuEntry
+class SquadMSMenuEntry extends AbstractSquadMSMenuEntry
 {
     private string $definition;
     private string $title;
     private bool $isRoute;
     private mixed $routeParameters;
-
-    private mixed $active = false;
-    private mixed $condition = true;
 
     function __construct(string $routeOrUrl, string $title, bool $isRoute = false, mixed $routeParameters = [])
     {
@@ -30,7 +28,7 @@ class SquadMSMenuEntry
         }
     }
 
-    public function render() : View
+    public function render() : Item
     {
         $url = $this->definition;
 
@@ -43,43 +41,5 @@ class SquadMSMenuEntry
             'link'   => $url,
             'title'  => $this->title,
         ])->setActive(fn () => $this->isActive());
-    }
-
-    public function setCondition(mixed $condition) : self
-    {
-        if (is_callable($condition) || is_array($condition) || is_string($condition) || is_bool($condition)) {
-            $this->condition = $condition;
-        } else {
-            throw new InvalidArgumentException('The $condition parameter has to be of type callable, array, string or bool.');
-        }
-
-        return $this;
-    }
-
-    public function getCondition() : mixed
-    {
-        return $this->condition; 
-    }
-
-    public function setActive(mixed $active) : self
-    {
-        if (is_callable($active) || is_bool($active)) {
-            $this->active = $active;
-        } else {
-            throw new InvalidArgumentException('The $active parameter has to be of type callable or bool.');
-        }
-        
-        return $this;
-    }
-
-    public function isActive() : bool
-    {
-        if (is_callable($this->active)) {
-            /* Execute the condition callable and return its result */
-            return ($this->active)($this);
-        } else {
-            /* Not supported or bool, make sure the return value is bool anyways by double flipping the condition */
-            return !!$this->active;
-        }
     }
 }

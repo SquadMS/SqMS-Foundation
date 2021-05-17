@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Spatie\Menu\Laravel\Menu;
 use Spatie\Menu\Laravel\Facades\Menu as FacadesMenu;
+use SquadMS\Foundation\Menu\Contracts\SquadMSMenuEntry;
 
 class SquadMSMenu {
     protected Collection $registry;

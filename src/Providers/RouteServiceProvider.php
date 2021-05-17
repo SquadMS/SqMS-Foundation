@@ -7,12 +7,14 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Illuminate\View\ComponentAttributeBag;
 use SquadMS\Foundation\SquadMSRouter;
 use SquadMS\Foundation\Facades\SquadMSRouter as FacadesSquadMSRouter;
 use SquadMS\Foundation\Menu\SquadMSMenu;
 use SquadMS\Foundation\Facades\SquadMSMenu as FacadesSquadMSMenu;
 use SquadMS\Foundation\Helpers\NavigationHelper;
 use SquadMS\Foundation\Menu\SquadMSMenuEntry;
+use SquadMS\Foundation\Menu\SquadMSMenuHTMLEntry;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -64,6 +66,21 @@ class RouteServiceProvider extends ServiceProvider
             }))
             ->setCondition(fn () => Auth::check())
             ->setActive(fn () => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.profile.name')) && Request::route('steam_id_64') === Auth::user()->steam_id_64)
+        );
+
+        FacadesSquadMSMenu::register(
+            'main-right',
+            (new SquadMSMenuHTMLEntry(function () {
+                return view(Config::get('sqms.theme') . '::' . Config::get('sqms.menu.entry-view'), [
+                    'attributes' => new ComponentAttributeBag([
+                        'onclick' => 'event.preventDefault(); document.getElementById(\'frm-logout\').submit();'
+                    ]),
+                    'link'   => route(Config::get('sqms.routes.def.logout.name')),
+                    'title'  => 'Logout',
+                    'slot'   => '<form id="frm-logout" action="'.route(Config::get('sqms.routes.def.logout.name')).'" method="POST" style="display: none;">'.csrf_field().'</form>'
+                ])->render();
+            }))
+            ->setCondition(fn () => Auth::check())
         );
 
         FacadesSquadMSMenu::register(
