@@ -1,0 +1,38 @@
+{
+  "name": "sqms-foundation",
+  "version": "1.0.0",
+  "description": "A foundation to build upon. Basically shared system dependencies and functionality.",
+  "scripts": {
+    "build": "./node_modules/.bin/webpack build --config=\"./node_modules/laravel-mix/setup/webpack.config.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SquadMS/SqMS-Foundation.git"
+  },
+  "keywords": [
+    "laravel",
+    "squadms",
+    "squad",
+    "default-theme"
+  ],
+  "author": "Patrick Henninger",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SquadMS/SqMS-Foundation/issues"
+  },
+  "homepage": "https://github.com/SquadMS/SqMS-Foundation#readme",
+  "dependencies": {
+    "@popperjs/core": "^2.9.2",
+    "bootstrap": "^5.0.0-beta3",
+    "bootstrap-icons": "^1.4.1",
+    "flag-icon-css": "^3.5.0",
+    "laravel-mix": "^6.0.16",
+    "rtlcss": "^3.1.2"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.13.13",
+    "resolve-url-loader": "^3.1.2",
+    "sass": "^1.32.10",
+    "sass-loader": "^11.0.1"
+  }
+}

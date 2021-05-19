@@ -3,9 +3,6 @@
 namespace SquadMS\Foundation;
 
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use SquadMS\Foundation\Auth\SteamLogin;
 
@@ -39,5 +36,17 @@ class SquadMSFoundationServiceProvider extends ServiceProvider
 
         /* Migrations */
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
+        /* Load Translations */
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'squadms-foundation');
+
+        /* Publish Assets */
+        if ($this->app->runningInConsole()) {
+            // Publish assets
+            $this->publishes([
+              __DIR__ . '/../public' => public_path('themes/squadms-foundation'),
+            ], 'assets');
+          
+        }
     }
 }

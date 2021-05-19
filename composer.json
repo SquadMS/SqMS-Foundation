@@ -21,7 +21,8 @@
         "codezero/laravel-localized-routes": "^2.5",
         "petercoles/multilingual-language-list": "^1.16",
         "spatie/laravel-permission": "^4.0",
-        "spatie/laravel-menu": "^4.0"
+        "spatie/laravel-menu": "^4.0",
+        "livewire/livewire": "^2.4"
     },
     "require-dev": {
         "phpunit/phpunit": "~9.0",
@@ -46,7 +47,9 @@
                 "SquadMS\\Foundation\\Providers\\ScheduleServiceProvider",
                 "SquadMS\\Foundation\\Providers\\PermissionsServiceProvider",
                 "SquadMS\\Foundation\\Providers\\RouteServiceProvider",
-                "SquadMS\\Foundation\\Providers\\AuthServiceProvider"
+                "SquadMS\\Foundation\\Providers\\AuthServiceProvider",
+                "SquadMS\\Foundation\\Providers\\LivewireServiceProvider",
+                "SquadMS\\Foundation\\Providers\\ViewServiceProvider"
             ],
             "aliases": {
                 "SquadMSPermissions": "SquadMS\\Foundation\\Facades\\SquadMSPermissions",

@@ -15,6 +15,8 @@ class SquadMSMenuEntry extends AbstractSquadMSMenuEntry
     private bool $isRoute;
     private mixed $routeParameters;
 
+    private ?string $view = null;
+
     function __construct(string $routeOrUrl, string $title, bool $isRoute = false, mixed $routeParameters = [])
     {
         $this->definition = $routeOrUrl;
@@ -28,6 +30,12 @@ class SquadMSMenuEntry extends AbstractSquadMSMenuEntry
         }
     }
 
+    public function setView(?string $view = null) : self
+    {
+        $this->view = $view;
+        return $this;
+    }
+
     public function render() : Item
     {
         $url = $this->definition;
@@ -36,7 +44,7 @@ class SquadMSMenuEntry extends AbstractSquadMSMenuEntry
             $url =  fn () => route($url, is_callable($this->routeParameters) ? ($this->routeParameters)() : $this->routeParameters);
         }
         
-        return SquadMSMenuView::create(Config::get('sqms.theme') . '::' . Config::get('sqms.menu.entry-view'), [
+        return SquadMSMenuView::create($this->view ?? Config::get('sqms.theme') . '::' . Config::get('sqms.menu.entry-view'), [
             'attributes' => new ComponentAttributeBag([]),
             'link'   => $url,
             'title'  => $this->title,
