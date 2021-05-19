@@ -55,7 +55,7 @@
                         @yield('content')
                     </main>
 
-                    @include('squadms-foundation::admin.structure.footer')
+                    @include('sqms-foundation::admin.structure.footer')
                 </div>
                 
             </div>

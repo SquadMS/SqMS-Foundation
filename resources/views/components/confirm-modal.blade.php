@@ -1,6 +1,6 @@
 @props(['id' => null, 'maxWidth' => null])
 
-<x-squadms-foundation::modal :id="$id" :maxWidth="$maxWidth" {{ $attributes }}>
+<x-sqms-foundation::modal :id="$id" :maxWidth="$maxWidth" {{ $attributes }}>
     <div class="modal-content">
         <div class="modal-body">
             <div class="d-flex justify-content-start">
@@ -21,4 +21,4 @@
             {{ $footer }}
         </div>
     </div>
-</x-squadms-foundation::modal>
+</x-sqms-foundation::modal>

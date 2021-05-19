@@ -14,6 +14,6 @@ class RBACController extends Controller
     public function show()
     {
         /* Show profile page */
-        return view('squadms-foundation::admin.pages.rbac');
+        return view('sqms-foundation::admin.pages.rbac');
     }
 }

@@ -14,6 +14,6 @@ class DashboardController extends Controller
     public function show()
     {
         /* Show profile page */
-        return view('squadms-foundation::admin.pages.dashboard');
+        return view('sqms-foundation::admin.pages.dashboard');
     }
 }
