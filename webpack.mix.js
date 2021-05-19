@@ -12,7 +12,7 @@ if (fs.existsSync('public')) {
 /* Configure the public path */
 mix.setPublicPath('public');
 
-mix.setResourceRoot('/themes/squadms-foundation');
+mix.setResourceRoot('/themes/sqms-foundation');
 
 /* Build SCSS/JS assets */
 mix

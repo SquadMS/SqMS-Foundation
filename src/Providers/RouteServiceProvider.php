@@ -37,7 +37,7 @@ class RouteServiceProvider extends ServiceProvider
 
         /* Routes */
         $routesPath = __DIR__ . '/../../routes';
-        FacadesSquadMSRouter::define('squadms-foundation', function () use ($routesPath) {
+        FacadesSquadMSRouter::define('sqms-foundation', function () use ($routesPath) {
             Route::group([
                 'prefix' => config('sqms.routes.prefix'),
                 'middleware' => config('sqms.routes.middleware'),

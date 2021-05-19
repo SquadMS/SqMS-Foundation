@@ -11,7 +11,7 @@
 
         <!-- Styles -->
         @livewireStyles
-        <link href="{{ mix('css/admin/app.css', 'themes/squadms-foundation') }}" rel="stylesheet">
+        <link href="{{ mix('css/admin/app.css', 'themes/sqms-foundation') }}" rel="stylesheet">
         @stack('styles')
 
         <!-- Important Scripts -->
@@ -63,7 +63,7 @@
 
         <!-- Scripts -->
         @livewireScripts
-        <script src="{{ mix('js/admin/app.js', 'themes/squadms-foundation') }}"></script>
+        <script src="{{ mix('js/admin/app.js', 'themes/sqms-foundation') }}"></script>
         @stack('scripts')
     </body>
 </html>

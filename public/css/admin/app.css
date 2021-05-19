@@ -1,7 +1,7 @@
 @font-face {
   font-family: "bootstrap-icons";
-  src: url(/themes/squadms-foundation/fonts/vendor/bootstrap-icons/bootstrap-icons.woff2?dfd0ea122577eb61795f178e0347fa2c) format("woff2"),
-url(/themes/squadms-foundation/fonts/vendor/bootstrap-icons/bootstrap-icons.woff?94eeade15e6b7fbed95b18ff32f0c112) format("woff");
+  src: url(/themes/sqms-foundation/fonts/vendor/bootstrap-icons/bootstrap-icons.woff2?dfd0ea122577eb61795f178e0347fa2c) format("woff2"),
+url(/themes/sqms-foundation/fonts/vendor/bootstrap-icons/bootstrap-icons.woff?94eeade15e6b7fbed95b18ff32f0c112) format("woff");
 }
 
 [class^="bi-"]::before,

@@ -38,13 +38,13 @@ class SquadMSFoundationServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
         /* Load Translations */
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'squadms-foundation');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'sqms-foundation');
 
         /* Publish Assets */
         if ($this->app->runningInConsole()) {
             // Publish assets
             $this->publishes([
-              __DIR__ . '/../public' => public_path('themes/squadms-foundation'),
+              __DIR__ . '/../public' => public_path('themes/sqms-foundation'),
             ], 'assets');
           
         }
