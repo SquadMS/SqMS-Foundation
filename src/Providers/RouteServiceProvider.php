@@ -92,13 +92,13 @@ class RouteServiceProvider extends ServiceProvider
         /* Admin Menu */
         FacadesSquadMSMenu::register(
             'admin',
-            (new SquadMSMenuEntry(Config::get('sqms.routes.def.admin-dashboard.name'), '<i class="bi bi-house-fill"></i> Dashboard', true))->setView('sqms-foundation.components.navigation.item')
+            (new SquadMSMenuEntry(Config::get('sqms.routes.def.admin-dashboard.name'), '<i class="bi bi-house-fill"></i> Dashboard', true))->setView('sqms-foundation::components.navigation.item')
             ->setActive( fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.admin-dashboard.name')) )
         );
 
         FacadesSquadMSMenu::register(
             'admin',
-            (new SquadMSMenuEntry(Config::get('sqms.routes.def.admin-rbac.name'), '<i class="bi bi-shield-lock-fill"></i> RBAC', true))->setView('sqms-foundation.components.navigation.item')
+            (new SquadMSMenuEntry(Config::get('sqms.routes.def.admin-rbac.name'), '<i class="bi bi-shield-lock-fill"></i> RBAC', true))->setView('sqms-foundation::components.navigation.item')
             ->setActive( fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.admin-rbac.name')) )
             ->setCondition(Config::get('sqms.permissions.module') . ' admin rbac')
         );
