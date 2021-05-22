@@ -20,11 +20,11 @@ class SquadMSMenu {
 
     public function register(string $menu, SquadMSMenuEntry $entry) : void
     {
-        /* Get the menus registry or an empty array to start off */
-        $menuRegistry = $this->registry->get($menu, []);
+        /** @var Collection Get the menus registry or an empty array to start off */
+        $menuRegistry = $this->registry->get($menu, new Collection([]));
 
         /* Add the entry to the registry */
-        $menuRegistry[] = $entry;
+        $menuRegistry->push($entry);
 
         /* Put the registry back into the menu registry */
         $this->registry->put($menu, $menuRegistry);
@@ -50,7 +50,10 @@ class SquadMSMenu {
             } else {
                 $instance = $this->buildNewMenuInstance();
 
-                foreach ($this->registry->get($menu, []) as $entry) {
+                /* Get the menu entries definitions and order them */
+                $entries = $this->registry->get($menu, new Collection())->sortby(fn (SquadMSMenuEntry $item, $key) => $item->getOrder());
+
+                foreach ($entries as $entry) {
                     /* Get the condition from the entry, this should be bool, callable or array/string */
                     $condition = $entry->getCondition();
 

@@ -10,6 +10,8 @@ abstract class SquadMSMenuEntry
     private mixed $active = false;
     private mixed $condition = true;
 
+    private int $order = 0;
+
     public abstract function render() : Item;
 
     public function setCondition(mixed $condition) : self
@@ -48,5 +50,17 @@ abstract class SquadMSMenuEntry
             /* Not supported or bool, make sure the return value is bool anyways by double flipping the condition */
             return !!$this->active;
         }
+    }
+
+    public function setOrder(int $order = 0) : self
+    {
+        $this->order = $order;
+
+        return $this;
+    }
+
+    public function getOrder() : int
+    {
+        return $this->order;
     }
 }
