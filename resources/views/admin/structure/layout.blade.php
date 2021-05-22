@@ -29,9 +29,6 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <ul class="navbar-nav me-auto px-3 d-none d-md-flex">
-                <li class="nav-item text-nowrap">
-                    <a class="nav-link" href="{{ route(config('sqms.routes.def.home.name')) }}">Back to Website</a>
-                </li>
                 <x-sqms-foundation::navigation.item class="nav-item text-nowrap" :link="route(config('sqms.routes.def.home.name'))" title="Back to Website"/>
             </ul>
         </header>
