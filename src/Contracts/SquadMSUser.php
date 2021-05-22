@@ -44,4 +44,11 @@ abstract class SquadMSUser extends Authenticatable
     {
         return in_array($this->steam_id_64, config('sqms.admins'));
     }
+
+    /**
+     * Helper to retrieve the current user or null.
+     *
+     * @return null|self
+     */
+    public abstract function current() : ?self;
 }
