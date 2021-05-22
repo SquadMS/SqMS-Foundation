@@ -190,9 +190,3 @@ $theme-colors: (
 		box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
 	}
 }
-
-@include media-breakpoint-down(md) {
-    .sidebar {
-		top: 5rem;
-	}
-}

@@ -28,28 +28,24 @@
                 aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <ul class="navbar-nav me-auto px-3">
+            <ul class="navbar-nav me-auto px-3 d-none d-md-flex">
                 <li class="nav-item text-nowrap">
                     <a class="nav-link" href="{{ route(config('sqms.routes.def.home.name')) }}">Back to Website</a>
                 </li>
-            </ul>
-            <ul class="navbar-nav px-3">
-                <li class="nav-item text-nowrap">
-                    <a class="nav-link" href="#">Sign out</a>
-                </li>
+                <x-sqms-foundation::navigation.item class="nav-item text-nowrap" :link="route(config('sqms.routes.def.home.name'))" title="Back to Website"/>
             </ul>
         </header>
 
         <div class="container-fluid">
             <div class="row">
-                <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse bg-light">
                     <div class="position-sticky pt-3">
                         @php
-                            $mainMenu = \SquadMSMenu::getMenu('admin-system')->setWrapperTag(); 
+                            $mainMenu = \SquadMSMenu::getMenu('admin')->setWrapperTag(); 
                         @endphp
                         @if ($mainMenu->count())
                         <ul class="nav flex-column">
-                            {!! \SquadMSMenu::getMenu('admin')->setWrapperTag()->render() !!}
+                            {!! $mainMenu->render() !!}
                         </ul>
                         @endif
 
@@ -62,9 +58,13 @@
                         </h6>
 
                         <ul class="nav flex-column">
-                            {!! \SquadMSMenu::getMenu('admin-system')->setWrapperTag()->render() !!}
+                            {!! $systemMenu->render() !!}
                         </ul>
                         @endif
+
+                        <ul class="nav flex-column d-md-none">
+                            <x-sqms-foundation::navigation.item class="nav-item text-nowrap" :link="route(config('sqms.routes.def.home.name'))" title="Back to Website"/>
+                        </ul>
                     </div>
                 </nav>
 
