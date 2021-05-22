@@ -50,5 +50,5 @@ abstract class SquadMSUser extends Authenticatable
      *
      * @return null|self
      */
-    public abstract function current() : ?self;
+    public abstract static function current() : ?self;
 }
