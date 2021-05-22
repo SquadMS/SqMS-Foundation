@@ -18,6 +18,13 @@ class SquadMSMenu {
         $this->cache    = new Collection();
     }
 
+    /**
+     * Add a MenuEntry to the registry.
+     *
+     * @param string $menu
+     * @param SquadMSMenuEntry $entry
+     * @return void
+     */
     public function register(string $menu, SquadMSMenuEntry $entry) : void
     {
         /** @var Collection Get the menus registry or an empty array to start off */
