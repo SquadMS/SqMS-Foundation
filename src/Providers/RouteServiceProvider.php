@@ -51,12 +51,14 @@ class RouteServiceProvider extends ServiceProvider
             'main-left',
             (new SquadMSMenuEntry(Config::get('sqms.routes.def.home.name'), __('sqms-foundation::navigation.home'), true))
             ->setActive( fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.home.name')) )
+            ->setOrder(100)
         );
 
         FacadesSquadMSMenu::register(
             'main-left',
             (new SquadMSMenuEntry(Config::get('sqms.routes.def.admin-dashboard.name'), __('sqms-foundation::navigation.admin'), true))
             ->setCondition(Config::get('sqms.permissions.module') . ' admin')
+            ->setOrder(PHP_INT_MAX) // Always last item
         );
 
         FacadesSquadMSMenu::register(
@@ -66,6 +68,7 @@ class RouteServiceProvider extends ServiceProvider
             }))
             ->setCondition(fn () => Auth::check())
             ->setActive(fn () => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.profile.name')) && Request::route('steam_id_64') === Auth::user()->steam_id_64)
+            ->setOrder(100)
         );
 
         FacadesSquadMSMenu::register(
@@ -81,12 +84,14 @@ class RouteServiceProvider extends ServiceProvider
                 ])->render();
             }))
             ->setCondition(fn () => Auth::check())
+            ->setOrder(200)
         );
 
         FacadesSquadMSMenu::register(
             'main-right',
             (new SquadMSMenuEntry(Config::get('sqms.routes.def.steam-login.name'), __('sqms-foundation::navigation.login'), true))
             ->setCondition(fn () => !Auth::check())
+            ->setOrder(100)
         );
 
         /* Admin Menu */
@@ -94,13 +99,15 @@ class RouteServiceProvider extends ServiceProvider
             'admin',
             (new SquadMSMenuEntry(Config::get('sqms.routes.def.admin-dashboard.name'), '<i class="bi bi-house-fill"></i> Dashboard', true))->setView('sqms-foundation::components.navigation.item')
             ->setActive( fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.admin-dashboard.name')) )
+            ->setOrder(100)
         );
 
         FacadesSquadMSMenu::register(
-            'admin',
+            'admin-system',
             (new SquadMSMenuEntry(Config::get('sqms.routes.def.admin-rbac.name'), '<i class="bi bi-shield-lock-fill"></i> RBAC', true))->setView('sqms-foundation::components.navigation.item')
             ->setActive( fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.admin-rbac.name')) )
             ->setCondition(Config::get('sqms.permissions.module') . ' admin rbac')
+            ->setOrder(100)
         );
     }
 }
