@@ -50,32 +50,36 @@ class SquadMSMenu {
     public function getMenu(string $menu) : Menu
     {
         return $this->cache->get($menu, function () use ($menu) {
+            $instance = $this->buildNewMenuInstance();
+
+            /* Check if the menu has been registered yet */
             if (!$this->registry->has($menu)) {
+                /* Softly notify that the menu has not been registered */
                 Log::warning('The menu instance has not been registered!', [
                     'menu' => $menu
                 ]);
             } else {
-                $instance = $this->buildNewMenuInstance();
-
-                /* Get the menu entries definitions and order them */
+                /* Get the menu entries definitions from the registry and order them */
                 $entries = $this->registry->get($menu, new Collection())->sortby(fn (SquadMSMenuEntry $item, $key) => $item->getOrder());
 
-                foreach ($entries as $entry) {
+                /* Build the Menu */
+                $instance->fill($entries, function ($menu, $entry) {
                     /* Get the condition from the entry, this should be bool, callable or array/string */
                     $condition = $entry->getCondition();
 
                     /* Add the item conditionally based on Permissions or the boolean equiv of the $condition */
                     if (is_array($condition) || is_string($condition)) {
-                        $instance->addIfCan($condition, $entry->render());
+                        $menu->addIfCan($condition, $entry->render());
                     } else {
-                        $instance->addIf($condition, $entry->render());
+                        $menu->addIf($condition, $entry->render());
                     }
-                }
-
-                $this->cache->put($menu, $instance);
-
-                return $instance;
+                });
             }
+
+            /* Cache the built menu */
+            $this->cache->put($menu, $instance);
+
+            return $instance;
         });
     }
 
