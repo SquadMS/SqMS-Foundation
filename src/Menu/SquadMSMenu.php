@@ -53,7 +53,7 @@ class SquadMSMenu {
      * @param string $value
      * @return void
      */
-    public function prepend(string $menu, string $value = '') : void
+    public function prepend(string $menu, mixed $value = '') : void
     {
         $this->prepend->put($menu, $value);
     }
@@ -65,7 +65,7 @@ class SquadMSMenu {
      * @param string $value
      * @return void
      */
-    public function append(string $menu, string $value = '') : void
+    public function append(string $menu, mixed $value = '') : void
     {
         $this->append->put($menu, $value);
     }
@@ -107,8 +107,8 @@ class SquadMSMenu {
             }
 
             /* Append and prepend the menu as configured */
-            $instance->prepend($this->prepend->get($menu, ''));
-            $instance->append($this->append->get($menu, ''));
+            $instance->prepend(($prepend = $this->prepend->get($menu, '')) && is_callable($prepend) ? $prepend() : $prepend);
+            $instance->append(($append = $this->append->get($menu, '')) && is_callable($append) ? $append() : $append);
 
             /* Cache the built menu */
             $this->cache->put($menu, $instance);

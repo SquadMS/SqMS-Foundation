@@ -111,7 +111,7 @@ class RouteServiceProvider extends ServiceProvider
         );
 
         FacadesSquadMSAdminMenu::register('admin-system', PHP_INT_MAX);
-        FacadesSquadMSMenu::prepend('admin-system', view('sqms-foundation::components.navigation.heading', [
+        FacadesSquadMSMenu::prepend('admin-system', fn () => view('sqms-foundation::components.navigation.heading', [
             'title'  => 'System',
         ])->render());
 
