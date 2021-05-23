@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\ComponentAttributeBag;
+use SquadMS\Foundation\Facades\SquadMSAdminMenu as FacadesSquadMSAdminMenu;
 use SquadMS\Foundation\SquadMSRouter;
 use SquadMS\Foundation\Facades\SquadMSRouter as FacadesSquadMSRouter;
 use SquadMS\Foundation\Menu\SquadMSMenu;
 use SquadMS\Foundation\Facades\SquadMSMenu as FacadesSquadMSMenu;
 use SquadMS\Foundation\Helpers\NavigationHelper;
+use SquadMS\Foundation\Menu\SquadMSAdminMenu;
 use SquadMS\Foundation\Menu\SquadMSMenuEntry;
 use SquadMS\Foundation\Menu\SquadMSMenuHTMLEntry;
 
@@ -26,6 +28,10 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->app->singleton(SquadMSMenu::class, function () {
             return new SquadMSMenu();
+        });
+
+        $this->app->singleton(SquadMSAdminMenu::class, function () {
+            return new SquadMSAdminMenu();
         });
     }
 
@@ -95,12 +101,19 @@ class RouteServiceProvider extends ServiceProvider
         );
 
         /* Admin Menu */
+        FacadesSquadMSAdminMenu::register('admin', 0);
+
         FacadesSquadMSMenu::register(
             'admin',
             (new SquadMSMenuEntry(Config::get('sqms.routes.def.admin-dashboard.name'), '<i class="bi bi-house-fill"></i> Dashboard', true))->setView('sqms-foundation::components.navigation.item')
             ->setActive( fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.admin-dashboard.name')) )
             ->setOrder(100)
         );
+
+        FacadesSquadMSAdminMenu::register('admin-system', PHP_INT_MAX);
+        FacadesSquadMSMenu::prepend('admin-system', view('sqms-foundation::components.navigation.heading', [
+            'title'  => 'System',
+        ])->render());
 
         FacadesSquadMSMenu::register(
             'admin-system',

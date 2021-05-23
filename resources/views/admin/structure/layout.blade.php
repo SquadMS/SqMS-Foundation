@@ -37,27 +37,14 @@
             <div class="row">
                 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse bg-light">
                     <div class="position-sticky pt-3">
-                        @php
-                            $mainMenu = \SquadMSMenu::getMenu('admin')->setWrapperTag(); 
-                        @endphp
-                        @if ($mainMenu->count())
-                        <ul class="nav flex-column">
-                            {!! $mainMenu->render() !!}
-                        </ul>
-                        @endif
-
-                        @php
-                            $systemMenu = \SquadMSMenu::getMenu('admin-system')->setWrapperTag(); 
-                        @endphp
-                        @if ($systemMenu->count())
-                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                            <span>System</span>
-                        </h6>
-
-                        <ul class="nav flex-column">
-                            {!! $systemMenu->render() !!}
-                        </ul>
-                        @endif
+                        @foreach (\SquadMSAdminMenu::retrieve() as $menu)
+                            @php
+                                $m = \SquadMSMenu::getMenu($menu); 
+                            @endphp
+                            @if ($m->count())
+                                {!! $m->setWrapperTag('ul')->addClass(['nav', 'flex-column'])->render() !!}
+                            @endif
+                        @endforeach
 
                         <ul class="nav flex-column d-md-none">
                             <x-sqms-foundation::navigation.item class="nav-item text-nowrap" :link="route(config('sqms.routes.def.home.name'))" title="Back to Website"/>

@@ -10,16 +10,22 @@ use Spatie\Menu\Laravel\Facades\Menu as FacadesMenu;
 use SquadMS\Foundation\Menu\Contracts\SquadMSMenuEntry;
 
 class SquadMSMenu {
-    protected Collection $registry;
+    protected Collection $definitions;
+    protected Collection $prepend;
+    protected Collection $append;
+
     protected Collection $cache;
 
     function __construct() {
-        $this->registry = new Collection();
+        $this->definitions = new Collection();
+        $this->prepend = new Collection();
+        $this->append = new Collection();
+
         $this->cache    = new Collection();
     }
 
     /**
-     * Add a MenuEntry to the registry.
+     * Add a MenuEntry to the definitions.
      *
      * @param string $menu
      * @param SquadMSMenuEntry $entry
@@ -27,17 +33,41 @@ class SquadMSMenu {
      */
     public function register(string $menu, SquadMSMenuEntry $entry) : void
     {
-        /** @var Collection Get the menus registry or an empty array to start off */
-        $menuRegistry = $this->registry->get($menu, new Collection([]));
+        /** @var Collection Get the menus definitions or an empty array to start off */
+        $menuDefinitions = $this->definitions->get($menu, new Collection([]));
 
-        /* Add the entry to the registry */
-        $menuRegistry->push($entry);
+        /* Add the entry to the definitions */
+        $menuDefinitions->push($entry);
 
-        /* Put the registry back into the menu registry */
-        $this->registry->put($menu, $menuRegistry);
+        /* Put the definitions back into the menu definitions */
+        $this->definitions->put($menu, $menuDefinitions);
 
         /* Modified, clear the cache */
         $this->cache->forget($menu);
+    }
+
+    /**
+     * Prepend the menu with the given markup.
+     *
+     * @param string $menu
+     * @param string $value
+     * @return void
+     */
+    public function prepend(string $menu, string $value = '') : void
+    {
+        $this->prepend->put($menu, $value);
+    }
+
+    /**
+     * Append the menu with the given markup.
+     *
+     * @param string $menu
+     * @param string $value
+     * @return void
+     */
+    public function append(string $menu, string $value = '') : void
+    {
+        $this->append->put($menu, $value);
     }
 
     /**
@@ -53,14 +83,14 @@ class SquadMSMenu {
             $instance = $this->buildNewMenuInstance();
 
             /* Check if the menu has been registered yet */
-            if (!$this->registry->has($menu)) {
+            if (!$this->definitions->has($menu)) {
                 /* Softly notify that the menu has not been registered */
                 Log::warning('The menu instance has not been registered!', [
                     'menu' => $menu
                 ]);
             } else {
-                /* Get the menu entries definitions from the registry and order them */
-                $entries = $this->registry->get($menu, new Collection())->sortby(fn (SquadMSMenuEntry $item, $key) => $item->getOrder());
+                /* Get the menu entries definitions from the definitions and order them */
+                $entries = $this->definitions->get($menu, new Collection())->sortby(fn (SquadMSMenuEntry $item, $key) => $item->getOrder());
 
                 /* Build the Menu */
                 $instance->fill($entries, function ($menu, $entry) {
@@ -75,6 +105,10 @@ class SquadMSMenu {
                     }
                 });
             }
+
+            /* Append and prepend the menu as configured */
+            $instance->prepend($this->prepend->get($menu, ''));
+            $instance->append($this->append->get($menu, ''));
 
             /* Cache the built menu */
             $this->cache->put($menu, $instance);
