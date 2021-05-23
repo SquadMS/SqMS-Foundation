@@ -42,7 +42,7 @@
                                 $m = \SquadMSMenu::getMenu($menu); 
                             @endphp
                             @if ($m->count())
-                                {!! $m->setWrapperTag('ul')->addClass(['nav', 'flex-column'])->render() !!}
+                                {!! $m->setWrapperTag('ul')->addClass('nav')->addClass('flex-column')->render() !!}
                             @endif
                         @endforeach
 
