@@ -3,7 +3,7 @@
 namespace SquadMS\Foundation\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use JohnDoe\BlogPackage\Console\PublishAssets;
+use SquadMS\Foundation\Console\PublishAssets;
 
 class CommandsServiceProvider extends ServiceProvider
 {

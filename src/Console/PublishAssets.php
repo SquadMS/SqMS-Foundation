@@ -1,6 +1,6 @@
 <?php
 
-namespace JohnDoe\BlogPackage\Console;
+namespace SquadMS\Foundation\Console;
 
 use Illuminate\Console\Command;
 use SquadMS\Foundation\Modularity\SquadMSModuleRegistry;
