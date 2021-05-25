@@ -5,6 +5,7 @@ namespace SquadMS\Foundation\Modularity;
 use Illuminate\Support\Collection;
 use SquadMS\Foundation\Modularity\Contracts\SquadMSModule;
 use SquadMS\Foundation\Modularity\Exceptions\DuplicateModuleException;
+use SquadMS\Foundation\Modularity\Exceptions\InvalidModuleTypeException;
 
 class SquadMSModuleRegistry
 {
@@ -15,13 +16,17 @@ class SquadMSModuleRegistry
         $this->store = new Collection();
     }
 
-    public function register(SquadMSModule $module) : void
+    public function register(string $module) : void
     {
-        if ($this->store->has($module->getIdentifier())) {
+        if (!class_exists($module) || !is_subclass_of($module, SquadMSModule::class)) {
+            throw new InvalidModuleTypeException('Modules have to extend the SquadMSModule Contract.');
+        }
+
+        if ($this->store->has($module::getIdentifier())) {
             throw new DuplicateModuleException('Modules can not be registeted twice!');
         }
 
-        $this->store->put($module->getIdentifier(), $module);
+        $this->store->put($module::getIdentifier(), $module);
     }
 
     public function publishAssets() : void

@@ -5,6 +5,7 @@ namespace SquadMS\Foundation\Providers;
 use Illuminate\Support\ServiceProvider;
 use SquadMS\Foundation\Modularity\SquadMSModuleRegistry;
 use SquadMS\Foundation\Facades\SquadMSModuleRegistry as FacadesSquadMSModuleRegistry;
+use SquadMS\Foundation\SquadMSModule;
 
 class ModulesServiceProvider extends ServiceProvider
 {
@@ -17,6 +18,6 @@ class ModulesServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        FacadesSquadMSModuleRegistry::register();
+        FacadesSquadMSModuleRegistry::register(SquadMSModule::class);
     }
 }
