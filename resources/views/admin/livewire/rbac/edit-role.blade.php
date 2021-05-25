@@ -1,9 +1,9 @@
 <div class="d-inline-block text-start">
-    <x-squadms-default-theme::button class="btn-warning" wire:click="$toggle('showModal')" wire:loading.attr="disabled">
+    <x-sqms-foundation::button class="btn-warning" wire:click="$toggle('showModal')" wire:loading.attr="disabled">
         Edit
-    </x-squadms-default-theme::button>
+    </x-sqms-foundation::button>
 
-    <x-squadms-default-theme::dialog-modal wire:model="showModal" maxWidth="xl" fullscreen="xl">
+    <x-sqms-foundation::dialog-modal wire:model="showModal" maxWidth="xl" fullscreen="xl">
         <x-slot name="title">
             Edit Role
         </x-slot>
@@ -14,9 +14,9 @@
 
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Name of the role" aria-label="Name of the role" value="{{ $role->name }}" wire:model.lazy="role.name">
-                    <x-squadms-default-theme::button class="btn-outline-success" wire:click="updateRole" wire:loading.attr="disabled">
+                    <x-sqms-foundation::button class="btn-outline-success" wire:click="updateRole" wire:loading.attr="disabled">
                         Update
-                    </x-squadms-default-theme::button>
+                    </x-sqms-foundation::button>
                 </div>
             </div>
 
@@ -64,11 +64,11 @@
         </x-slot>
     
         <x-slot name="footer">
-            <x-squadms-default-theme::button class="btn-dark" wire:click="$set('showModal', false)" wire:loading.attr="disabled">
+            <x-sqms-foundation::button class="btn-dark" wire:click="$set('showModal', false)" wire:loading.attr="disabled">
                 Close
-            </x-squadms-default-theme::button>
+            </x-sqms-foundation::button>
     
             <div class="flex-grow-1"></div>
         </x-slot>
-    </x-squadms-default-theme::dialog-modal>
+    </x-sqms-foundation::dialog-modal>
 </div>

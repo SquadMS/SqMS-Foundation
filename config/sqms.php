@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'theme' => env('SQUADMS_THEME', 'squadms-default-theme'),
+    'theme' => env('SQUADMS_THEME', 'sqms-default-theme'),
 
     'admins' => [
         // List of SteamID64s
