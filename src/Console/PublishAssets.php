@@ -7,7 +7,7 @@ use SquadMS\Foundation\Modularity\SquadMSModuleRegistry;
 
 class PublishAssets extends Command
 {
-    protected $signature = 'squadms:publish-assets';
+    protected $signature = 'sqms:publish-assets';
 
     protected $description = 'Publishes the assets of all installed SquadMS modules.';
 

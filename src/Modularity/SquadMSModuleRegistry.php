@@ -33,7 +33,7 @@ class SquadMSModuleRegistry
     {
         /** @var SquadMSModule $module */
         foreach ($this->store as $identifier => $module) {
-            $module->publishAssets();
+            $module::publishAssets();
         }
     }
 }
