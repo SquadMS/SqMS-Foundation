@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 use SquadMS\Foundation\Router\Exceptions\DuplicateRouteDefinitionException;
 
 class SquadMSRouter {
-    private Collection $registry = [];
+    private Collection $registry;
 
     function __construct()
     {
@@ -20,7 +20,7 @@ class SquadMSRouter {
             throw new DuplicateRouteDefinitionException('A route definition with identifier "' . $identifier . '" has aleady been registered!');
         }
         
-        Arr::set($this->registry, $identifier, $definition);
+        $this->registry->put($identifier, $definition);
     }
 
     public function register() : void
