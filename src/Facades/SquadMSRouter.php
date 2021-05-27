@@ -3,7 +3,7 @@
 namespace SquadMS\Foundation\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use SquadMS\Foundation\SquadMSRouter as FoundationSquadMSRouter;
+use SquadMS\Foundation\Router\SquadMSRouter as FoundationSquadMSRouter;
 
 class SquadMSRouter extends Facade
 {

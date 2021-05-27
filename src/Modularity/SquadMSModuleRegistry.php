@@ -26,6 +26,9 @@ class SquadMSModuleRegistry
             throw new DuplicateModuleException('Modules can not be registeted twice!');
         }
 
+        /* Register the Modules admin menu orders. TODO: Move away */
+        $module::registerAdminMenus();
+
         $this->store->put($module::getIdentifier(), $module);
     }
 
@@ -34,6 +37,14 @@ class SquadMSModuleRegistry
         /** @var SquadMSModule $module */
         foreach ($this->store as $identifier => $module) {
             $module::publishAssets();
+        }
+    }
+
+    public function registerMenuEntries(string $menu) : void
+    {
+        /** @var SquadMSModule $module */
+        foreach ($this->store as $identifier => $module) {
+            $module::registerMenuEntries($menu);
         }
     }
 }

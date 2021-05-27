@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Spatie\Menu\Laravel\Menu;
 use Spatie\Menu\Laravel\Facades\Menu as FacadesMenu;
+use SquadMS\Foundation\Facades\SquadMSModuleRegistry;
 use SquadMS\Foundation\Menu\Contracts\SquadMSMenuEntry;
 
 class SquadMSMenu {
@@ -81,6 +82,9 @@ class SquadMSMenu {
     {
         return $this->cache->get($menu, function () use ($menu) {
             $instance = $this->buildNewMenuInstance();
+
+            /* Register possible menu entries from SquadMS modules */
+            SquadMSModuleRegistry::registerMenuEntries($menu);
 
             /* Check if the menu has been registered yet */
             if (!$this->definitions->has($menu)) {
