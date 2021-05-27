@@ -2,7 +2,6 @@
 
 namespace SquadMS\Foundation\Router;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use SquadMS\Foundation\Router\Exceptions\DuplicateRouteDefinitionException;
 
