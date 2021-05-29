@@ -22,7 +22,7 @@ class MembersRole extends AbstractModalComponent
     {
         parent::__construct($id);
 
-        $this->searchInstance =Str::random();
+        $this->searchInstance = Str::random();
         $this->selectedUser = null;
     }
 

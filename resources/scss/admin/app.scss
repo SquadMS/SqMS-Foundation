@@ -100,6 +100,10 @@ $theme-colors: (
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap-icons/font/bootstrap-icons.css';
 
+.fs-base {
+	font-size: 1rem !important;
+}
+
 .cursor-pointer {
 	cursor: pointer !important;
 }

@@ -13481,6 +13481,10 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.fs-base {
+  font-size: 1rem !important;
+}
+
 .cursor-pointer {
   cursor: pointer !important;
 }
