@@ -1,22 +1,22 @@
 <?php
 
-namespace SquadMS\Foundation\Database\Seeders;
+namespace SquadMS\Foundation\Console;
 
-use Illuminate\Database\Seeder;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
 use Spatie\Permission\Models\Permission;
 use SquadMS\Foundation\Facades\SquadMSPermissions;
 
-class RBACPermissionsSeeder extends Seeder
+class PermissionsSync extends Command
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
-    public function run()
+    protected $signature = 'sqms:permissions-seed';
+
+    protected $description = 'Synchronizes the permissions with all installed SquadMS modules.';
+
+    public function handle()
     {
-        /* Get currently registered Permission definitions */
+        $this->info('Synchronizing SquadMS permissions...');
+
         $definitions = SquadMSPermissions::getPermissions();
 
         /* Properly format the permission definitions array and prefix it with the name key for upserting */
@@ -34,6 +34,6 @@ class RBACPermissionsSeeder extends Seeder
         /* Remove obsolete Permissions */
         Permission::whereNotIn('name', array_keys($definitions))->delete();
 
-        $this->command->info('Synchronized SquadMS Permissions.');
+        $this->info('Synchronized SquadMS permissions!');
     }
 }

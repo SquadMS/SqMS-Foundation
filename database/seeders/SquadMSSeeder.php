@@ -3,7 +3,6 @@
 namespace SquadMS\Foundation\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use SquadMS\Foundation\Database\Seeders\RBACPermissionsSeeder as SeedersRBACPermissionsSeeder;
 
 class SquadMSSeeder extends Seeder
 {
@@ -15,7 +14,7 @@ class SquadMSSeeder extends Seeder
     public function run()
     {
         $this->call([
-            SeedersRBACPermissionsSeeder::class,
+            //
         ]);
     }
 }
