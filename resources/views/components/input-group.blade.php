@@ -6,7 +6,7 @@
 
 <div {{ $attributes->merge(['class' => 'input-group']) }}>
     @if ($label)
-        <label for="{{ $id }}" class="form-label">{{ $label }}/label>
+        <label for="{{ $id }}" class="form-label">{{ $label }}</label>
     @endif
     <input id="{{ $id }}" class="form-control {{ $name && $errors->has($name) ? 'is-invalid' : '' }}" name="{{ $name }}" type="{{ $type }}" placeholder="{{ $placeholder }}" aria-label="{{ $label ?? $placeholder }}" {{ $disabled ? 'disabled' : ''}}>
 
