@@ -1,7 +1,7 @@
 @props(['id', 'maxWidth', 'fullscreen' => '', 'modal' => false])
 
 @php
-$id = $id ?? md5($attributes->wire('model'));
+$id = $id ?? md5($attributes->get('model', 'showModal'));
 switch ($maxWidth ?? '') {
     case 'sm':
         $maxWidth = ' modal-sm';
