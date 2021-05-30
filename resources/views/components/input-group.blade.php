@@ -4,7 +4,7 @@
     $id = $id ?? \Illuminate\Support\Str::random();
 @endphp
 
-<div {{ $attributes }}>
+<div {{ $attributes->merge(['class' => 'input-group']) }}>
     @if ($label)
         <label for="{{ $id }}" class="form-label">{{ $label }}/label>
     @endif
