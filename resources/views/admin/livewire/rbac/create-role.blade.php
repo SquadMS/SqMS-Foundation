@@ -3,7 +3,7 @@
         Create
     </x-sqms-foundation::button>
 
-    <x-sqms-foundation::dialog-modal wire:model="showModal">
+    <x-sqms-foundation::dialog-modal model="showModal">
         <x-slot name="title">
             Create Role
         </x-slot>

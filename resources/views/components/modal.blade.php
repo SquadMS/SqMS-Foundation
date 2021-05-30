@@ -47,7 +47,7 @@ switch ($fullscreen ?? '') {
 <!-- Modal -->
 <div 
     x-data="{
-        show: @entangle($attributes->wire('model')).defer,
+        show: @entangle($attributes->get('model', 'showModal')).defer,
     }"
     x-init="() => {
         const element = $refs.modal
