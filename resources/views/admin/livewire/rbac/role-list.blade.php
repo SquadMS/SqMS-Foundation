@@ -10,7 +10,7 @@
             </thead>
             <tbody>
                 @foreach ($roles as $role)
-                <livewire:sqms-foundation.admin.rbac.role-entry :role="$role"></livewire:sqms-foundation.admin.rbac.role-entry />
+                <livewire:sqms-foundation.admin.rbac.role-entry :role="$role" :key="$role->id"></livewire:sqms-foundation.admin.rbac.role-entry />
                 @endforeach
             </tbody>
         </table>
