@@ -29,7 +29,7 @@ class PermissionsSync extends Command
         }
 
         /* Mass Update/Insert the Permissions */
-        Permission::query()->upsert($pairs, ['name'], ['name']);
+        Permission::query()->upsert($pairs, ['name'], ['name', 'guard_name']);
 
         /* Remove obsolete Permissions */
         Permission::whereNotIn('name', array_keys($definitions))->delete();
