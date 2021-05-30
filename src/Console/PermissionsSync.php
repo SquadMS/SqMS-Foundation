@@ -9,7 +9,7 @@ use SquadMS\Foundation\Facades\SquadMSPermissions;
 
 class PermissionsSync extends Command
 {
-    protected $signature = 'sqms:permissions-seed';
+    protected $signature = 'sqms:permissions-sync';
 
     protected $description = 'Synchronizes the permissions with all installed SquadMS modules.';
 
