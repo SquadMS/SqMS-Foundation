@@ -4,11 +4,11 @@
     $id = $id ?? \Illuminate\Support\Str::random();
 @endphp
 
-<div {{ $attributes }}>
+<div {{ $attributes->whereDoesntStartWith('wire:') }}>
     @if ($label)
         <label for="{{ $id }}" class="form-label">{{ $label }}</label>
     @endif
-    <input id="{{ $id }}" class="form-control {{ $name && $errors->has($name) ? 'is-invalid' : '' }}" name="{{ $name }}" type="{{ $type }}" placeholder="{{ $placeholder }}" aria-label="{{ $label ?? $placeholder }}" {{ $disabled ? 'disabled' : ''}}>
+    <input {{ $attributes->whereStartsWith('wire:') }} id="{{ $id }}" class="form-control {{ $name && $errors->has($name) ? 'is-invalid' : '' }}" name="{{ $name }}" type="{{ $type }}" placeholder="{{ $placeholder }}" aria-label="{{ $label ?? $placeholder }}" {{ $disabled ? 'disabled' : ''}}>
 
     @if ($help)
         <div id="{{ $id }}Help" class="form-text">{{ $help }}</div>
