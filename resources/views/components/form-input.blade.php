@@ -1,7 +1,7 @@
 @props(['id', 'name', 'disabled' => false, 'type' => 'text', 'placeholder' => '', 'label' => false, 'help' => false])
 
 @php
-    $id = $id ?? \Illuminate\Support\Str::random();
+    $id = $id ?? ($attributes->whereStartsWith('wire:model')->first() ? md5($attributes->whereStartsWith('wire:model')->first()) : null) ?? \Illuminate\Support\Str::random();
 @endphp
 
 <div {{ $attributes->whereDoesntStartWith('wire:') }}>
