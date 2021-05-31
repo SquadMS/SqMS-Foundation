@@ -34,6 +34,9 @@ class PermissionsSync extends Command
         /* Remove obsolete Permissions */
         Permission::whereNotIn('name', array_keys($definitions))->delete();
 
+        /* Clear permissions cache */
+        $this->call('permission:cache-reset');
+
         $this->info('Synchronized SquadMS permissions!');
     }
 }
