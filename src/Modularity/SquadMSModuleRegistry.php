@@ -51,6 +51,8 @@ class SquadMSModuleRegistry
             foreach ($this->store as $identifier => $module) {
                 $module::registerMenuEntries($menu);
             }
+
+            $this->registeredMenus->push($menu);
         }
     }
 }
