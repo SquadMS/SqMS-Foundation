@@ -11,13 +11,13 @@ use SquadMS\Foundation\Menu\Contracts\SquadMSMenuEntry as AbstractSquadMSMenuEnt
 class SquadMSMenuEntry extends AbstractSquadMSMenuEntry
 {
     private string $definition;
-    private string $title;
+    private mixed $title;
     private bool $isRoute;
     private mixed $routeParameters;
 
     private ?string $view = null;
 
-    function __construct(string $routeOrUrl, string $title, bool $isRoute = false, mixed $routeParameters = [])
+    function __construct(string $routeOrUrl, callable|string $title, bool $isRoute = false, mixed $routeParameters = [])
     {
         $this->definition = $routeOrUrl;
         $this->title = $title;
@@ -47,7 +47,7 @@ class SquadMSMenuEntry extends AbstractSquadMSMenuEntry
         return SquadMSMenuView::create($this->view ?? Config::get('sqms.theme') . '::' . Config::get('sqms.menu.entry-view'), [
             'attributes' => new ComponentAttributeBag([]),
             'link'   => $url,
-            'title'  => $this->title,
+            'title'  => is_callable($this->title) ? ($this->title)() : $this->title,
         ])->setActive(fn () => $this->isActive());
     }
 }

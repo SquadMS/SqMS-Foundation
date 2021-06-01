@@ -46,14 +46,14 @@ class SquadMSModule extends SquadMSModuleContract {
             case 'main-left':
                 SquadMSMenu::register(
                     'main-left',
-                    (new SquadMSMenuEntry(Config::get('sqms.routes.def.home.name'), __('sqms-foundation::navigation.home'), true))
+                    (new SquadMSMenuEntry(Config::get('sqms.routes.def.home.name'), fn () => __('sqms-foundation::navigation.home'), true))
                     ->setActive( fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.home.name')) )
                     ->setOrder(100)
                 );
 
                 SquadMSMenu::register(
                     'main-left',
-                    (new SquadMSMenuEntry(Config::get('sqms.routes.def.admin-dashboard.name'), __('sqms-foundation::navigation.admin'), true))
+                    (new SquadMSMenuEntry(Config::get('sqms.routes.def.admin-dashboard.name'), fn () => __('sqms-foundation::navigation.admin'), true))
                     ->setCondition(Config::get('sqms.permissions.module') . ' admin')
                     ->setOrder(PHP_INT_MAX) // Always last item
                 );
@@ -62,7 +62,7 @@ class SquadMSModule extends SquadMSModuleContract {
             case 'main-right':
                 SquadMSMenu::register(
                     'main-right',
-                    (new SquadMSMenuEntry(Config::get('sqms.routes.def.profile.name'), __('sqms-foundation::navigation.profile'), true, function () {
+                    (new SquadMSMenuEntry(Config::get('sqms.routes.def.profile.name'), fn () => __('sqms-foundation::navigation.profile'), true, function () {
                         return ['steam_id_64' => Auth::user()->steam_id_64];
                     }))
                     ->setCondition(fn () => Auth::check())
@@ -72,23 +72,22 @@ class SquadMSModule extends SquadMSModuleContract {
         
                 SquadMSMenu::register(
                     'main-right',
-                    (new SquadMSMenuHTMLEntry(function () {
-                        return view(Config::get('sqms.theme') . '::' . Config::get('sqms.menu.entry-view'), [
+                    (new SquadMSMenuHTMLEntry(fn () => view(Config::get('sqms.theme') . '::' . Config::get('sqms.menu.entry-view'), [
                             'attributes' => new ComponentAttributeBag([
                                 'onclick' => 'event.preventDefault(); document.getElementById(\'frm-logout\').submit();'
                             ]),
                             'link'   => route(Config::get('sqms.routes.def.logout.name')),
                             'title'  => __('sqms-foundation::navigation.logout'),
                             'slot'   => '<form id="frm-logout" action="'.route(Config::get('sqms.routes.def.logout.name')).'" method="POST" style="display: none;">'.csrf_field().'</form>'
-                        ])->render();
-                    }))
+                        ])->render()
+                    ))
                     ->setCondition(fn () => Auth::check())
                     ->setOrder(200)
                 );
         
                 SquadMSMenu::register(
                     'main-right',
-                    (new SquadMSMenuEntry(Config::get('sqms.routes.def.steam-login.name'), __('sqms-foundation::navigation.login'), true))
+                    (new SquadMSMenuEntry(Config::get('sqms.routes.def.steam-login.name'), fn () => __('sqms-foundation::navigation.login'), true))
                     ->setCondition(fn () => !Auth::check())
                     ->setOrder(100)
                 );
