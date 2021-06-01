@@ -46,7 +46,7 @@ class SquadMSModuleRegistry
     public function registerMenuEntries(string $menu) : void
     {
         /* Do not register the same menu twice */
-        if (!$this->registeredMenus->has($menu)) {
+        if (!$this->registeredMenus->contains($menu)) {
             /** @var SquadMSModule $module */
             foreach ($this->store as $identifier => $module) {
                 $module::registerMenuEntries($menu);
