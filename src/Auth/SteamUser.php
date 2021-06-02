@@ -4,6 +4,7 @@ namespace SquadMS\Foundation\Auth;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\Response;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Fluent;
 use SteamID;
 
@@ -107,8 +108,8 @@ class SteamUser extends Fluent
         parent::__construct($this->attributes);
 
         $this->guzzle = $guzzle ?? new GuzzleClient();
-        $this->method = config('steam-login.method', 'xml') === 'api' ? 'api' : 'xml';
-        $this->profileDataUrl = $this->method === 'xml' ? $this->attributes['profileDataUrl'] : sprintf(self::STEAM_PLAYER_API, config('steam-login.api_key'), $this->attributes['steamId']);
+        $this->method = Config::get('steam-login.method', 'xml') === 'api' ? 'api' : 'xml';
+        $this->profileDataUrl = $this->method === 'xml' ? $this->attributes['profileDataUrl'] : sprintf(self::STEAM_PLAYER_API, Config::get('steam-login.api_key'), $this->attributes['steamId']);
 
         /* Support for pre populating, i.e. from bulk processing. */
         if (count($data)) {
@@ -146,7 +147,7 @@ class SteamUser extends Fluent
      */
     protected function userInfo() : Response
     {
-        $response = $this->guzzle->get($this->profileDataUrl, ['connect_timeout' => config('steam-login.timeout')]);
+        $response = $this->guzzle->get($this->profileDataUrl, ['connect_timeout' => Config::get('steam-login.timeout')]);
         $body = $response->getBody()->getContents();
 
         switch ($this->method) {
@@ -187,7 +188,7 @@ class SteamUser extends Fluent
         /* Process each steamIds chunk respecting API limits */
         foreach ($chunks as $chunk) {
             /* Determine the url, append chunk of steam IDs for bulk */
-            $url = sprintf(self::STEAM_PLAYER_API, config('steam-login.api_key'), implode(',', $chunk));
+            $url = sprintf(self::STEAM_PLAYER_API, Config::get('sqms.auth.api_key'), implode(',', $chunk));
 
             /* Get the response body */
             $response = $guzzle->get($url);
@@ -265,6 +266,7 @@ class SteamUser extends Fluent
      */
     protected static function parseXmlProfileData(string $body): array
     {
+        /** @var SimpleXMLElement|false $xml */
         $xml = simplexml_load_string($body, 'SimpleXMLElement', LIBXML_NOCDATA);
 
         if (empty($body) || $xml === false || isset($xml->error)) {
