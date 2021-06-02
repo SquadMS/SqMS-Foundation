@@ -23,7 +23,8 @@
         "petercoles/multilingual-language-list": "^1.16",
         "spatie/laravel-permission": "^4.0",
         "spatie/laravel-menu": "^4.0",
-        "livewire/livewire": "^2.4.4"
+        "livewire/livewire": "^2.4.4",
+        "hihaho/laravel-encryptable-trait": "^1.4"
     },
     "require-dev": {
         "phpunit/phpunit": "~9.0",
