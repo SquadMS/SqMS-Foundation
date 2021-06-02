@@ -2,9 +2,9 @@
 
 namespace SquadMS\Foundation\Providers;
 
-use SquadMS\Foundation\Jobs\FetchUsers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
+use SquadMS\Foundation\Facades\SquadMSModuleRegistry;
 
 class ScheduleServiceProvider extends ServiceProvider
 {
@@ -16,8 +16,7 @@ class ScheduleServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
-            /* Fetch unfetched or outdated users */
-            $schedule->job(new FetchUsers())->withoutOverlapping()->everyFiveMinutes();
+            SquadMSModuleRegistry::runSchedulers($schedule);
         });
     }
 }

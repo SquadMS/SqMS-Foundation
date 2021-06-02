@@ -3,6 +3,7 @@
 namespace SquadMS\Foundation\Modularity;
 
 use Illuminate\Support\Collection;
+use Illuminate\Console\Scheduling\Schedule;
 use SquadMS\Foundation\Modularity\Contracts\SquadMSModule;
 use SquadMS\Foundation\Modularity\Exceptions\DuplicateModuleException;
 use SquadMS\Foundation\Modularity\Exceptions\InvalidModuleTypeException;
@@ -53,6 +54,14 @@ class SquadMSModuleRegistry
             }
 
             $this->registeredMenus->push($menu);
+        }
+    }
+
+    public function runSchedulers(Schedule $schedule) : void
+    {
+        /** @var SquadMSModule $module */
+        foreach ($this->store as $identifier => $module) {
+            $module::schedule($schedule);
         }
     }
 }

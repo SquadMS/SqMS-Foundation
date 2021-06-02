@@ -7,9 +7,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Request;
 use Illuminate\View\ComponentAttributeBag;
+use Illuminate\Console\Scheduling\Schedule;
 use SquadMS\Foundation\Facades\SquadMSAdminMenu;
 use SquadMS\Foundation\Facades\SquadMSMenu;
 use SquadMS\Foundation\Helpers\NavigationHelper;
+use SquadMS\Foundation\Jobs\FetchUsers;
 use SquadMS\Foundation\Menu\SquadMSMenuEntry;
 use SquadMS\Foundation\Menu\SquadMSMenuHTMLEntry;
 use SquadMS\Foundation\Modularity\Contracts\SquadMSModule as SquadMSModuleContract;
@@ -119,5 +121,11 @@ class SquadMSModule extends SquadMSModuleContract {
 
                 break;
         }
+    }
+
+    static function schedule(Schedule $schedule) : void
+    {
+        /* Fetch unfetched or outdated users */
+        $schedule->job(new FetchUsers())->withoutOverlapping()->everyFiveMinutes();
     }
 }
