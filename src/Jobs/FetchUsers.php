@@ -7,7 +7,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use \skyraptor\LaravelSteamLogin\SteamUser;
+use SquadMS\Foundation\Auth\SteamUser;
 use SquadMS\Foundation\Repositories\UserRepository;
 
 class FetchUsers implements ShouldQueue
