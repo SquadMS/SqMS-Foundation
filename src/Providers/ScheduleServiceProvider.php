@@ -2,7 +2,7 @@
 
 namespace SquadMS\Foundation\Providers;
 
-use App\Jobs\FetchUsers;
+use SquadMS\Foundation\Jobs\FetchUsers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
 
