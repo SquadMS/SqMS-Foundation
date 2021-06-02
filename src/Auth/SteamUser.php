@@ -108,7 +108,7 @@ class SteamUser extends Fluent
         parent::__construct($this->attributes);
 
         $this->guzzle = $guzzle ?? new GuzzleClient();
-        $this->method = Config::get('steam-login.method', 'xml') === 'api' ? 'api' : 'xml';
+        $this->method = Config::get('sqms.auth.method', 'api') === 'api' ? 'api' : 'xml';
         $this->profileDataUrl = $this->method === 'xml' ? $this->attributes['profileDataUrl'] : sprintf(self::STEAM_PLAYER_API, Config::get('sqms.auth.api_key'), $this->attributes['steamId']);
 
         /* Support for pre populating, i.e. from bulk processing. */
@@ -147,7 +147,7 @@ class SteamUser extends Fluent
      */
     protected function userInfo() : Response
     {
-        $response = $this->guzzle->get($this->profileDataUrl, ['connect_timeout' => Config::get('steam-login.timeout')]);
+        $response = $this->guzzle->get($this->profileDataUrl, ['connect_timeout' => Config::get('sqms.auth.timeout')]);
         $body = $response->getBody()->getContents();
 
         switch ($this->method) {
