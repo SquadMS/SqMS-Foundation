@@ -117,5 +117,9 @@ return [
             'admin'           => 'Grant access to the AdminCP',
             'admin rbac'      => 'Grant access to the RBAC Management',
         ]
+    ],
+
+    'sdkdata' => [
+        'data-url' => 'https://raw.githubusercontent.com/Squad-Wiki-Editorial/squad-wiki-pipeline-map-data/master/completed_output/_Current%20Version/finished.json',
     ]
 ];
