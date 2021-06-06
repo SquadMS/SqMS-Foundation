@@ -7,9 +7,9 @@ use SquadMS\Foundation\Facades\SDKDataReader;
 
 class FactionHelper
 {
-    static function getFactionTag(string $setupName, ?string $mapName = null) : string
+    static function getFactionTag(string $teamName, ?string $layer = null) : string
     {
-        $factionName = SDKDataReader::getFactionForSetupName($setupName, $mapName);
+        $factionName = SDKDataReader::getFactionForSetupName($teamName, $layer);
 
         if (!is_null($factionName)) {
             if (Str::contains($factionName, ['Canadian Army'])) {
