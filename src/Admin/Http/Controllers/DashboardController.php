@@ -4,9 +4,12 @@ namespace SquadMS\Foundation\Admin\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class DashboardController extends Controller
 {
+    use AuthorizesRequests;
+    
     /**
      * Shows the profile page
      *
