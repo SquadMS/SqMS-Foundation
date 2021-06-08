@@ -2,11 +2,14 @@
 
 namespace SquadMS\Foundation\Admin\Http\Livewire\RBAC;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Spatie\Permission\Models\Role;
 use SquadMS\Foundation\Admin\Http\Livewire\Contracts\AbstractModalComponent;
 
 class CreateRole extends AbstractModalComponent
 {
+    use AuthorizesRequests;
+
     public string $input = '';
 
     protected $rules = [
@@ -14,6 +17,9 @@ class CreateRole extends AbstractModalComponent
     ];
 
     public function createRole() {
+        /* Authorize the action */
+        $this->authorize('create', Role::class);
+
         /* Validate the data first */
         $this->validate();
 

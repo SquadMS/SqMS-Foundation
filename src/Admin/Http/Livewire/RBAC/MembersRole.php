@@ -2,6 +2,7 @@
 
 namespace SquadMS\Foundation\Admin\Http\Livewire\RBAC;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Str;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
@@ -11,6 +12,8 @@ use SquadMS\Foundation\Repositories\UserRepository;
 
 class MembersRole extends AbstractModalComponent
 {
+    use AuthorizesRequests;
+
     use WithPagination;
 
     public Role $role;
@@ -34,11 +37,17 @@ class MembersRole extends AbstractModalComponent
 
     public function selectUser($data)
     {
+        /* Authorize the action */
+        $this->authorize('update', $this->role);
+
         $this->selectedUser = UserRepository::getUserModelQuery()->where('steam_id_64', $data['value'])->first();
     }
 
     public function addMember()
     {
+        /* Authorize the action */
+        $this->authorize('update', $this->role);
+
         if (is_null($this->selectedUser)) {
             return;
         }
@@ -55,6 +64,9 @@ class MembersRole extends AbstractModalComponent
 
     public function removeMember($user)
     {
+        /* Authorize the action */
+        $this->authorize('update', $this->role);
+        
         /* Remove the User from the Role */
         $this->role->users()->detach($user);
 
