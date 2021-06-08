@@ -15,7 +15,7 @@ class RBACController extends Controller
     public function show()
     {
         /* Authorize the action */
-        $this->authorize(Config::get('sqms.permissions.module') + ' admin rbac');
+        $this->authorize(Config::get('sqms.permissions.module') . ' admin rbac');
 
         /* Show profile page */
         return view('sqms-foundation::admin.pages.rbac');

@@ -15,7 +15,7 @@ class DashboardController extends Controller
     public function show()
     {
         /* Authorize the action */
-        $this->authorize(Config::get('sqms.permissions.module') + ' admin');
+        $this->authorize(Config::get('sqms.permissions.module') . ' admin');
 
         /* Show profile page */
         return view('sqms-foundation::admin.pages.dashboard');
