@@ -1,22 +1,6 @@
 <?php
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Config;
+use SquadMS\Foundation\Facades\SquadMSRouter;
 
-/* Define routes from config */
-foreach (config('sqms.routes.def') as $definition) {
-    /* Create the definitor as an anonymous function */
-    $define = function() use ($definition) {
-        $type = Arr::get($definition, 'type', 'get');
-
-        Route::$type(Arr::get($definition, 'path', '/'), [Arr::get($definition, 'controller'), Arr::get($definition, 'executor', 'show')])->middleware(Arr::get($definition, 'middlewares'))->name(Arr::get($definition, 'name'));
-    };
-
-    if (Arr::get($definition, 'localized', false)) {
-        Route::localized(function() use ($define) {
-            $define();
-        });
-    } else {
-        $define();
-    }
-}
+SquadMSRouter::webRoutes(Config::get('sqms.routes.def', []));
