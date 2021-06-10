@@ -13,9 +13,9 @@ class FactionHelperTest extends TestCase
      * @return void
      */
     public function test_get_faction_tag()
-    {
-        $this->assertSame('mea', FactionHelper::getFactionTag('Mutaha_Skirmish_v1', 2));
-        $this->assertSame('mea', FactionHelper::getFactionTag('Logar_AAS_v2', 2));
-        $this->assertSame('im', FactionHelper::getFactionTag('Kokan_Skirmish_v1', 1));
+    {            
+        $this->assertSame('im', FactionHelper::getFactionTag('Irregular Militia Forces'));
+        $this->assertSame('ins', FactionHelper::getFactionTag('Insurgent Forces'));
+        $this->assertSame('ru', FactionHelper::getFactionTag('Russian Ground Forces'));
     }
 }

@@ -3,14 +3,11 @@
 namespace SquadMS\Foundation\Helpers;
 
 use Illuminate\Support\Str;
-use SquadMS\Foundation\Facades\SDKDataReader;
 
 class FactionHelper
 {
-    public static function getFactionTag(string $layerOrRaw, int $teamID): string
+    public static function getFactionTag(string $factionName): string
     {
-        $factionName = SDKDataReader::getFactionForTeamID($layerOrRaw, $teamID);
-
         if (!is_null($factionName)) {
             if (Str::contains($factionName, ['Canadian Army'])) {
                 return 'caf';
