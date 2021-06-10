@@ -43,6 +43,16 @@ class SDKDataReader
         }) ?: null;
     }
 
+    public function getLayerForRaw(string $rawName): ?string
+    {
+        return Cache::tags('sqms-sdkdata')->rememberForever('sqms-sdkdata-layer-for-rawname-'.md5($rawName), function () use ($rawName) {
+            /* Find map data */
+            $data = $this->getMapData($rawName);
+
+            return $data ? Arr::get($data, 'levelName', false) : false;
+        }) ?: null;
+    }
+
     private function getMapData(string $layerOrRawName): ?array
     {
         /* Find layer */
