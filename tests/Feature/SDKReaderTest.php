@@ -39,4 +39,15 @@ class SDKReaderTest extends TestCase
         $this->assertSame('Jensens_Range_v1', SDKDataReader::getLayerForRaw('JensensRange_GB-MIL'));
         $this->assertSame('CAF_Gorodok_AAS_v1', SDKDataReader::getLayerForRaw('CAF_Gorodok_AAS_v1'));
     }
+
+    /**
+     * Validate that the getSetupForTeamID helper is working as intended.
+     *
+     * @return void
+     */
+    public function test_get_layer_to_level()
+    {
+        $this->assertSame('Narva', SDKDataReader::layerToLevel('Narva_Invasion_v1'));
+        $this->assertSame('Fool\'s Road', SDKDataReader::layerToLevel('FoolsRoad_Destruction_v1'));
+    }
 }
