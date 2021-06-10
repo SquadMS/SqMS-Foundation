@@ -5,6 +5,7 @@
 <a href="https://codecov.io/gh/SquadMS/SqMS-Foundation"><img src="https://codecov.io/gh/SquadMS/SqMS-Foundation/branch/master/graph/badge.svg?token=FGZNPFGWOC"/></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
+
 ## SquadMS Foundation
 
 A foundation to build upon.
