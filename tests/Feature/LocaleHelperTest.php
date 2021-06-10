@@ -2,11 +2,11 @@
 
 namespace SquadMS\Foundation\Tests\Feature;
 
-use SquadMS\Foundation\Facades\SDKDataReader;
 use SquadMS\Foundation\Helpers\LocaleHelper;
 use SquadMS\Foundation\Tests\TestCase;
 
-class LocaleHelperTest extends TestCase {
+class LocaleHelperTest extends TestCase
+{
     /**
      * Validate that the getHumanReadableName helper function is working as intended.
      *

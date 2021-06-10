@@ -35,8 +35,8 @@ class TestCase extends OrchestraTestCase
     protected function getEnvironmentSetUp($app)
     {
         config()->set('localized-routes.supported-locales', [
-            'en', 
-            'de'
+            'en',
+            'de',
         ]);
     }
 }
