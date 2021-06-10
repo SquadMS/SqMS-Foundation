@@ -11,24 +11,51 @@ class SDKDataReader
 {
     private ?array $_data = null;
 
-    public function getFactionForSetupName(string $setupName, ?string $mapName = null) : ?string
+    public function getFactionForTeamID(string $layerOrRawName, int $teamID) : ?string
     {
-        return Cache::tags('sqms-sdkdata')->rememberForever('sqms-sdkdata-faction-for-setup-' . md5($setupName), function () use ($setupName, $mapName) {
-            /* Find level */
-            foreach (Arr::get($this->getData(), 'Maps', []) as $map) {
-                if (!is_null($mapName) && Arr::get($map, 'Name') !== $mapName) {
-                    continue;
-                }
+        return Cache::tags('sqms-sdkdata')->rememberForever('sqms-sdkdata-faction-for-teamID-' . md5($layerOrRawName . $teamID), function () use ($layerOrRawName, $teamID) {
+            /* Find map data */
+            $data = $this->getMapData($layerOrRawName);
 
-                foreach (['team1', 'team2'] as $team) {
-                    if (Arr::get($map, $team . '.teamSetupName') === $setupName) {
-                        return Arr::get($map, $team . '.faction');
-                    }
-                }
+            /* Check if we found the map data */
+            if ($data) {
+                /* Return the correct faction name from the data (or false since it is cacheable */
+                return Arr::get($data, 'team' . $teamID . '.faction', false);
             }
 
             return false;
         }) ?: null;
+    }
+
+    public function getSetupForTeamID(string $layerOrRawName, int $teamID) : ?string
+    {
+        return Cache::tags('sqms-sdkdata')->rememberForever('sqms-sdkdata-setup-for-teamID-' . md5($layerOrRawName . $teamID), function () use ($layerOrRawName, $teamID) {
+            /* Find map data */
+            $data = $this->getMapData($layerOrRawName);
+
+            /* Check if we found the map data */
+            if ($data) {
+                /* Return the correct faction name from the data (or false since it is cacheable */
+                return Arr::get($data, 'team' . $teamID . '.teamSetupName', false);
+            }
+
+            return false;
+        }) ?: null;
+    }
+
+    private function getMapData(string $layerOrRawName) : ?array
+    {
+        /* Find layer */
+        foreach (Arr::get($this->getData(), 'Maps', []) as $map) {
+            /* Check if layerOrRawName does match this map, if not continue */
+            if (Arr::get($map, 'levelName') !== $layerOrRawName && Arr::get($map, 'rawName') !== $layerOrRawName) {
+                continue;
+            }
+
+            return $map;
+        }
+
+        return null;
     }
 
     /**
