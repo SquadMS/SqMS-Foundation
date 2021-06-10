@@ -1,9 +1,9 @@
 <p align="center"><a href="https://squadms.com" target="_blank"><img src="https://squadms.com/img/logo.svg" width="400"></a></p>
 
 <p align="center">
+<a href="https://github.com/SquadMS/SqMS-Foundation/actions/workflows/CI.yml"><img src="https://github.com/SquadMS/SqMS-Foundation/actions/workflows/CI.yml/badge.svg" alt="CI"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
-
 ## SquadMS Foundation
 
 A foundation to build upon.
