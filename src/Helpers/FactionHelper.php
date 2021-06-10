@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 class FactionHelper
 {
-    public static function getFactionTag(string $factionName): string
+    public static function getFactionTag(?string $factionName): string
     {
         if (!is_null($factionName)) {
             if (Str::contains($factionName, ['Canadian Army'])) {
