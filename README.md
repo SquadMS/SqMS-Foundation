@@ -2,6 +2,7 @@
 
 <p align="center">
 <a href="https://github.com/SquadMS/SqMS-Foundation/actions/workflows/CI.yml"><img src="https://github.com/SquadMS/SqMS-Foundation/actions/workflows/CI.yml/badge.svg" alt="CI"></a>
+<a href="https://codecov.io/gh/SquadMS/SqMS-Foundation"><img src="https://codecov.io/gh/SquadMS/SqMS-Foundation/branch/master/graph/badge.svg?token=FGZNPFGWOC"/></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 ## SquadMS Foundation
