@@ -5,17 +5,19 @@ namespace SquadMS\Foundation\Menu;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
-use Spatie\Menu\Laravel\Menu;
 use Spatie\Menu\Laravel\Facades\Menu as FacadesMenu;
+use Spatie\Menu\Laravel\Menu;
 use SquadMS\Foundation\Facades\SquadMSModuleRegistry;
 use SquadMS\Foundation\Menu\Contracts\SquadMSMenuEntry;
 
-class SquadMSMenu {
+class SquadMSMenu
+{
     protected Collection $definitions;
     protected Collection $prepend;
     protected Collection $append;
 
-    function __construct() {
+    public function __construct()
+    {
         $this->definitions = new Collection();
         $this->prepend = new Collection();
         $this->append = new Collection();
@@ -24,11 +26,12 @@ class SquadMSMenu {
     /**
      * Add a MenuEntry to the definitions.
      *
-     * @param string $menu
+     * @param string           $menu
      * @param SquadMSMenuEntry $entry
+     *
      * @return void
      */
-    public function register(string $menu, SquadMSMenuEntry $entry) : void
+    public function register(string $menu, SquadMSMenuEntry $entry): void
     {
         /** @var Collection Get the menus definitions or an empty array to start off */
         $menuDefinitions = $this->definitions->get($menu, new Collection([]));
@@ -45,9 +48,10 @@ class SquadMSMenu {
      *
      * @param string $menu
      * @param string $value
+     *
      * @return void
      */
-    public function prepend(string $menu, mixed $value = '') : void
+    public function prepend(string $menu, mixed $value = ''): void
     {
         $this->prepend->put($menu, $value);
     }
@@ -57,9 +61,10 @@ class SquadMSMenu {
      *
      * @param string $menu
      * @param string $value
+     *
      * @return void
      */
-    public function append(string $menu, mixed $value = '') : void
+    public function append(string $menu, mixed $value = ''): void
     {
         $this->append->put($menu, $value);
     }
@@ -69,9 +74,10 @@ class SquadMSMenu {
      * is not already built it will build a new one.
      *
      * @param string $menu
+     *
      * @return Menu
      */
-    public function getMenu(string $menu) : Menu
+    public function getMenu(string $menu): Menu
     {
         $instance = $this->buildNewMenuInstance();
 
@@ -82,7 +88,7 @@ class SquadMSMenu {
         if (!$this->definitions->has($menu)) {
             /* Softly notify that the menu has not been registered */
             Log::warning('The menu instance has not been registered!', [
-                'menu' => $menu
+                'menu' => $menu,
             ]);
         } else {
             /* Get the menu entries definitions from the definitions and order them */
@@ -110,11 +116,11 @@ class SquadMSMenu {
     }
 
     /**
-     * Returns a list of all registered menus
+     * Returns a list of all registered menus.
      *
      * @return array
      */
-    public function getMenus() : array
+    public function getMenus(): array
     {
         return $this->menus->keys()->toArray();
     }
@@ -125,7 +131,7 @@ class SquadMSMenu {
      *
      * @return Menu
      */
-    private function buildNewMenuInstance() : Menu
+    private function buildNewMenuInstance(): Menu
     {
         /* Create a new Menu instance and apply the configured active class */
         $menu = FacadesMenu::new()->setActiveClass('active');
@@ -134,7 +140,7 @@ class SquadMSMenu {
         if (Config::get('sqms.menu.activeClassOnLink', true)) {
             $menu->setActiveClassOnLink();
         }
-        
+
         return $menu;
     }
 }

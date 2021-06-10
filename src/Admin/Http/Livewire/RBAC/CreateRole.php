@@ -16,7 +16,8 @@ class CreateRole extends AbstractModalComponent
         'input' => 'required|string|unique:Spatie\Permission\Models\Role,name',
     ];
 
-    public function createRole() {
+    public function createRole()
+    {
         /* Authorize the action */
         $this->authorize('create', Role::class);
 
@@ -34,7 +35,7 @@ class CreateRole extends AbstractModalComponent
         /* Reset state */
         $this->reset();
     }
-    
+
     public function render()
     {
         return view('sqms-foundation::admin.livewire.rbac.create-role');

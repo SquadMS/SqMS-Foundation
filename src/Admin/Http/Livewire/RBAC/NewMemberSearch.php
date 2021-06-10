@@ -11,19 +11,19 @@ class NewMemberSearch extends LivewireSelect
 {
     public Role $role;
 
-    public function options($searchTerm = null) : Collection 
+    public function options($searchTerm = null): Collection
     {
         return UserRepository::getUserModelQuery()
         ->whereNotIn('id', $this->role->users()->allRelatedIds())
         ->where(function ($query) use ($searchTerm) {
             return $query->where('name', 'like', $searchTerm)
-            ->orWhere('name', 'like', '%' . $searchTerm)
-            ->orWhere('name', 'like', $searchTerm . '%')
-            ->orWhere('name', 'like', '%'. $searchTerm . '%');
+            ->orWhere('name', 'like', '%'.$searchTerm)
+            ->orWhere('name', 'like', $searchTerm.'%')
+            ->orWhere('name', 'like', '%'.$searchTerm.'%');
         })
         ->limit(10)
         ->get()
-        ->map(fn ($user) => [ 'value' => $user['steam_id_64'], 'description' => $user['name'] ]);
+        ->map(fn ($user) => ['value' => $user['steam_id_64'], 'description' => $user['name']]);
     }
 
     public function selectedOption($steamId64)
@@ -33,8 +33,8 @@ class NewMemberSearch extends LivewireSelect
         ->first();
 
         return [
-            'value' => $user['steam_id_64'],
-            'description' => $user['name']
+            'value'       => $user['steam_id_64'],
+            'description' => $user['name'],
         ];
     }
 

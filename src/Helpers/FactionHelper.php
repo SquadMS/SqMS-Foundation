@@ -7,30 +7,30 @@ use SquadMS\Foundation\Facades\SDKDataReader;
 
 class FactionHelper
 {
-    static function getFactionTag(string $layerOrRaw, int $teamID) : string
+    public static function getFactionTag(string $layerOrRaw, int $teamID): string
     {
         $factionName = SDKDataReader::getFactionForTeamID($layerOrRaw, $teamID);
 
         if (!is_null($factionName)) {
             if (Str::contains($factionName, ['Canadian Army'])) {
                 return 'caf';
-            } else if (Str::contains($factionName, ['Irregular Militia Forces'])) {
+            } elseif (Str::contains($factionName, ['Irregular Militia Forces'])) {
                 return 'im';
-            } else if (Str::contains($factionName, ['Insurgent Forces'])) {
+            } elseif (Str::contains($factionName, ['Insurgent Forces'])) {
                 return 'ins';
-            } else if (Str::contains($factionName, ['Russian Ground Forces'])) {
+            } elseif (Str::contains($factionName, ['Russian Ground Forces'])) {
                 return 'ru';
-            } else if (Str::contains($factionName, ['British Army'])) {
+            } elseif (Str::contains($factionName, ['British Army'])) {
                 return 'uk';
-            } else if (Str::contains($factionName, ['United States Army'])) {
+            } elseif (Str::contains($factionName, ['United States Army'])) {
                 return 'us';
-            } else if (Str::contains($factionName, ['United States Marine Corps'])) {
+            } elseif (Str::contains($factionName, ['United States Marine Corps'])) {
                 return 'usmc';
-            } else if (Str::contains($factionName, ['Middle Eastern Alliance'])) {
+            } elseif (Str::contains($factionName, ['Middle Eastern Alliance'])) {
                 return 'mea';
             }
         }
-        
+
         return 'us';
     }
 }

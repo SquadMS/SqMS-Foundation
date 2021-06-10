@@ -3,8 +3,8 @@
 namespace SquadMS\Foundation\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use SquadMS\Foundation\Modularity\SquadMSModuleRegistry;
 use SquadMS\Foundation\Facades\SquadMSModuleRegistry as FacadesSquadMSModuleRegistry;
+use SquadMS\Foundation\Modularity\SquadMSModuleRegistry;
 use SquadMS\Foundation\SquadMSModule;
 
 class ModulesServiceProvider extends ServiceProvider

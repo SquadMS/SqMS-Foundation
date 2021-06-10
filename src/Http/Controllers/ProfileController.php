@@ -9,7 +9,7 @@ use SquadMS\Foundation\Repositories\UserRepository;
 class ProfileController extends Controller
 {
     /**
-     * Shows the profile page
+     * Shows the profile page.
      *
      * @return \Illuminate\Http\Response
      */
@@ -19,7 +19,7 @@ class ProfileController extends Controller
         $user = UserRepository::getUserModelQuery()->where('steam_id_64', $steamId64)->firstOrFail();
 
         /* Show profile page */
-        return view(Config::get('sqms.theme') . '::pages.profile', [
+        return view(Config::get('sqms.theme').'::pages.profile', [
             'user' => $user,
         ]);
     }

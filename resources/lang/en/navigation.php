@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'home' => 'Home',
+    'home'    => 'Home',
     'profile' => 'Profile',
 
-    'admin' => 'Admin',
-    'login' => 'Login',
+    'admin'  => 'Admin',
+    'login'  => 'Login',
     'logout' => 'Logout',
 ];

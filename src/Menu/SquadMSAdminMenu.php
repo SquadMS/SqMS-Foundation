@@ -4,22 +4,24 @@ namespace SquadMS\Foundation\Menu;
 
 use Illuminate\Support\Collection;
 
-class SquadMSAdminMenu {
+class SquadMSAdminMenu
+{
     private Collection $store;
 
-    function __construct()
+    public function __construct()
     {
-        $this->store = new Collection();    
+        $this->store = new Collection();
     }
 
     /**
      * Registers an menu to be rendered in the admin menu at order.
      *
      * @param string $menu
-     * @param integer $order
+     * @param int    $order
+     *
      * @return void
      */
-    public function register(string $menu, int $order = 0) : void
+    public function register(string $menu, int $order = 0): void
     {
         $this->store->put($menu, $order);
     }
@@ -29,7 +31,7 @@ class SquadMSAdminMenu {
      *
      * @return Collection
      */
-    public function retrieve() : Collection
+    public function retrieve(): Collection
     {
         return $this->store->sortBy(fn ($entry) => $entry)->keys();
     }

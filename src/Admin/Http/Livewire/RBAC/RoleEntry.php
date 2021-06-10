@@ -12,7 +12,7 @@ class RoleEntry extends Component
     protected $listeners = [
         'role:updated' => '$refresh',
     ];
-    
+
     public function render()
     {
         return view('sqms-foundation::admin.livewire.rbac.role-entry');
