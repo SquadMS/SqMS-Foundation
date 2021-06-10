@@ -8,7 +8,7 @@ use Spatie\Permission\Traits\HasRoles;
 abstract class SquadMSUser extends Authenticatable
 {
     use HasRoles;
-    
+
     /**
      * The table associated with the model.
      *
@@ -40,7 +40,7 @@ abstract class SquadMSUser extends Authenticatable
         'last_fetched' => 'datetime',
     ];
 
-    public function isSystemAdmin() : bool
+    public function isSystemAdmin(): bool
     {
         return in_array($this->steam_id_64, config('sqms.admins'));
     }
@@ -50,5 +50,5 @@ abstract class SquadMSUser extends Authenticatable
      *
      * @return null|self
      */
-    public abstract static function current() : ?self;
+    abstract public static function current(): ?self;
 }

@@ -6,6 +6,6 @@ return [
     'admin' => 'Admin',
 
     'profile' => 'Profil',
-    'login' => 'Login',
-    'logout' => 'Logout',
+    'login'   => 'Login',
+    'logout'  => 'Logout',
 ];

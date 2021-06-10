@@ -3,8 +3,8 @@
 namespace SquadMS\Foundation\Auth\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use SquadMS\Foundation\Auth\SteamUser;
 use SquadMS\Foundation\Repositories\UserRepository;
 
@@ -13,7 +13,7 @@ class SteamLoginController extends AbstractSteamLoginController
     /**
      * {@inheritdoc}
      */
-    public function authenticated(Request $request, SteamUser $steamUser) : void
+    public function authenticated(Request $request, SteamUser $steamUser): void
     {
         /* Create or Update user, fetch data from SteamAPI */
         $user = UserRepository::createOrUpdate($steamUser);

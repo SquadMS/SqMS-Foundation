@@ -11,7 +11,7 @@ class SquadMSMenuHTMLEntry extends AbstractSquadMSMenuEntry
 {
     private mixed $definition;
 
-    function __construct(mixed $definition)
+    public function __construct(mixed $definition)
     {
         if (is_callable($definition) || is_string($definition)) {
             $this->definition = $definition;
@@ -20,7 +20,7 @@ class SquadMSMenuHTMLEntry extends AbstractSquadMSMenuEntry
         }
     }
 
-    public function render() : Item
+    public function render(): Item
     {
         /* Resolve the Entry markup or simply use the provided markup. */
         $html = is_callable($this->definition) ? ($this->definition)() : $this->definition;

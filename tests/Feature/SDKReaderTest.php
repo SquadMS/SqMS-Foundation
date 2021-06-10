@@ -5,7 +5,8 @@ namespace SquadMS\Foundation\Tests\Feature;
 use SquadMS\Foundation\Facades\SDKDataReader;
 use SquadMS\Foundation\Tests\TestCase;
 
-class SDKReaderTest extends TestCase {
+class SDKReaderTest extends TestCase
+{
     /**
      * Validate that the getFactionForTeamID helper is working as intended.
      *

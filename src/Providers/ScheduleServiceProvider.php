@@ -2,8 +2,8 @@
 
 namespace SquadMS\Foundation\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Support\ServiceProvider;
 use SquadMS\Foundation\Facades\SquadMSModuleRegistry;
 
 class ScheduleServiceProvider extends ServiceProvider

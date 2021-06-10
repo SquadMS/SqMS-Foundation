@@ -32,21 +32,20 @@ class SquadMSFoundationServiceProvider extends ServiceProvider
     public function boot()
     {
         /* Configuration */
-        $this->mergeConfigFrom(__DIR__ . '/../config/sqms.php', 'sqms');
+        $this->mergeConfigFrom(__DIR__.'/../config/sqms.php', 'sqms');
 
         /* Migrations */
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         /* Load Translations */
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'sqms-foundation');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'sqms-foundation');
 
         /* Publish Assets */
         if ($this->app->runningInConsole()) {
             // Publish assets
             $this->publishes([
-              __DIR__ . '/../public' => public_path('themes/sqms-foundation'),
+                __DIR__.'/../public' => public_path('themes/sqms-foundation'),
             ], 'assets');
-          
         }
     }
 }

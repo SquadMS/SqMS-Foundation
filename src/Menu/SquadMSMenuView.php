@@ -14,6 +14,7 @@ class SquadMSMenuView extends View
     public function setActive($active = true)
     {
         $this->activeOverride = $active;
+
         return $this;
     }
 
@@ -22,7 +23,7 @@ class SquadMSMenuView extends View
      */
     public function isActive(): bool
     {
-        return is_callable($this->activeOverride) ? ($this->activeOverride)() : !!$this->activeOverride;
+        return is_callable($this->activeOverride) ? ($this->activeOverride)() : (bool) $this->activeOverride;
     }
 
     public function render(): string

@@ -11,39 +11,39 @@ class SDKDataReader
 {
     private ?array $_data = null;
 
-    public function getFactionForTeamID(string $layerOrRawName, int $teamID) : ?string
+    public function getFactionForTeamID(string $layerOrRawName, int $teamID): ?string
     {
-        return Cache::tags('sqms-sdkdata')->rememberForever('sqms-sdkdata-faction-for-teamID-' . md5($layerOrRawName . $teamID), function () use ($layerOrRawName, $teamID) {
+        return Cache::tags('sqms-sdkdata')->rememberForever('sqms-sdkdata-faction-for-teamID-'.md5($layerOrRawName.$teamID), function () use ($layerOrRawName, $teamID) {
             /* Find map data */
             $data = $this->getMapData($layerOrRawName);
 
             /* Check if we found the map data */
             if ($data) {
                 /* Return the correct faction name from the data (or false since it is cacheable */
-                return Arr::get($data, 'team' . $teamID . '.faction', false);
+                return Arr::get($data, 'team'.$teamID.'.faction', false);
             }
 
             return false;
         }) ?: null;
     }
 
-    public function getSetupForTeamID(string $layerOrRawName, int $teamID) : ?string
+    public function getSetupForTeamID(string $layerOrRawName, int $teamID): ?string
     {
-        return Cache::tags('sqms-sdkdata')->rememberForever('sqms-sdkdata-setup-for-teamID-' . md5($layerOrRawName . $teamID), function () use ($layerOrRawName, $teamID) {
+        return Cache::tags('sqms-sdkdata')->rememberForever('sqms-sdkdata-setup-for-teamID-'.md5($layerOrRawName.$teamID), function () use ($layerOrRawName, $teamID) {
             /* Find map data */
             $data = $this->getMapData($layerOrRawName);
 
             /* Check if we found the map data */
             if ($data) {
                 /* Return the correct faction name from the data (or false since it is cacheable */
-                return Arr::get($data, 'team' . $teamID . '.teamSetupName', false);
+                return Arr::get($data, 'team'.$teamID.'.teamSetupName', false);
             }
 
             return false;
         }) ?: null;
     }
 
-    private function getMapData(string $layerOrRawName) : ?array
+    private function getMapData(string $layerOrRawName): ?array
     {
         /* Find layer */
         foreach (Arr::get($this->getData(), 'Maps', []) as $map) {
@@ -64,7 +64,7 @@ class SDKDataReader
      *
      * @return array
      */
-    private function getData() : array
+    private function getData(): array
     {
         /* Lazy load data file */
         if (is_null($this->_data)) {

@@ -2,7 +2,6 @@
 
 namespace SquadMS\Foundation\Auth\Http\Controllers;
 
-use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -79,7 +78,7 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
      *
      * @throws \Exception
      */
-    public function authenticate(Request $request) : RedirectResponse
+    public function authenticate(Request $request): RedirectResponse
     {
         $locale = $request->get('lang', Config::get('app.locale', 'en'));
 
@@ -89,10 +88,11 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
             if ($request->has('redirect')) {
                 if ($request->get('redirect') === 'profile') {
                     return redirect(route('profile', [
-                        'steam_id_64' => $steamUser->steamId
+                        'steam_id_64' => $steamUser->steamId,
                     ], true, $locale));
                 } else {
                     $t = $request->get('redirect');
+
                     return redirect($request->get('redirect'));
                 }
             } else {
@@ -100,6 +100,7 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
             }
         } else {
             Log::error('Steam Login failed!');
+
             return redirect(route(Config::get('sqms.routes.def.home.name'), [], true, $locale))->withErrors('Steam Login failed.');
         }
     }

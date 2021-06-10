@@ -12,9 +12,9 @@ abstract class SquadMSMenuEntry
 
     private int $order = 0;
 
-    public abstract function render() : Item;
+    abstract public function render(): Item;
 
-    public function setCondition(mixed $condition) : self
+    public function setCondition(mixed $condition): self
     {
         if (is_callable($condition) || is_array($condition) || is_string($condition) || is_bool($condition)) {
             $this->condition = $condition;
@@ -25,41 +25,41 @@ abstract class SquadMSMenuEntry
         return $this;
     }
 
-    public function getCondition() : mixed
+    public function getCondition(): mixed
     {
-        return $this->condition; 
+        return $this->condition;
     }
 
-    public function setActive(mixed $active) : self
+    public function setActive(mixed $active): self
     {
         if (is_callable($active) || is_bool($active)) {
             $this->active = $active;
         } else {
             throw new InvalidArgumentException('The $active parameter has to be of type callable or bool.');
         }
-        
+
         return $this;
     }
 
-    public function isActive() : bool
+    public function isActive(): bool
     {
         if (is_callable($this->active)) {
             /* Execute the condition callable and return its result */
             return ($this->active)($this);
         } else {
             /* Not supported or bool, make sure the return value is bool anyways by double flipping the condition */
-            return !!$this->active;
+            return (bool) $this->active;
         }
     }
 
-    public function setOrder(int $order = 0) : self
+    public function setOrder(int $order = 0): self
     {
         $this->order = $order;
 
         return $this;
     }
 
-    public function getOrder() : int
+    public function getOrder(): int
     {
         return $this->order;
     }
