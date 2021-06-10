@@ -2,12 +2,12 @@
 
 namespace SquadMS\Foundation\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
-use SquadMS\Foundation\Router\SquadMSRouter;
+use Illuminate\Support\ServiceProvider;
 use SquadMS\Foundation\Facades\SquadMSRouter as FacadesSquadMSRouter;
-use SquadMS\Foundation\Menu\SquadMSMenu;
 use SquadMS\Foundation\Menu\SquadMSAdminMenu;
+use SquadMS\Foundation\Menu\SquadMSMenu;
+use SquadMS\Foundation\Router\SquadMSRouter;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -33,13 +33,13 @@ class RouteServiceProvider extends ServiceProvider
         //$router->aliasMiddleware('can', \SquadMS\Foundation\Admin\Http\Middleware\CheckPermissions::class);
 
         /* Routes */
-        $routesPath = __DIR__ . '/../../routes';
+        $routesPath = __DIR__.'/../../routes';
         FacadesSquadMSRouter::define('sqms-foundation', function () use ($routesPath) {
             Route::group([
-                'prefix' => config('sqms.routes.prefix'),
+                'prefix'     => config('sqms.routes.prefix'),
                 'middleware' => config('sqms.routes.middleware'),
             ], function () use ($routesPath) {
-                $this->loadRoutesFrom($routesPath . '/web.php');
+                $this->loadRoutesFrom($routesPath.'/web.php');
             });
         });
     }

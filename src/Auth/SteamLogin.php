@@ -42,7 +42,7 @@ class SteamLogin implements SteamLoginInterface
 
     /**
      * SteamLogin constructor.
-     * 
+     *
      * @throws \Exception Throws an exception if the current PHP installation can not calculate SteamID's
      */
     public function __construct()
@@ -58,8 +58,8 @@ class SteamLogin implements SteamLoginInterface
      * Build the login url with optional openid.return_to and ?redirect.
      *
      * @param \Illuminate\Http\Request $request
-     * @param string|null $return
-     * @param string|null $redirectTo
+     * @param string|null              $return
+     * @param string|null              $redirectTo
      *
      * @throws \InvalidArgumentException
      *
@@ -87,11 +87,11 @@ class SteamLogin implements SteamLoginInterface
         }
 
         $params = self::buildOpenIDParams([
-            'openid.realm' => $this->realm,
-            'openid.return_to' => $authRoute . '?' . http_build_query($redirectParams),
+            'openid.realm'     => $this->realm,
+            'openid.return_to' => $authRoute.'?'.http_build_query($redirectParams),
         ]);
 
-        return self::OPENID_STEAM . '?' . http_build_query($params);
+        return self::OPENID_STEAM.'?'.http_build_query($params);
     }
 
     /**
@@ -110,7 +110,7 @@ class SteamLogin implements SteamLoginInterface
      * Set the openid.realm either by passing the URL or the domain only.
      *
      * @param \Illuminate\Http\Request $request
-     * @param string $realm
+     * @param string                   $realm
      *
      * @return \SquadMS\Foundation\Auth\SteamLogin
      */
@@ -135,7 +135,7 @@ class SteamLogin implements SteamLoginInterface
 
     /**
      * @param \Illuminate\Http\Request $request
-     * 
+     *
      * @return string
      */
     public function getRealm(Request $request): string
@@ -151,9 +151,10 @@ class SteamLogin implements SteamLoginInterface
      * Check if login is valid.
      *
      * @param \Illuminate\Http\Request $request
-     * @return SteamUser|null
-     * 
+     *
      * @throws Exception
+     *
+     * @return SteamUser|null
      */
     public function validated(Request $request): ?SteamUser
     {
@@ -172,7 +173,7 @@ class SteamLogin implements SteamLoginInterface
 
     /**
      * Return the steamid if validated.
-     * 
+     *
      * @param \Illuminate\Http\Request $request
      *
      * @return string|null
@@ -267,7 +268,7 @@ class SteamLogin implements SteamLoginInterface
         return 'https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_0'.($type === 'small' ? 1 : 2).'.png';
     }
 
-    static private function buildOpenIDParams(array $custom) : array
+    private static function buildOpenIDParams(array $custom): array
     {
         return array_merge([
             'openid.ns'         => self::OPENID_SPECS,

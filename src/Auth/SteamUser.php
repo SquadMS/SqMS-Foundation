@@ -145,7 +145,7 @@ class SteamUser extends Fluent
      *
      * @return void
      */
-    protected function userInfo() : Response
+    protected function userInfo(): Response
     {
         $response = $this->guzzle->get($this->profileDataUrl, ['connect_timeout' => Config::get('sqms.auth.timeout')]);
         $body = $response->getBody()->getContents();

@@ -12,13 +12,13 @@ class DevPostInstall extends Command
 
     public function handle()
     {
-        if (env('LARAVEL_SAIL', 0))  {
+        if (env('LARAVEL_SAIL', 0)) {
             $this->info('Detected dev environment / SAIL, running dev commands');
 
             /* Run commands */
             $this->call('sqms:permissions-sync');
             $this->call('sqms:publish-assets');
-    
+
             $this->info('Ran all automated dev commands!');
         }
     }

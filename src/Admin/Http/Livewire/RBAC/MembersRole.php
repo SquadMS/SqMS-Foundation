@@ -13,7 +13,6 @@ use SquadMS\Foundation\Repositories\UserRepository;
 class MembersRole extends AbstractModalComponent
 {
     use AuthorizesRequests;
-
     use WithPagination;
 
     public Role $role;
@@ -21,7 +20,7 @@ class MembersRole extends AbstractModalComponent
     public string $searchInstance;
     public ?SquadMSUser $selectedUser;
 
-    function __construct($id = null)
+    public function __construct($id = null)
     {
         parent::__construct($id);
 
@@ -30,8 +29,8 @@ class MembersRole extends AbstractModalComponent
     }
 
     protected $listeners = [
-        'newMemberUpdated' => 'selectUser',
-        'role:memberAdded' => '$refresh',
+        'newMemberUpdated'   => 'selectUser',
+        'role:memberAdded'   => '$refresh',
         'role:memberRemoved' => '$refresh',
     ];
 
@@ -66,14 +65,14 @@ class MembersRole extends AbstractModalComponent
     {
         /* Authorize the action */
         $this->authorize('update', $this->role);
-        
+
         /* Remove the User from the Role */
         $this->role->users()->detach($user);
 
         /* Fire the member removed event */
         $this->emit('role:memberRemoved');
     }
-    
+
     public function render()
     {
         return view('sqms-foundation::admin.livewire.rbac.members-role', [

@@ -8,15 +8,15 @@ return [
     ],
 
     'user' => [
-        'model' => \App\Models\User::class,
+        'model'          => \App\Models\User::class,
         'fetch_interval' => 12,
-        'defaults' => [
-            'name' => 'No Username :(',
+        'defaults'       => [
+            'name'   => 'No Username :(',
             'avatar' => [
-                'full' => '/images/avatar.jpg',
+                'full'   => '/images/avatar.jpg',
                 'medium' => '/images/avatar_medium.jpg',
-                'small' => '/images/avatar_small.jpg',
-            ]
+                'small'  => '/images/avatar_small.jpg',
+            ],
         ],
     ],
 
@@ -37,89 +37,89 @@ return [
     ],
 
     'routes' => [
-        'prefix' => null,
+        'prefix'     => null,
         'middleware' => ['web'],
-        'def' => [
+        'def'        => [
             'home' => [
-                'type' => 'get',
-                'name' => 'home',
-                'path' => '/',
+                'type'        => 'get',
+                'name'        => 'home',
+                'path'        => '/',
                 'middlewares' => [],
-                'controller' => \SquadMS\Foundation\Http\Controllers\HomeController::class,
-                'executor' => 'show',
-                'localized' => true,
+                'controller'  => \SquadMS\Foundation\Http\Controllers\HomeController::class,
+                'executor'    => 'show',
+                'localized'   => true,
             ],
             'profile' => [
-                'type' => 'get',
-                'name' => 'profile',
-                'path' => 'profile/{steam_id_64}',
+                'type'        => 'get',
+                'name'        => 'profile',
+                'path'        => 'profile/{steam_id_64}',
                 'middlewares' => [],
-                'controller' => \SquadMS\Foundation\Http\Controllers\ProfileController::class,
-                'executor' => 'show',
-                'localized' => true,
+                'controller'  => \SquadMS\Foundation\Http\Controllers\ProfileController::class,
+                'executor'    => 'show',
+                'localized'   => true,
             ],
             'admin-dashboard' => [
-                'type' => 'get',
-                'name' => 'admin.dashboard',
-                'path' => 'admin/dashboard',
+                'type'        => 'get',
+                'name'        => 'admin.dashboard',
+                'path'        => 'admin/dashboard',
                 'middlewares' => ['auth', 'can:sqms admin'],
-                'controller' => \SquadMS\Foundation\Admin\Http\Controllers\DashboardController::class,
-                'executor' => 'show',
-                'localized' => false,
+                'controller'  => \SquadMS\Foundation\Admin\Http\Controllers\DashboardController::class,
+                'executor'    => 'show',
+                'localized'   => false,
             ],
             'admin-rbac' => [
-                'type' => 'get',
-                'name' => 'admin.rbac',
-                'path' => 'admin/rbac',
+                'type'        => 'get',
+                'name'        => 'admin.rbac',
+                'path'        => 'admin/rbac',
                 'middlewares' => ['auth', 'can:sqms admin', 'can:sqms admin rbac'],
-                'controller' => \SquadMS\Foundation\Admin\Http\Controllers\RBACController::class,
-                'executor' => 'show',
-                'localized' => false,
+                'controller'  => \SquadMS\Foundation\Admin\Http\Controllers\RBACController::class,
+                'executor'    => 'show',
+                'localized'   => false,
             ],
             'steam-login' => [
-                'type' => 'get',
-                'name' => 'steam.login',
-                'path' => 'steam/login',
+                'type'        => 'get',
+                'name'        => 'steam.login',
+                'path'        => 'steam/login',
                 'middlewares' => ['guest'],
-                'controller' => \SquadMS\Foundation\Auth\Http\Controllers\SteamLoginController::class,
-                'executor' => 'login',
-                'localized' => true,
+                'controller'  => \SquadMS\Foundation\Auth\Http\Controllers\SteamLoginController::class,
+                'executor'    => 'login',
+                'localized'   => true,
             ],
             'steam-auth' => [
-                'type' => 'get',
-                'name' => 'steam.auth',
-                'path' => 'steam/auth',
+                'type'        => 'get',
+                'name'        => 'steam.auth',
+                'path'        => 'steam/auth',
                 'middlewares' => ['guest'],
-                'controller' => \SquadMS\Foundation\Auth\Http\Controllers\SteamLoginController::class,
-                'executor' => 'authenticate',
-                'localized' => false,
+                'controller'  => \SquadMS\Foundation\Auth\Http\Controllers\SteamLoginController::class,
+                'executor'    => 'authenticate',
+                'localized'   => false,
             ],
             'logout' => [
-                'type' => 'post',
-                'name' => 'logout',
-                'path' => 'logout',
+                'type'        => 'post',
+                'name'        => 'logout',
+                'path'        => 'logout',
                 'middlewares' => ['auth'],
-                'controller' => \SquadMS\Foundation\Auth\Http\Controllers\SteamLoginController::class,
-                'executor' => 'logout',
-                'localized' => true,
-            ]
-        ]
+                'controller'  => \SquadMS\Foundation\Auth\Http\Controllers\SteamLoginController::class,
+                'executor'    => 'logout',
+                'localized'   => true,
+            ],
+        ],
     ],
 
     'menu' => [
         'activeClassOnLink' => true,
-        'entry-view' => 'components.navigation.item',
+        'entry-view'        => 'components.navigation.item',
     ],
 
     'permissions' => [
-        'module' => 'sqms',
+        'module'      => 'sqms',
         'definitions' => [
             'admin'           => 'Grant access to the AdminCP',
             'admin rbac'      => 'Grant access to the RBAC Management',
-        ]
+        ],
     ],
 
     'sdkdata' => [
         'data-url' => 'https://raw.githubusercontent.com/Squad-Wiki-Editorial/squad-wiki-pipeline-map-data/master/completed_output/_Current%20Version/finished.json',
-    ]
+    ],
 ];

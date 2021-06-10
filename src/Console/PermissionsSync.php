@@ -23,7 +23,7 @@ class PermissionsSync extends Command
         $pairs = [];
         foreach (array_keys($definitions) as $definition) {
             $pairs[] = [
-                'name' => $definition,
+                'name'       => $definition,
                 'guard_name' => Config::get('auth.defaults.guard', 'web'),
             ];
         }

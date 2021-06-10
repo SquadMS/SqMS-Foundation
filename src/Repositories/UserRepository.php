@@ -13,9 +13,11 @@ class UserRepository
     /**
      * Returns a query builder for the configured user model.
      */
-    public static function getUserModelQuery() : Builder {
+    public static function getUserModelQuery(): Builder
+    {
         $class = Config::get('sqms.user.model');
-        return call_user_func($class . '::query');
+
+        return call_user_func($class.'::query');
     }
 
     public static function createOrUpdateBulk(array $steamUsers, bool $shallow = false)
@@ -28,33 +30,33 @@ class UserRepository
         }
 
         $updateRows = [
-            'steam_account_url', 
-            'steam_account_id', 
-            'steam_id_64', 
-            'steam_id_2', 
+            'steam_account_url',
+            'steam_account_id',
+            'steam_id_64',
+            'steam_id_2',
             'steam_id_3',
         ];
 
         if (!$shallow) {
             $updateRows = array_merge($updateRows, [
-                'name', 
-                'avatar', 
-                'avatar_medium', 
-                'avatar_small'
+                'name',
+                'avatar',
+                'avatar_medium',
+                'avatar_small',
             ]);
         }
 
         return self::getUserModelQuery()->upsert($rows, ['steam_account_id'], $updateRows);
     }
 
-    public static function createOrUpdate(SteamUser $steamUser, bool $shallow = false) : SquadMSUser
+    public static function createOrUpdate(SteamUser $steamUser, bool $shallow = false): SquadMSUser
     {
         return self::getUserModelQuery()->updateOrCreate([
             'steam_account_id' => $steamUser->accountId,
         ], self::createUserData($steamUser, !$shallow));
     }
 
-    public static function createUserData(SteamUser $steamUser, bool $fetch = true) : array
+    public static function createUserData(SteamUser $steamUser, bool $fetch = true): array
     {
         /* Initialize a data badge with all required parameters, these can be computed from the single steamId */
         $data = [
@@ -70,7 +72,7 @@ class UserRepository
             if (!$steamUser->isFetched()) {
                 $steamUser->getUserInfo();
             }
-            
+
             /* Add the fetched information to the data badge, also set the last_fetched attribute */
             $data = array_merge($data, [
                 'name'          => $steamUser->name,
@@ -88,7 +90,7 @@ class UserRepository
     /**
      * Get 100 users that have not been fetched for 12 Hours or provided list.
      */
-    static function getUnfetchedSteamIDs() : array
+    public static function getUnfetchedSteamIDs(): array
     {
         return self::getUserModelQuery()->whereNull('last_fetched')
                                        ->orWhere('last_fetched', '<=', Carbon::now()->subHours(Config::get('sqms.user.fetch_interval')))
@@ -98,9 +100,9 @@ class UserRepository
                                        ->toArray();
     }
 
-    static function excludeFetchedSteamIDs(array $steamIDs) : array
+    public static function excludeFetchedSteamIDs(array $steamIDs): array
     {
-        return self::getUserModelQuery()->whereIn('steam_id_64', $steamIDs)->where(function(Builder $q) {
+        return self::getUserModelQuery()->whereIn('steam_id_64', $steamIDs)->where(function (Builder $q) {
             $q->whereNull('last_fetched')->orWhere('last_fetched', '<=', Carbon::now()->subHours(Config::get('sqms.user.fetch_interval')));
         })->pluck('steam_id_64')->toArray();
     }

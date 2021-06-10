@@ -13,18 +13,19 @@ class EditRole extends AbstractModalComponent
     public Role $role;
 
     protected $rules = [
-        'role.name' => null // TODO: Remove this somehow...
+        'role.name' => null, // TODO: Remove this somehow...
     ];
 
-    public function updateRole() {
+    public function updateRole()
+    {
         /* Authorize the action */
         $this->authorize('update', $this->role);
 
         /* Validate the data first */
         $this->validate([
-            'role.name' => 'required|string|unique:Spatie\Permission\Models\Role,name,' . $this->role->id,
+            'role.name' => 'required|string|unique:Spatie\Permission\Models\Role,name,'.$this->role->id,
         ]);
-        
+
         /* Create the Role */
         $this->role->save();
 
@@ -34,14 +35,15 @@ class EditRole extends AbstractModalComponent
         $this->emitUp('role:updated');
     }
 
-    public function togglePermission(string $definition, bool $state) {
+    public function togglePermission(string $definition, bool $state)
+    {
         if ($state) {
             $this->role->givePermissionTo($definition);
         } else {
             $this->role->revokePermissionTo($definition);
         }
     }
-    
+
     public function render()
     {
         return view('sqms-foundation::admin.livewire.rbac.edit-role');

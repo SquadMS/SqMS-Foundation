@@ -12,20 +12,21 @@ class DeleteRole extends AbstractModalComponent
 
     public Role $role;
 
-    public function deleteRole() {
+    public function deleteRole()
+    {
         /* Authorize the action */
         $this->authorize('delete', $this->role);
 
         /* Delete the Role */
-        $this->role->delete();    
-        
+        $this->role->delete();
+
         /* Hide the modal (backdrop) */
         $this->hideModal();
 
         /* Emit event */
         $this->emit('role:deleted');
     }
-    
+
     public function render()
     {
         return view('sqms-foundation::admin.livewire.rbac.delete-role');
