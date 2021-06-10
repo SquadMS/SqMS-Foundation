@@ -15,8 +15,11 @@ class TestCase extends OrchestraTestCase
     protected function getPackageProviders($app)
     {
         return [
+            // Package Providers
             \Livewire\LivewireServiceProvider::class,
+            \PeterColes\Languages\LanguagesServiceProvider::class,
 
+            // SquadMS Foundation Providers
             \SquadMS\Foundation\SquadMSFoundationServiceProvider::class,
             \SquadMS\Foundation\Providers\ScheduleServiceProvider::class,
             \SquadMS\Foundation\Providers\PermissionsServiceProvider::class,
@@ -31,6 +34,9 @@ class TestCase extends OrchestraTestCase
 
     protected function getEnvironmentSetUp($app)
     {
-        // perform environment setup
+        config()->set('localized-routes.supported-locales', [
+            'en', 
+            'de'
+        ]);
     }
 }
