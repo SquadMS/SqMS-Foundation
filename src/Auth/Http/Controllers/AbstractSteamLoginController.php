@@ -2,10 +2,10 @@
 
 namespace SquadMS\Foundation\Auth\Http\Controllers;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -13,10 +13,12 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use SquadMS\Foundation\Auth\Contracts\SteamLoginControllerInterface;
 use SquadMS\Foundation\Auth\SteamLogin;
-use SquadMS\Foundation\Auth\Http\Requests\LogOutOtherDevicesRequest;
+use SquadMS\Foundation\Repositories\UserRepository;
 
 abstract class AbstractSteamLoginController extends Controller implements SteamLoginControllerInterface
 {
+    use AuthorizesRequests;
+
     protected Request $request;
 
     protected SteamLogin $steam;
@@ -60,10 +62,16 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
      *
      * @return \Illuminate\Http\Response
      */
-    public function logoutOtherDevices(LogOutOtherDevicesRequest $request)
+    public function logoutOtherDevices(string $steamId64)
     {
-        /* Log out the current user and use the password provided and validated in the LogOutOtherDevicesRequest FormRequest */
-        Auth::logoutOtherDevices(Arr::get($request->validated(), 'password'));
+        /** @var \App\Models\User Find user given steamId64 */
+        $user = UserRepository::getUserModelQuery()->where('steam_id_64', $steamId64)->firstOrFail();
+
+        /* Check if the current User can logout the found Users other devices */
+        $this->authorize('logoutOtherDevices', $user);
+
+        /* Log out the current users other devices using the default password */
+        Auth::logoutOtherDevices(Config::get('sqms.user.default-password', 'DefaultUserPassword'));
 
         /* Go back to where we came from */
         return redirect()->back()->withSuccess('Successfully logged out other sessions!');

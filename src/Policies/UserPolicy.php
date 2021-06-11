@@ -112,4 +112,18 @@ class UserPolicy
     {
         return $user->id === $subject->id || $user->can(Config::get('sqms.permissions.module') .  ' admin profile-moderation');
     }
+
+    /**
+     * Determine whether the user canlog out all other sessions.
+     * This can only be done by the User itself.
+     *
+     * @param \SquadMS\Foundation\Contracts\SquadMSUser  $user
+     * @param \SquadMS\Foundation\Contracts\SquadMSUser  $subject
+     *
+     * @return mixed
+     */
+    public function logoutOtherDevices(SquadMSUser $user, SquadMSUser $subject)
+    {
+        return $user->id === $subject->id;
+    }
 }

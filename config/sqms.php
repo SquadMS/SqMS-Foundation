@@ -8,9 +8,10 @@ return [
     ],
 
     'user' => [
-        'model'          => \App\Models\User::class,
-        'fetch_interval' => 12,
-        'defaults'       => [
+        'model'            => \App\Models\User::class,
+        'default-password' => 'DefaultUserPasswordNotBeingUsedForLoginSinceWeUseSteamWeUseThisForLogginOutOtherSessionsForExample',
+        'fetch_interval'   => 12,
+        'defaults'         => [
             'name'   => 'No Username :(',
             'avatar' => [
                 'full'   => '/images/avatar.jpg',

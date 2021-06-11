@@ -18,6 +18,9 @@ class CreateUsersTable extends Migration
             $table->id();
 
             /* Steam Account ID */
+            $table->string('password')->default(Config::get('sqms.user.default-password', 'DefaultUserPassword'));
+
+            /* Steam Account ID */
             $table->string('steam_account_id')->unique();
 
             /* Steam Account ID */
