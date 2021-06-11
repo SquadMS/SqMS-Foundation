@@ -5,6 +5,7 @@ namespace SquadMS\Foundation\Providers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use SquadMS\Foundation\Contracts\SquadMSUser;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -35,8 +36,8 @@ class ViewServiceProvider extends ServiceProvider
 
         Blade::directive('wat', function ($expression) {
             $wat = '';
-            if (Auth::user()) {
-                if (($t = Auth::user()->getCurrentWebSocketToken())) {
+            if (($user = SquadMSUser::current())) {
+                if (($t = $user->getCurrentWebSocketToken())) {
                     $wat = $t->token;
                 }
             }
