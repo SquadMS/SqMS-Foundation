@@ -61,11 +61,7 @@ abstract class SquadMSUser extends Authenticatable
             $agent = $this->createAgent($session);
 
             return (object) [
-                'agent' => [
-                    'is_desktop' => $agent->isDesktop(),
-                    'platform' => $agent->platform(),
-                    'browser' => $agent->browser(),
-                ],
+                'agent' => $agent,
                 'ip_address' => $session->ip_address,
                 'is_current_device' => $session->id === Request::session()->getId(),
                 'last_active' => Carbon::createFromTimestamp($session->last_activity)->diffForHumans(),
