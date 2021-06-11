@@ -82,11 +82,8 @@ abstract class SquadMSUser extends Authenticatable
 
     /**
      * Create a new agent instance from the given session.
-     *
-     * @param  mixed  $session
-     * @return \Jenssegers\Agent\Agent
      */
-    protected function createAgent($session)
+    protected function createAgent(mixed $session): Agent
     {
         return tap(new Agent, function ($agent) use ($session) {
             $agent->setUserAgent($session->user_agent);
