@@ -62,14 +62,8 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
      *
      * @return \Illuminate\Http\Response
      */
-    public function logoutOtherDevices(string $steamId64)
+    public function logoutOtherDevices()
     {
-        /** @var \App\Models\User Find user given steamId64 */
-        $user = UserRepository::getUserModelQuery()->where('steam_id_64', $steamId64)->firstOrFail();
-
-        /* Check if the current User can logout the found Users other devices */
-        $this->authorize('logoutOtherDevices', $user);
-
         /* Log out the current users other devices using the default password */
         Auth::logoutOtherDevices(Config::get('sqms.user.default-password', 'DefaultUserPassword'));
 
