@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
@@ -18,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->id();
 
             /* Steam Account ID */
-            $table->string('password')->default(Config::get('sqms.user.default-password', 'DefaultUserPassword'));
+            $table->string('password')->default(Hash::make(Config::get('sqms.user.default-password', 'DefaultUserPassword')));
 
             /* Steam Account ID */
             $table->string('steam_account_id')->unique();
