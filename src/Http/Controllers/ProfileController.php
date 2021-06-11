@@ -23,4 +23,20 @@ class ProfileController extends Controller
             'user' => $user,
         ]);
     }
+
+    /**
+     * Shows the profile page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function settings(string $steamId64)
+    {
+        /** @var \App\Models\User Find user given steamId64 */
+        $user = UserRepository::getUserModelQuery()->where('steam_id_64', $steamId64)->firstOrFail();
+
+        /* Show profile page */
+        return view(Config::get('sqms.theme').'::pages.profile-settings', [
+            'user' => $user,
+        ]);
+    }
 }

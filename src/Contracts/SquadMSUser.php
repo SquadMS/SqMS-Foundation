@@ -2,7 +2,12 @@
 
 namespace SquadMS\Foundation\Contracts;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 use Spatie\Permission\Traits\HasRoles;
 
 abstract class SquadMSUser extends Authenticatable
@@ -43,6 +48,29 @@ abstract class SquadMSUser extends Authenticatable
     public function isSystemAdmin(): bool
     {
         return in_array($this->steam_id_64, config('sqms.admins'));
+    }
+
+    public function getRunningSessions() : Collection
+    {
+        return collect(
+            DB::connection(config('session.connection'))->table(config('session.table', 'sessions'))
+                    ->where('user_id', $this->getAuthIdentifier())
+                    ->orderBy('last_activity', 'desc')
+                    ->get()
+        )->map(function ($session) {
+            $agent = $this->createAgent($session);
+
+            return (object) [
+                'agent' => [
+                    'is_desktop' => $agent->isDesktop(),
+                    'platform' => $agent->platform(),
+                    'browser' => $agent->browser(),
+                ],
+                'ip_address' => $session->ip_address,
+                'is_current_device' => $session->id === Request::session()->getId(),
+                'last_active' => Carbon::createFromTimestamp($session->last_activity)->diffForHumans(),
+            ];
+        });
     }
 
     /**

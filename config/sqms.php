@@ -58,6 +58,15 @@ return [
                 'executor'    => 'show',
                 'localized'   => true,
             ],
+            'profile-settings' => [
+                'type'        => 'get',
+                'name'        => 'profile-settings',
+                'path'        => 'profile/{steam_id_64}/settings',
+                'middlewares' => [],
+                'controller'  => \SquadMS\Foundation\Http\Controllers\ProfileController::class,
+                'executor'    => 'settings',
+                'localized'   => true,
+            ],
             'admin-dashboard' => [
                 'type'        => 'get',
                 'name'        => 'admin.dashboard',
@@ -103,6 +112,15 @@ return [
                 'executor'    => 'logout',
                 'localized'   => true,
             ],
+            'logoutOtherDevices' => [
+                'type'        => 'post',
+                'name'        => 'logoutOtherDevices',
+                'path'        => 'logoutOtherDevices',
+                'middlewares' => [],
+                'controller'  => \SquadMS\Foundation\Auth\Http\Controllers\SteamLoginController::class,
+                'executor'    => 'logoutOtherDevices',
+                'localized'   => true,
+            ]
         ],
     ],
 

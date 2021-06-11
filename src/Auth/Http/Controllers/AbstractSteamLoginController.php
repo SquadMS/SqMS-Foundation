@@ -5,6 +5,7 @@ namespace SquadMS\Foundation\Auth\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use SquadMS\Foundation\Auth\Contracts\SteamLoginControllerInterface;
 use SquadMS\Foundation\Auth\SteamLogin;
+use SquadMS\Foundation\Auth\Http\Requests\LogOutOtherDevicesRequest;
 
 abstract class AbstractSteamLoginController extends Controller implements SteamLoginControllerInterface
 {
@@ -51,6 +53,20 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
         } else {
             return redirect(route(Config::get('sqms.routes.def.home.name'), [], true, App::getLocale()));
         }
+    }
+
+    /**
+     * Logs out the current users other devices while leaving the current session untouched
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function logoutOtherDevices(LogOutOtherDevicesRequest $request)
+    {
+        /* Log out the current user and use the password provided and validated in the LogOutOtherDevicesRequest FormRequest */
+        Auth::logoutOtherDevices(Arr::get($request->validated(), 'password'));
+
+        /* Go back to where we came from */
+        return redirect()->back()->withSuccess('Successfully logged out other sessions!');
     }
 
     /**
