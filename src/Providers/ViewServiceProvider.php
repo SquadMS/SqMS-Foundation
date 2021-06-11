@@ -2,6 +2,7 @@
 
 namespace SquadMS\Foundation\Providers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,6 +31,16 @@ class ViewServiceProvider extends ServiceProvider
         /* Add isAdmin directive */
         Blade::if('admin', function ($user) {
             return $user && ($user->isSystemAdmin() || $user->can('admin'));
+        });
+
+        Blade::directive('wat', function ($expression) {
+            $wat = '';
+            if (Auth::user()) {
+                if (($t = Auth::user()->getCurrentWebSocketToken())) {
+                    $wat = $t->token;
+                }
+            }
+            return '<meta name="wat" content="{{ $wat }}">';
         });
     }
 }

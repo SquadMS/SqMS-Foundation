@@ -93,6 +93,11 @@ abstract class SquadMSUser extends Authenticatable
         });
     }
 
+    public function getCurrentWebSocketToken() : ?WebsocketToken
+    {
+        return $this->websocketTokens()->where('session_id', Request::session()->getId())->first();
+    }
+
     /**
      * Helper to retrieve the current user or null.
      *
