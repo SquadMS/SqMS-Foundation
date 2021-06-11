@@ -3,12 +3,15 @@
 namespace SquadMS\Foundation\Contracts;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Jenssegers\Agent\Agent;
 use Spatie\Permission\Traits\HasRoles;
+use SquadMS\Foundation\Models\WebsocketToken;
 
 abstract class SquadMSUser extends Authenticatable
 {
@@ -45,6 +48,27 @@ abstract class SquadMSUser extends Authenticatable
         'last_fetched' => 'datetime',
     ];
 
+    /**
+     * Scope a query to only include users that have the given websocket_token.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeHasWebsocketToken($query, $token)
+    {
+        return $query->whereHas('websocketTokens', function ($query) use ($token) {
+            return $query->where('token', $token);
+        });
+    }
+    
+    /**
+     * Get the WebsocketTokens for the User.
+     */
+    public function websocketTokens(): HasMany
+    {
+        return $this->hasMany(WebsocketToken::class);
+    }
+
     public function isSystemAdmin(): bool
     {
         return in_array($this->steam_id_64, config('sqms.admins'));
@@ -74,7 +98,10 @@ abstract class SquadMSUser extends Authenticatable
      *
      * @return null|self
      */
-    abstract public static function current(): ?self;
+    public static function current(): ?self
+    {
+        return Auth::user();
+    }
 
     /**
      * Create a new agent instance from the given session.

@@ -15,17 +15,16 @@ class SteamLoginController extends AbstractSteamLoginController
      */
     public function authenticated(Request $request, SteamUser $steamUser): void
     {
-        /* Create or Update user, fetch data from SteamAPI */
+        /** @var \SquadMS\Foundation\Contracts\SquadMSUser Create or Update user, fetch data from SteamAPI */
         $user = UserRepository::createOrUpdate($steamUser);
 
         /* Login the user using the Auth facade */
         Auth::login($user, true);
 
-        /* Set the api_token (if none is set) */
-        if (!$user->api_token) {
-            $user->update([
-                'api_token' => Str::random(60),
-            ]);
-        }
+        /* Create a new Websocket Token for the Session */
+        $user->websocketTokens()->create([
+            'token'      => Str::random(128),
+            'session_id' => $request->session()->getId(),
+        ]);
     }
 }

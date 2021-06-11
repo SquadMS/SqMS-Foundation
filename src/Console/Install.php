@@ -35,14 +35,6 @@ class Install extends Command
      */
     protected function configureSession()
     {
-        if (! class_exists('CreateSessionsTable')) {
-            try {
-                $this->call('session:table');
-            } catch (\Exception $e) {
-                //
-            }
-        }
-
         $this->replaceInFile("/'SESSION_DRIVER', '.*'/m", "'SESSION_DRIVER', 'database'", config_path('session.php'), true);
         $this->replaceInFile('/^SESSION_DRIVER=file/m', 'SESSION_DRIVER=database', base_path('.env'), true);
         $this->replaceInFile('/^SESSION_DRIVER=file/m', 'SESSION_DRIVER=database', base_path('.env.example'), true);
