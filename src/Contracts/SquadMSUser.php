@@ -5,9 +5,9 @@ namespace SquadMS\Foundation\Contracts;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
+use Jenssegers\Agent\Agent;
 use Spatie\Permission\Traits\HasRoles;
 
 abstract class SquadMSUser extends Authenticatable
@@ -79,4 +79,17 @@ abstract class SquadMSUser extends Authenticatable
      * @return null|self
      */
     abstract public static function current(): ?self;
+
+    /**
+     * Create a new agent instance from the given session.
+     *
+     * @param  mixed  $session
+     * @return \Jenssegers\Agent\Agent
+     */
+    protected function createAgent($session)
+    {
+        return tap(new Agent, function ($agent) use ($session) {
+            $agent->setUserAgent($session->user_agent);
+        });
+    }
 }
