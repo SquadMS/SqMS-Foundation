@@ -43,21 +43,23 @@ class Install extends Command
             }
         }
 
-        $this->replaceInFile("'SESSION_DRIVER', 'file'", "'SESSION_DRIVER', 'database'", config_path('session.php'));
-        $this->replaceInFile('SESSION_DRIVER=file', 'SESSION_DRIVER=database', base_path('.env'));
-        $this->replaceInFile('SESSION_DRIVER=file', 'SESSION_DRIVER=database', base_path('.env.example'));
+        $this->replaceInFile("/'SESSION_DRIVER', '.*'/m", "'SESSION_DRIVER', 'database'", config_path('session.php'), true);
+        $this->replaceInFile('/^SESSION_DRIVER=file/m', 'SESSION_DRIVER=database', base_path('.env'), true);
+        $this->replaceInFile('/^SESSION_DRIVER=file/m', 'SESSION_DRIVER=database', base_path('.env.example'), true);
     }
 
     /**
      * Replace a given string within a given file.
-     *
-     * @param  string  $search
-     * @param  string  $replace
-     * @param  string  $path
-     * @return void
      */
-    protected function replaceInFile($search, $replace, $path)
+    protected function replaceInFile(string $search, string $replace, string $path, bool $regex = false): void
     {
-        file_put_contents($path, str_replace($search, $replace, file_get_contents($path)));
+        $original = file_get_contents($path);
+        if ($regex) {
+            $modified = preg_replace($original, $replace, $original);
+        } else {
+            $modified = str_replace($search, $replace, $original);
+        }
+
+        file_put_contents($path, $modified ?? $original);
     }
 }
