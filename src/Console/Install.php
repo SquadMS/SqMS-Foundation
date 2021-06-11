@@ -18,7 +18,7 @@ class Install extends Command
         // AuthenticateSession Middleware...
         $this->replaceInFile(
             '// \Illuminate\Session\Middleware\AuthenticateSession::class',
-            '\Laravel\Jetstream\Http\Middleware\AuthenticateSession::class',
+            '\SquadMS\Foundation\Http\Middleware\AuthenticateSession::class',
             app_path('Http/Kernel.php')
         );
 
