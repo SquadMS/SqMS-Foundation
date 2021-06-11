@@ -17,7 +17,8 @@ class CreateWebsocketTokensTable extends Migration
             $table->id();
             
             /* The Session related to this token  */
-            $table->string('session_id')->references('id')->on('sessions')->onDelete('cascade');
+            $table->string('session_id');
+            $table->foreign('session_id')->references('id')->on('sessions')->onDelete('cascade');
 
             /* The User related to the token */
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
