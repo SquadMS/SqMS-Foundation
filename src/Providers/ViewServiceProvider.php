@@ -34,7 +34,7 @@ class ViewServiceProvider extends ServiceProvider
             return $user && ($user->isSystemAdmin() || $user->can('admin'));
         });
 
-        Blade::directive('wat', function ($expression) {
+        Blade::directive('websocketToken', function ($expression) {
             $wat = '';
             if (($user = SquadMSUser::current())) {
                 if (($t = $user->getCurrentWebSocketToken())) {
