@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Jenssegers\Agent\Agent;
@@ -91,6 +92,44 @@ abstract class SquadMSUser extends Authenticatable
                 'last_active' => Carbon::createFromTimestamp($session->last_activity)->diffForHumans(),
             ];
         });
+    }
+
+    /**
+     * Delete the other browser session records from storage.
+     */
+    public function deleteOtherSessionRecords(): void
+    {
+        if (Config::get('session.driver') !== 'database') {
+            return;
+        }
+
+        DB::connection(Config::get('session.connection'))
+            ->table(Config::get('session.table', 'sessions'))
+            ->where('user_id', $this->getAuthIdentifier())
+            ->where('id', '!=', Request::session()->getId())
+            ->delete();
+    }
+
+    /**
+     * Delete the current browser session record from storage.
+     */
+    public function deleteSessionRecord(?string $sessionId = null): void
+    {
+        if (Config::get('session.driver') !== 'database') {
+            return;
+        }
+
+        $query = DB::connection(Config::get('session.connection'))
+            ->table(Config::get('session.table', 'sessions'))
+            ->where('user_id', $this->getAuthIdentifier());
+
+        if (is_null($sessionId)) {
+            $query = $query->where('id', '=', Request::session()->getId());
+        } else {
+            $query = $query->where('id', '=', $sessionId);
+        }
+            
+        $query->delete();
     }
 
     public function getCurrentWebSocketToken() : ?WebsocketToken

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use SquadMS\Foundation\Auth\Contracts\SteamLoginControllerInterface;
 use SquadMS\Foundation\Auth\SteamLogin;
+use SquadMS\Foundation\Contracts\SquadMSUser;
 use SquadMS\Foundation\Repositories\UserRepository;
 
 abstract class AbstractSteamLoginController extends Controller implements SteamLoginControllerInterface
@@ -48,7 +49,15 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
      */
     public function logout(Request $request): RedirectResponse
     {
+        /* Get the current user and session id */
+        $user      = SquadMSUser::current();
+        $sessionId = $request->session()->getId();
+
+        /* Logout the User */
         Auth::logout();
+
+        /* Actively delete the session record */
+        $user->deleteSessionRecord($sessionId);
 
         if (Config::get('sqms.auth.redirect', 0) >= 1) {
             return redirect(URL::previous());
@@ -66,6 +75,9 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
     {
         /* Log out the current users other devices using the default password */
         Auth::logoutOtherDevices(Config::get('sqms.user.default-password', 'DefaultUserPassword'));
+
+        /* Delete all other session records from DB other than this one */
+        SquadMSUser::current()->deleteOtherSessionRecords();
 
         /* Go back to where we came from */
         return redirect()->back()->withSuccess('Successfully logged out other sessions!');
