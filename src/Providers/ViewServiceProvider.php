@@ -41,7 +41,7 @@ class ViewServiceProvider extends ServiceProvider
                     $wat = $t->token;
                 }
             }
-            return '<meta name="wat" content="{{ $wat }}">';
+            return '<meta name="wat" content="' . $wat . '">';
         });
     }
 }
