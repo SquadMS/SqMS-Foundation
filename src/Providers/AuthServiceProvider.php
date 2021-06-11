@@ -3,20 +3,14 @@
 namespace SquadMS\Foundation\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Config;
 use Spatie\Permission\Models\Role;
+use SquadMS\Foundation\Contracts\SquadMSUser;
 use SquadMS\Foundation\Policies\RBACPolicy;
+use SquadMS\Foundation\Policies\UserPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
-    /**
-     * The policy mappings for the application.
-     *
-     * @var array
-     */
-    protected $policies = [
-        Role::class => RBACPolicy::class,
-    ];
-
     public function register()
     {
         //
@@ -26,5 +20,18 @@ class AuthServiceProvider extends ServiceProvider
     {
         /* Permissions */
         $this->registerPolicies();
+    }
+
+    /**
+     * The policy mappings for the application.
+     *
+     * @return array
+     */
+    public function policies()
+    {
+        return [
+            Role::class => RBACPolicy::class,
+            Config::get('sqms.user.model') => UserPolicy::class,
+        ];
     }
 }

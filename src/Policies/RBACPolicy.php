@@ -3,6 +3,7 @@
 namespace SquadMS\Foundation\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Config;
 use Spatie\Permission\Models\Role;
 use SquadMS\Foundation\Contracts\SquadMSUser;
 
@@ -19,7 +20,7 @@ class RBACPolicy
      */
     public function viewAny(SquadMSUser $user)
     {
-        return $user->can('admin rbac');
+        return $user->can(Config::get('sqms.permissions.module') .  ' admin rbac');
     }
 
     /**
@@ -32,7 +33,7 @@ class RBACPolicy
      */
     public function view(SquadMSUser $user, Role $role)
     {
-        return $user->can('admin rbac');
+        return $user->can(Config::get('sqms.permissions.module') .  ' admin rbac');
     }
 
     /**
@@ -44,7 +45,7 @@ class RBACPolicy
      */
     public function create(SquadMSUser $user)
     {
-        return $user->can('admin rbac');
+        return $user->can(Config::get('sqms.permissions.module') .  ' admin rbac');
     }
 
     /**
@@ -57,7 +58,7 @@ class RBACPolicy
      */
     public function update(SquadMSUser $user, Role $role)
     {
-        return $user->can('admin rbac');
+        return $user->can(Config::get('sqms.permissions.module') .  ' admin rbac');
     }
 
     /**
@@ -70,7 +71,7 @@ class RBACPolicy
      */
     public function delete(SquadMSUser $user, Role $role)
     {
-        return $user->can('admin rbac');
+        return $user->can(Config::get('sqms.permissions.module') .  ' admin rbac');
     }
 
     /**
@@ -83,7 +84,7 @@ class RBACPolicy
      */
     public function restore(SquadMSUser $user, Role $role)
     {
-        return $user->can('admin rbac');
+        return $user->can(Config::get('sqms.permissions.module') .  ' admin rbac');
     }
 
     /**
@@ -96,6 +97,6 @@ class RBACPolicy
      */
     public function forceDelete(SquadMSUser $user, Role $role)
     {
-        return $user->can('admin rbac');
+        return $user->can(Config::get('sqms.permissions.module') .  ' admin rbac');
     }
 }

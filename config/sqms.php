@@ -132,8 +132,9 @@ return [
     'permissions' => [
         'module'      => 'sqms',
         'definitions' => [
-            'admin'           => 'Grant access to the AdminCP',
-            'admin rbac'      => 'Grant access to the RBAC Management',
+            'admin'                    => 'Grant access to the AdminCP',
+            'admin rbac'               => 'Grant access to the RBAC Management',
+            'admin profile-moderation' => 'Grant access to other Users Profile-Settings',
         ],
     ],
 
