@@ -55,7 +55,7 @@ class Install extends Command
     {
         $original = file_get_contents($path);
         if ($regex) {
-            $modified = preg_replace($original, $replace, $original);
+            $modified = preg_replace($search, $replace, $original);
         } else {
             $modified = str_replace($search, $replace, $original);
         }
