@@ -1,38 +1,13 @@
 <?php
 
-namespace SquadMS\Foundation\Router;
+namespace SquadMS\Foundation\Helpers;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Route;
-use SquadMS\Foundation\Router\Exceptions\DuplicateRouteDefinitionException;
 
-class SquadMSRouter
+class SquadMSRouteHelper
 {
-    private Collection $registry;
-
-    public function __construct()
-    {
-        $this->registry = new Collection();
-    }
-
-    public function define(string $identifier, callable $definition): void
-    {
-        if ($this->registry->has($identifier)) {
-            throw new DuplicateRouteDefinitionException('A route definition with identifier "'.$identifier.'" has aleady been registered!');
-        }
-
-        $this->registry->put($identifier, $definition);
-    }
-
-    public function register(): void
-    {
-        foreach ($this->registry as $definition) {
-            $definition();
-        }
-    }
-
-    public static function webRoutes(array $definitions): void
+    public static function configurableRoutes(array $definitions): void
     {
         /* Define routes from config */
         foreach ($definitions as $definition) {
