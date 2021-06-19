@@ -32,7 +32,7 @@
         {{ $roles->links() }}
 
         @if ($selectedRole)
-            <x-sqms-foundation::dialog-modal model="showMembersModal" maxWidth="xl" fullscreen="xl">
+            <x-sqms-foundation::dialog-modal model="showMembersModal" maxWidth="xl" fullscreen="xl" class="text-start">
                 <x-slot name="title">
                     Role Members
                 </x-slot>
@@ -86,7 +86,7 @@
                 </x-slot>
             </x-sqms-foundation::dialog-modal>
 
-            <x-sqms-foundation::dialog-modal model="showEditModal" maxWidth="xl" fullscreen="xl">
+            <x-sqms-foundation::dialog-modal model="showEditModal" maxWidth="xl" fullscreen="xl" class="text-start">
                 <x-slot name="title">
                     Edit Role
                 </x-slot>
@@ -155,7 +155,7 @@
                 </x-slot>
             </x-sqms-foundation::dialog-modal>
             
-            <x-sqms-foundation::confirm-modal model="showDeleteModal">
+            <x-sqms-foundation::confirm-modal model="showDeleteModal" class="text-start">
                 <x-slot name="title">
                     Delete Role
                 </x-slot>
