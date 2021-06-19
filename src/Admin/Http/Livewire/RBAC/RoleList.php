@@ -111,7 +111,7 @@ class RoleList extends Component
         /* Create the Role */
         $this->selectedRole->save();
 
-        $this->hideModal();
+        $this->showEditModal = false;
 
         /* Emit event */
         $this->emitUp('role:updated');
@@ -142,7 +142,7 @@ class RoleList extends Component
         $this->selectedRole->delete();
 
         /* Hide the modal (backdrop) */
-        $this->hideModal();
+        $this->showDeleteModal = false;
 
         /* Emit event */
         $this->emit('role:deleted');
