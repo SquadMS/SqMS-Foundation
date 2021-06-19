@@ -127,6 +127,7 @@ class RoleList extends Component
     {
         return view('sqms-foundation::admin.livewire.rbac.role-list', [
             'roles' => Role::paginate(10),
+            'users' => $this->selectedRole ? $this->selectedRole->users()->paginate(10) : null,
         ]);
     }
 }
