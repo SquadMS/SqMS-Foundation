@@ -32,7 +32,7 @@ class RoleList extends Component
     public bool $showEditModal = false;
     public bool $showDeleteModal = false;
 
-    public Role $selectedRole;
+    public ?Role $selectedRole = null;
 
     public string $searchInstance;
     public ?SquadMSUser $selectedUser;
