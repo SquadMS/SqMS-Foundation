@@ -28,6 +28,10 @@ class RoleList extends Component
         'role.name' => null, // TODO: Remove this somehow...
     ];
 
+    public bool $showMembersModal = false;
+    public bool $showEditModal = false;
+    public bool $showDeleteModal = false;
+
     public Role $selectedRole;
 
     public string $searchInstance;
@@ -47,6 +51,13 @@ class RoleList extends Component
         $this->authorize('update', $this->role);
 
         $this->selectedUser = UserRepository::getUserModelQuery()->where('steam_id_64', $data['value'])->first();
+    }
+
+    public function manageMembers(Role $role)
+    {
+        $this->selectedRole = $role;
+
+        $this->showMembersModal = true;
     }
 
     public function addMember()
@@ -80,6 +91,13 @@ class RoleList extends Component
         $this->emit('role:memberRemoved');
     }
 
+    public function editRole(Role $role)
+    {
+        $this->selectedRole = $role;
+
+        $this->showEditModal = true;
+    }
+
     public function updateRole()
     {
         /* Authorize the action */
@@ -108,7 +126,14 @@ class RoleList extends Component
         }
     }
 
-    public function deleteRole()
+    public function deleteRole(Role $role)
+    {
+        $this->selectedRole = $role;
+
+        $this->showDeleteModal = true;
+    }
+
+    public function delete()
     {
         /* Authorize the action */
         $this->authorize('delete', $this->selectedRole);

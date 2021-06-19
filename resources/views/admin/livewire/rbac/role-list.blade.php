@@ -13,13 +13,13 @@
                     <tr>
                         <td scope="row">{{ $role->name }}</td>
                         <td class="text-end">
-                            <x-sqms-foundation::button class="btn-primary" wire:click="$toggle('showMembersModal')" wire:loading.attr="disabled">
+                            <x-sqms-foundation::button class="btn-primary" wire:click="manageMembers({{ $role->id }})" wire:loading.attr="disabled">
                                 Members
                             </x-sqms-foundation::button>
-                            <x-sqms-foundation::button class="btn-warning" wire:click="$toggle('showEditModal')" wire:loading.attr="disabled">
+                            <x-sqms-foundation::button class="btn-warning" wire:click="editRole({{ $role->id }})" wire:loading.attr="disabled">
                                 Edit
                             </x-sqms-foundation::button>
-                            <x-sqms-foundation::button class="btn-danger" wire:click="$toggle('showDeleteModal')" wire:loading.attr="disabled">
+                            <x-sqms-foundation::button class="btn-danger" wire:click="deleteRole({{ $role->id }})" wire:loading.attr="disabled">
                                 Delete
                             </x-sqms-foundation::button>
                         </td>
@@ -171,7 +171,7 @@
             
                     <div class="flex-grow-1"></div>
 
-                    <x-sqms-foundation::button class="btn-danger" wire:click="deleteRole" wire:loading.attr="disabled">
+                    <x-sqms-foundation::button class="btn-danger" wire:click="delete" wire:loading.attr="disabled">
                         Delete
                     </x-sqms-foundation::button>
                 </x-slot>
