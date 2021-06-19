@@ -48,7 +48,7 @@ class RoleList extends Component
     public function selectUser($data)
     {
         /* Authorize the action */
-        $this->authorize('update', $this->role);
+        $this->authorize('update', $this->selectedRole);
 
         $this->selectedUser = UserRepository::getUserModelQuery()->where('steam_id_64', $data['value'])->first();
     }
