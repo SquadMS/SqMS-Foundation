@@ -31,13 +31,13 @@
 
         {{ $roles->links() }}
 
-        @if ($selectedRole)
-            <x-sqms-foundation::dialog-modal model="showMembersModal" maxWidth="xl" fullscreen="xl" class="text-start">
-                <x-slot name="title">
-                    Role Members
-                </x-slot>
-            
-                <x-slot name="content">
+        <x-sqms-foundation::dialog-modal model="showMembersModal" maxWidth="xl" fullscreen="xl" class="text-start">
+            <x-slot name="title">
+                Role Members
+            </x-slot>
+        
+            <x-slot name="content">
+                @if ($selectedRole)
                     <div class="input-group mb-3">
                         <livewire:sqms-foundation.admin.rbac.new-member-search name="newMember" :searchable="true" :key="$searchInstance" :role="$role" />
                         <button class="btn btn-outline-primary" type="button" wire:click="addMember">Add</button>
@@ -75,23 +75,27 @@
                         <p class="text-center mb-0">This Role does not have any members.</p>
                         @endif
                     </div>
-                </x-slot>
-            
-                <x-slot name="footer">
-                    <div class="flex-grow-1"></div>
+                @else
+                    <p class="lead color-warning">No Role selected for managing Members.</p>
+                @endif
+            </x-slot>
+        
+            <x-slot name="footer">
+                <div class="flex-grow-1"></div>
 
-                    <x-sqms-foundation::button class="btn-dark" wire:click="$set('showMembersModal', false)" wire:loading.attr="disabled">
-                        Close
-                    </x-sqms-foundation::button>
-                </x-slot>
-            </x-sqms-foundation::dialog-modal>
+                <x-sqms-foundation::button class="btn-dark" wire:click="$set('showMembersModal', false)" wire:loading.attr="disabled">
+                    Close
+                </x-sqms-foundation::button>
+            </x-slot>
+        </x-sqms-foundation::dialog-modal>
 
-            <x-sqms-foundation::dialog-modal model="showEditModal" maxWidth="xl" fullscreen="xl" class="text-start">
-                <x-slot name="title">
-                    Edit Role
-                </x-slot>
-            
-                <x-slot name="content">
+        <x-sqms-foundation::dialog-modal model="showEditModal" maxWidth="xl" fullscreen="xl" class="text-start">
+            <x-slot name="title">
+                Edit Role
+            </x-slot>
+        
+            <x-slot name="content">
+                @if ($selectedRole)
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Role name</label>
 
@@ -144,39 +148,41 @@
                         </div>
                         @endforeach
                     </div>
-                </x-slot>
-            
-                <x-slot name="footer">
-                    <x-sqms-foundation::button class="btn-dark" wire:click="$set('showEditModal', false)" wire:loading.attr="disabled">
-                        Close
-                    </x-sqms-foundation::button>
-            
-                    <div class="flex-grow-1"></div>
-                </x-slot>
-            </x-sqms-foundation::dialog-modal>
-            
-            <x-sqms-foundation::confirm-modal model="showDeleteModal" class="text-start">
-                <x-slot name="title">
-                    Delete Role
-                </x-slot>
-            
-                <x-slot name="content">
-                    <p>Are you sure that you want to delete the Role?</p>
-                </x-slot>
-            
-                <x-slot name="footer">
-                    <x-sqms-foundation::button class="btn-dark" wire:click="$set('showDeleteModal', false)" wire:loading.attr="disabled">
-                        Cancel
-                    </x-sqms-foundation::button>
-            
-                    <div class="flex-grow-1"></div>
+                @else
+                    <p class="lead color-warning">No Role selected for editing.</p>
+                @endif
+            </x-slot>
+        
+            <x-slot name="footer">
+                <x-sqms-foundation::button class="btn-dark" wire:click="$set('showEditModal', false)" wire:loading.attr="disabled">
+                    Close
+                </x-sqms-foundation::button>
+        
+                <div class="flex-grow-1"></div>
+            </x-slot>
+        </x-sqms-foundation::dialog-modal>
+        
+        <x-sqms-foundation::confirm-modal model="showDeleteModal" class="text-start">
+            <x-slot name="title">
+                Delete Role
+            </x-slot>
+        
+            <x-slot name="content">
+                <p>Are you sure that you want to delete the Role?</p>
+            </x-slot>
+        
+            <x-slot name="footer">
+                <x-sqms-foundation::button class="btn-dark" wire:click="$set('showDeleteModal', false)" wire:loading.attr="disabled">
+                    Cancel
+                </x-sqms-foundation::button>
+        
+                <div class="flex-grow-1"></div>
 
-                    <x-sqms-foundation::button class="btn-danger" wire:click="delete" wire:loading.attr="disabled">
-                        Delete
-                    </x-sqms-foundation::button>
-                </x-slot>
-            </x-sqms-foundation::confirm-modal>
-        @endif
+                <x-sqms-foundation::button class="btn-danger" wire:click="delete" wire:loading.attr="disabled">
+                    Delete
+                </x-sqms-foundation::button>
+            </x-slot>
+        </x-sqms-foundation::confirm-modal>
     @else
         <p class="text-center">No Roles have been created yet.</p>
     @endif
