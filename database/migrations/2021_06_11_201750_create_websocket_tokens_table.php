@@ -26,7 +26,7 @@ class CreateWebsocketTokensTable extends Migration
             /* The actual Token */
             $table->string('token')->unique();
 
-            $table->timestampsTz();
+            $table->timestamps();
         });
     }
 
