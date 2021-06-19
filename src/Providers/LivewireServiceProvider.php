@@ -35,8 +35,5 @@ class LivewireServiceProvider extends ServiceProvider
         Livewire::component('sqms-foundation.admin.rbac.new-member-search', NewMemberSearch::class);
         Livewire::component('sqms-foundation.admin.rbac.role-list', RoleList::class);
         Livewire::component('sqms-foundation.admin.rbac.create-role', CreateRole::class);
-        Livewire::component('sqms-foundation.admin.rbac.edit-role', EditRole::class);
-        Livewire::component('sqms-foundation.admin.rbac.delete-role', DeleteRole::class);
-        Livewire::component('sqms-foundation.admin.rbac.members-role', MembersRole::class);
     }
 }
