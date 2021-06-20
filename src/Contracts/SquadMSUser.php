@@ -5,11 +5,13 @@ namespace SquadMS\Foundation\Contracts;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Route;
 use Jenssegers\Agent\Agent;
 use Spatie\Permission\Traits\HasRoles;
 use SquadMS\Foundation\Models\WebsocketToken;
@@ -73,6 +75,13 @@ abstract class SquadMSUser extends Authenticatable
     public function isSystemAdmin(): bool
     {
         return in_array($this->steam_id_64, config('sqms.admins'));
+    }
+
+    public function getProfileUrlAttribute(): string
+    {
+        return route(Config::get('sqms.routes.def.profile.name'), [
+            'steam_id_64' => $this->steam_id_64,
+        ]);
     }
 
     public function getRunningSessions() : Collection
