@@ -8871,6 +8871,10 @@ textarea.form-control-lg {
   display: none !important;
 }
 
+.d-contents {
+  display: contents !important;
+}
+
 .shadow {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
@@ -10221,6 +10225,10 @@ textarea.form-control-lg {
     display: none !important;
   }
 
+  .d-sm-contents {
+    display: contents !important;
+  }
+
   .flex-sm-fill {
     flex: 1 1 auto !important;
   }
@@ -10870,6 +10878,10 @@ textarea.form-control-lg {
 
   .d-md-none {
     display: none !important;
+  }
+
+  .d-md-contents {
+    display: contents !important;
   }
 
   .flex-md-fill {
@@ -11523,6 +11535,10 @@ textarea.form-control-lg {
     display: none !important;
   }
 
+  .d-lg-contents {
+    display: contents !important;
+  }
+
   .flex-lg-fill {
     flex: 1 1 auto !important;
   }
@@ -12174,6 +12190,10 @@ textarea.form-control-lg {
     display: none !important;
   }
 
+  .d-xl-contents {
+    display: contents !important;
+  }
+
   .flex-xl-fill {
     flex: 1 1 auto !important;
   }
@@ -12823,6 +12843,10 @@ textarea.form-control-lg {
 
   .d-xxl-none {
     display: none !important;
+  }
+
+  .d-xxl-contents {
+    display: contents !important;
   }
 
   .flex-xxl-fill {
@@ -13479,6 +13503,10 @@ textarea.form-control-lg {
 
   .d-print-none {
     display: none !important;
+  }
+
+  .d-print-contents {
+    display: contents !important;
   }
 }
 .fs-base {

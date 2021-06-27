@@ -26,6 +26,17 @@ $theme-colors: (
   "gray-dark":  $gray-800
 );
 
+$utilities: ( 
+	"display": (
+		responsive: true,
+		print: true,
+		property: display,
+		class: d,
+		values: inline inline-block block grid table table-row table-cell flex inline-flex none contents
+  	),
+);
+
+
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap-icons/font/bootstrap-icons.css';
 
