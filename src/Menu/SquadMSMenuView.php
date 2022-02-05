@@ -11,7 +11,7 @@ class SquadMSMenuView extends View
     /**
      * @inheritDoc
      */
-    public function setActive($active = true)
+    public function setActive(bool | callable $active = true): static
     {
         $this->activeOverride = $active;
 
