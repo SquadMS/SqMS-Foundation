@@ -92,10 +92,10 @@ class SquadMSMenu
             ]);
         } else {
             /* Get the menu entries definitions from the definitions and order them */
-            $entries = $this->definitions->get($menu, new Collection())->sortby(fn (SquadMSMenuEntry $item, $key) => $item->getOrder());
+            $entries = $this->getDefinition($menu)->sortby(fn (SquadMSMenuEntry $item, $key) => $item->getOrder());
 
             /* Build the Menu */
-            $instance->fill($entries, function ($menu, $entry) {
+            $instance->fill($entries->toArray(), function ($menu, $entry) {
                 /* Get the condition from the entry, this should be bool, callable or array/string */
                 $condition = $entry->getCondition();
 
@@ -142,5 +142,10 @@ class SquadMSMenu
         }
 
         return $menu;
+    }
+
+    private function getDefinition(string $menu): Collection
+    {
+        return $this->definitions->get($menu, new Collection());
     }
 }
