@@ -5,7 +5,7 @@ namespace SquadMS\Foundation\Admin\Http\Livewire\RBAC;
 use Illuminate\Support\Collection;
 use Spatie\Permission\Models\Role;
 use SquadMS\Foundation\Admin\Http\Livewire\Contracts\LivewireSelect;
-use SquadMS\Foundation\Repositories\UserRepository;
+use SquadMS\Foundation\Models\SquadMSUser;
 
 class NewMemberSearch extends LivewireSelect
 {
@@ -13,8 +13,7 @@ class NewMemberSearch extends LivewireSelect
 
     public function options($searchTerm = null): Collection
     {
-        return UserRepository::getUserModelQuery()
-        ->whereNotIn('id', $this->role->users()->allRelatedIds())
+        return SquadMSUser::whereNotIn('id', $this->role->users()->allRelatedIds())
         ->where(function ($query) use ($searchTerm) {
             return $query->where('name', 'like', $searchTerm)
             ->orWhere('name', 'like', '%'.$searchTerm)
@@ -28,9 +27,7 @@ class NewMemberSearch extends LivewireSelect
 
     public function selectedOption($steamId64)
     {
-        $user = UserRepository::getUserModelQuery()
-        ->where('steam_id_64', $steamId64)
-        ->first();
+        $user = SquadMSUser::where('steam_id_64', $steamId64)->first();
 
         return [
             'value'       => $user['steam_id_64'],

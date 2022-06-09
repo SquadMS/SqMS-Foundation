@@ -8,7 +8,6 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
 use SquadMS\Foundation\Models\SquadMSUser;
-use SquadMS\Foundation\Repositories\UserRepository;
 
 class RoleList extends Component
 {
@@ -50,7 +49,7 @@ class RoleList extends Component
         /* Authorize the action */
         $this->authorize('update', $this->selectedRole);
 
-        $this->selectedUser = UserRepository::getUserModelQuery()->where('steam_id_64', $data['value'])->first();
+        $this->selectedUser = SquadMSUser::where('steam_id_64', $data['value'])->first();
     }
 
     public function manageMembers(Role $role)

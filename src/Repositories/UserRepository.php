@@ -10,16 +10,6 @@ use SquadMS\Foundation\Models\SquadMSUser;
 
 class UserRepository
 {
-    /**
-     * Returns a query builder for the configured user model.
-     */
-    public static function getUserModelQuery(): Builder
-    {
-        $class = Config::get('sqms.user.model');
-
-        return call_user_func($class.'::query');
-    }
-
     public static function createOrUpdateBulk(array $steamUsers, bool $shallow = false)
     {
         $rows = [];
@@ -46,12 +36,12 @@ class UserRepository
             ]);
         }
 
-        return self::getUserModelQuery()->upsert($rows, ['steam_account_id'], $updateRows);
+        return SquadMSUser::upsert($rows, ['steam_account_id'], $updateRows);
     }
 
     public static function createOrUpdate(SteamUser $steamUser, bool $shallow = false): SquadMSUser
     {
-        return self::getUserModelQuery()->updateOrCreate([
+        return SquadMSUser::updateOrCreate([
             'steam_account_id' => $steamUser->accountId,
         ], self::createUserData($steamUser, !$shallow));
     }
@@ -92,7 +82,7 @@ class UserRepository
      */
     public static function getUnfetchedSteamIDs(): array
     {
-        return self::getUserModelQuery()->whereNull('last_fetched')
+        return SquadMSUser::whereNull('last_fetched')
                                        ->orWhere('last_fetched', '<=', Carbon::now()->subHours(Config::get('sqms.user.fetch_interval')))
                                        ->orderBy('last_fetched')
                                        ->limit(1000) // Max limit for the SteamAPI
@@ -102,7 +92,7 @@ class UserRepository
 
     public static function excludeFetchedSteamIDs(array $steamIDs): array
     {
-        return self::getUserModelQuery()->whereIn('steam_id_64', $steamIDs)->where(function (Builder $q) {
+        return SquadMSUser::whereIn('steam_id_64', $steamIDs)->where(function (Builder $q) {
             $q->whereNull('last_fetched')->orWhere('last_fetched', '<=', Carbon::now()->subHours(Config::get('sqms.user.fetch_interval')));
         })->pluck('steam_id_64')->toArray();
     }

@@ -8,7 +8,7 @@ return [
     ],
 
     'user' => [
-        'model'            => \App\Models\User::class,
+        'model'            => \SquadMS\Foundation\Models\SquadMSUser::class,
         'default-password' => 'DefaultUserPasswordNotBeingUsedForLoginSinceWeUseSteamWeUseThisForLogginOutOtherSessionsForExample',
         'fetch_interval'   => 12,
         'defaults'         => [
