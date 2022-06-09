@@ -50,6 +50,16 @@ class SquadMSUser extends Authenticatable
     ];
 
     /**
+     * Get the default foreign key name for the model.
+     *
+     * @return string
+     */
+    public function getForeignKey()
+    {
+        return 'user_'.$this->getKeyName();
+    }
+
+    /**
      * Scope a query to only include users that have the given websocket_token.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
