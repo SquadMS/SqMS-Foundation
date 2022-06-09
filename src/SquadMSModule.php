@@ -69,7 +69,7 @@ class SquadMSModule extends SquadMSModuleContract
                         return ['steam_id_64' => Auth::user()->steam_id_64];
                     }))
                     ->setCondition(fn () => Auth::check())
-                    ->setActive(fn ()    => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.profile.name')) && Request::route('steam_id_64') === Auth::user()->steam_id_64)
+                    ->setActive(fn () => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.profile.name')) && Request::route('steam_id_64') === Auth::user()->steam_id_64)
                     ->setOrder(100)
                 );
 

@@ -11,13 +11,14 @@ use SquadMS\Foundation\Models\SquadMSUser;
 
 class RoleList extends Component
 {
-    use AuthorizesRequests, WithPagination;
+    use AuthorizesRequests;
+    use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
 
     protected $listeners = [
-        'role:created' => '$refresh',
-        'role:deleted' => '$refresh',
+        'role:created'       => '$refresh',
+        'role:deleted'       => '$refresh',
         'newMemberUpdated'   => 'selectUser',
         'role:memberAdded'   => '$refresh',
         'role:memberRemoved' => '$refresh',

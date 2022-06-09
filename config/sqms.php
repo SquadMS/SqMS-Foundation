@@ -121,7 +121,7 @@ return [
                 'controller'  => \SquadMS\Foundation\Auth\Http\Controllers\SteamLoginController::class,
                 'executor'    => 'logoutOtherDevices',
                 'localized'   => true,
-            ]
+            ],
         ],
     ],
 

@@ -49,7 +49,7 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
     public function logout(Request $request): RedirectResponse
     {
         /* Get the current user and session id */
-        $user      = SquadMSUser::current();
+        $user = SquadMSUser::current();
         $sessionId = $request->session()->getId();
 
         /* Logout the User */
@@ -66,7 +66,7 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
     }
 
     /**
-     * Logs out the current users other devices while leaving the current session untouched
+     * Logs out the current users other devices while leaving the current session untouched.
      *
      * @return \Illuminate\Http\Response
      */
