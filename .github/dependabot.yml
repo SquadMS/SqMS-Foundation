@@ -11,6 +11,14 @@ updates:
     labels:
       - "security"
 
+  # Maintain dependencies for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "security"
+
   # Maintain dependencies for composer
   - package-ecosystem: "composer"
     directory: "/"
