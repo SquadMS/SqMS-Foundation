@@ -15,7 +15,7 @@ class CreateWebsocketTokensTable extends Migration
     {
         Schema::create('websocket_tokens', function (Blueprint $table) {
             $table->id();
-            
+
             /* The Session related to this token  */
             $table->string('session_id');
             $table->foreign('session_id')->references('id')->on('sessions')->onDelete('cascade');
