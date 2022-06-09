@@ -26,7 +26,7 @@ class RBACPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser; $user
+     * @param \SquadMS\Foundation\Models\SquadMSUser; $user
      * @param \Spatie\Permission\Models\Role             $role
      *
      * @return mixed
@@ -39,7 +39,7 @@ class RBACPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser; $user
+     * @param \SquadMS\Foundation\Models\SquadMSUser; $user
      *
      * @return mixed
      */
@@ -51,7 +51,7 @@ class RBACPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser; $user
+     * @param \SquadMS\Foundation\Models\SquadMSUser; $user
      * @param \Spatie\Permission\Models\Role             $role
      *
      * @return mixed
@@ -64,7 +64,7 @@ class RBACPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser; $user
+     * @param \SquadMS\Foundation\Models\SquadMSUser; $user
      * @param \Spatie\Permission\Models\Role             $role
      *
      * @return mixed
@@ -77,7 +77,7 @@ class RBACPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser; $user
+     * @param \SquadMS\Foundation\Models\SquadMSUser; $user
      * @param \Spatie\Permission\Models\Role             $role
      *
      * @return mixed
@@ -90,7 +90,7 @@ class RBACPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser; $user
+     * @param \SquadMS\Foundation\Models\SquadMSUser; $user
      * @param \Spatie\Permission\Models\Role             $role
      *
      * @return mixed

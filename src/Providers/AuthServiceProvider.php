@@ -5,7 +5,7 @@ namespace SquadMS\Foundation\Providers;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Config;
 use Spatie\Permission\Models\Role;
-use SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser;
+use SquadMS\Foundation\Models\SquadMSUser;
 use SquadMS\Foundation\Policies\RBACPolicy;
 use SquadMS\Foundation\Policies\UserPolicy;
 

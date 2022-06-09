@@ -5,7 +5,7 @@ namespace SquadMS\Foundation\Policies;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Config;
 use Spatie\Permission\Models\Role;
-use SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser;
+use SquadMS\Foundation\Models\SquadMSUser;
 
 class UserPolicy
 {
@@ -14,7 +14,7 @@ class UserPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser  $user
+     * @param \SquadMS\Foundation\Models\SquadMSUser  $user
      *
      * @return mixed
      */
@@ -26,8 +26,8 @@ class UserPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser  $user
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser  $subject
+     * @param \SquadMS\Foundation\Models\SquadMSUser  $user
+     * @param \SquadMS\Foundation\Models\SquadMSUser  $subject
      *
      * @return mixed
      */
@@ -39,7 +39,7 @@ class UserPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser  $user
+     * @param \SquadMS\Foundation\Models\SquadMSUser  $user
      *
      * @return mixed
      */
@@ -51,8 +51,8 @@ class UserPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser  $user
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser  $subject
+     * @param \SquadMS\Foundation\Models\SquadMSUser  $user
+     * @param \SquadMS\Foundation\Models\SquadMSUser  $subject
      *
      * @return mixed
      */
@@ -64,8 +64,8 @@ class UserPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser  $user
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser  $subject
+     * @param \SquadMS\Foundation\Models\SquadMSUser  $user
+     * @param \SquadMS\Foundation\Models\SquadMSUser  $subject
      *
      * @return mixed
      */
@@ -77,8 +77,8 @@ class UserPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser  $user
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser  $subject
+     * @param \SquadMS\Foundation\Models\SquadMSUser  $user
+     * @param \SquadMS\Foundation\Models\SquadMSUser  $subject
      *
      * @return mixed
      */
@@ -90,8 +90,8 @@ class UserPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser  $user
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser  $subject
+     * @param \SquadMS\Foundation\Models\SquadMSUser  $user
+     * @param \SquadMS\Foundation\Models\SquadMSUser  $subject
      *
      * @return mixed
      */
@@ -103,8 +103,8 @@ class UserPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser  $user
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser  $subject
+     * @param \SquadMS\Foundation\Models\SquadMSUser  $user
+     * @param \SquadMS\Foundation\Models\SquadMSUser  $subject
      *
      * @return mixed
      */

@@ -2,10 +2,9 @@
 
 namespace SquadMS\Foundation\Providers;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser;
+use SquadMS\Foundation\Models\SquadMSUser;
 
 class ViewServiceProvider extends ServiceProvider
 {
