@@ -14,7 +14,7 @@ class RBACPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param \SquadMS\Foundation\Model\SquadMSUser; $user
+     * @param \SquadMS\Foundation\Models\SquadMSUser; $user
      *
      * @return mixed
      */

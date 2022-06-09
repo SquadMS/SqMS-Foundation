@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use SquadMS\Foundation\Auth\Contracts\SteamLoginControllerInterface;
 use SquadMS\Foundation\Auth\SteamLogin;
-use SquadMS\Foundation\Model\SquadMSUser;
+use SquadMS\Foundation\Models\SquadMSUser;
 
 abstract class AbstractSteamLoginController extends Controller implements SteamLoginControllerInterface
 {
