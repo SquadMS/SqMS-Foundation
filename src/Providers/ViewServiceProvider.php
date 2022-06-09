@@ -35,7 +35,7 @@ class ViewServiceProvider extends ServiceProvider
 
         Blade::directive('websocketToken', function ($expression) {
             return '<?php 
-                if (($user = ' . SquadMSUser::class . '::current())) {
+                if (($user = '.SquadMSUser::class.'::current())) {
                     if (($t = $user->getCurrentWebSocketToken())) {
                         $wat = $t->token;
                         echo \'<meta name="wat" content="\' . $wat . \'">\';

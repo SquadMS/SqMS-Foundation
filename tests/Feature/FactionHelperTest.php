@@ -13,7 +13,7 @@ class FactionHelperTest extends TestCase
      * @return void
      */
     public function test_get_faction_tag()
-    {            
+    {
         $this->assertSame('im', FactionHelper::getFactionTag('Irregular Militia Forces'));
         $this->assertSame('ins', FactionHelper::getFactionTag('Insurgent Forces'));
         $this->assertSame('ru', FactionHelper::getFactionTag('Russian Ground Forces'));

@@ -2,9 +2,9 @@
 
 namespace SquadMS\Foundation\Menu;
 
-use InvalidArgumentException;
 use Illuminate\Support\Facades\Config;
 use Illuminate\View\ComponentAttributeBag;
+use InvalidArgumentException;
 use Spatie\Menu\Item;
 use SquadMS\Foundation\Menu\Contracts\SquadMSMenuEntry as AbstractSquadMSMenuEntry;
 
@@ -17,7 +17,7 @@ class SquadMSMenuEntry extends AbstractSquadMSMenuEntry
 
     private ?string $view = null;
 
-    function __construct(string $routeOrUrl, callable|string $title, bool $isRoute = false, mixed $routeParameters = [])
+    public function __construct(string $routeOrUrl, callable|string $title, bool $isRoute = false, mixed $routeParameters = [])
     {
         $this->definition = $routeOrUrl;
         $this->title = $title;
@@ -30,24 +30,25 @@ class SquadMSMenuEntry extends AbstractSquadMSMenuEntry
         }
     }
 
-    public function setView(?string $view = null) : self
+    public function setView(?string $view = null): self
     {
         $this->view = $view;
+
         return $this;
     }
 
-    public function render() : Item
+    public function render(): Item
     {
         $url = $this->definition;
 
         if ($this->isRoute) {
-            $url =  fn () => route($url, is_callable($this->routeParameters) ? ($this->routeParameters)() : $this->routeParameters);
+            $url = fn () => route($url, is_callable($this->routeParameters) ? ($this->routeParameters)() : $this->routeParameters);
         }
-        
-        return SquadMSMenuView::create($this->view ?? Config::get('sqms.theme') . '::' . Config::get('sqms.menu.entry-view'), [
+
+        return SquadMSMenuView::create($this->view ?? Config::get('sqms.theme').'::'.Config::get('sqms.menu.entry-view'), [
             'attributes' => new ComponentAttributeBag([]),
-            'link'   => $url,
-            'title'  => is_callable($this->title) ? ($this->title)() : $this->title,
+            'link'       => $url,
+            'title'      => is_callable($this->title) ? ($this->title)() : $this->title,
         ])->setActive(fn () => $this->isActive());
     }
 }

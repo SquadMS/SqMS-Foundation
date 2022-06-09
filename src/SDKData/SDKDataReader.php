@@ -3,10 +3,10 @@
 namespace SquadMS\Foundation\SDKData;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class SDKDataReader
 {
@@ -17,102 +17,102 @@ class SDKDataReader
             'AlBasrah_',
             'CAF_AlBasrah_',
             'Al Basrah ',
-            'CAF Al Basrah '
+            'CAF Al Basrah ',
         ],
         'Belaya' => [
             'Belaya_',
-            'CAF_Belaya_'
+            'CAF_Belaya_',
         ],
         'Chora' => [
             'Chora_',
-            'CAF_Chora_'
+            'CAF_Chora_',
         ],
         'Fallujah' => [
             'Fallujah_',
-            'CAF_Fallujah_'
+            'CAF_Fallujah_',
         ],
         'Fool\'s Road' => [
             'Fools_Road_',
             'CAF_Fools_Road_',
-            'FoolsRoad_'
+            'FoolsRoad_',
         ],
         'Gorodok' => [
             'Gorodok_',
-            'CAF_Gorodok_'
+            'CAF_Gorodok_',
         ],
         'Kamdesh Highlands' => [
             'Kamdesh_',
-            'CAF_Kamdesh_'
+            'CAF_Kamdesh_',
         ],
         'Kohat Toi' => [
             'Kohat_',
-            'CAF_Kohat_'
+            'CAF_Kohat_',
         ],
         'Kokan' => [
             'Kokan_',
             'CAF_Kokan_Valley_',
             'Kokan_Valley_',
-            'CAF Kokan '
+            'CAF Kokan ',
         ],
         'Lashkar Valley' => [
             'Lashkar_Valley_',
             'CAF_Lashkar_Valley_',
-            'LashkarValley_'
+            'LashkarValley_',
         ],
         'Logar Valley' => [
             'Logar_Valley_',
             'CAF_Logar_Valley_',
-            'Logar_'
+            'Logar_',
         ],
         'Mestia' => [
             'Mestia_',
-            'CAF_Mestia'
+            'CAF_Mestia',
         ],
         'Mutaha' => [
             'Mutaha_',
-            'CAF_Mutaha_'
+            'CAF_Mutaha_',
         ],
         'Narva' => [
             'Narva_',
-            'CAF_Narva_'
+            'CAF_Narva_',
         ],
         'Skorpo' => [
             'Skorpo_',
-            'CAF_Skorpo_'
+            'CAF_Skorpo_',
         ],
         'Sumari Bala' => [
             'Sumari_',
-            'CAF_Sumari_'
+            'CAF_Sumari_',
         ],
         'Tallil Outskirts' => [
             'Tallil_Outskirts_',
             'CAF_Tallil_Outskirts_',
-            'Tallil_'
+            'Tallil_',
         ],
         'Yehorivka' => [
             'Yehorivka_',
-            'CAF_Yehorivka_'
+            'CAF_Yehorivka_',
         ],
         'Jensen\'s Range' => [
             'Jensens_Range_',
             'CAF_Jensens_Range_',
             'JensensRange_',
-            'CAF_JensensRange_'
+            'CAF_JensensRange_',
         ],
         'Tutorials' => [
             'Helicopter_Tutorial',
             'Tutorial_Helicopter',
             'Infantry_Tutorial',
-            'Tutorial_Infantry'
+            'Tutorial_Infantry',
         ],
         'Manic-5' => [
             'CAF_Manic_',
-            'CAF_Manic-5_'
+            'CAF_Manic-5_',
         ],
         'Goose Bay' => [
             'CAF_Goose_Bay_',
-            'CAF_GooseBay_'
-        ]
+            'CAF_GooseBay_',
+        ],
     ];
 
     private ?array $_data = null;
@@ -154,6 +154,7 @@ class SDKDataReader
      * THIS WILL NOT WORK FOR JENSENS RANGE AS THEY ALL HAVE THE SAME DISPLAY NAME!
      *
      * @param string $layerDisplayName
+     *
      * @return string|null
      */
     public function getLayer(string $layerDisplayName): ?string
@@ -166,10 +167,10 @@ class SDKDataReader
         }) ?: null;
     }
 
-     /**
+    /**
      * Convert an SDKData rawName/layer to ingame Level name.
-     * TODO: Use mapName after Wiki-Team fixed it
-     * 
+     * TODO: Use mapName after Wiki-Team fixed it.
+     *
      * @return string|null
      */
     public static function layerToLevel(string $layer): ?string

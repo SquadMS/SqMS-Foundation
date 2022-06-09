@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Jenssegers\Agent\Agent;
 use Spatie\Permission\Traits\HasRoles;
-use SquadMS\Foundation\Models\WebsocketToken;
 
 class SquadMSUser extends Authenticatable
 {
@@ -62,7 +61,8 @@ class SquadMSUser extends Authenticatable
     /**
      * Scope a query to only include users that have the given websocket_token.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeHasWebsocketToken($query, $token)
@@ -71,7 +71,7 @@ class SquadMSUser extends Authenticatable
             return $query->where('token', $token);
         });
     }
-    
+
     /**
      * Get the WebsocketTokens for the User.
      */
@@ -92,7 +92,7 @@ class SquadMSUser extends Authenticatable
         ]);
     }
 
-    public function getRunningSessions() : Collection
+    public function getRunningSessions(): Collection
     {
         return collect(
             DB::connection(config('session.connection'))->table(config('session.table', 'sessions'))
@@ -103,10 +103,10 @@ class SquadMSUser extends Authenticatable
             $agent = $this->createAgent($session);
 
             return (object) [
-                'agent' => $agent,
-                'ip_address' => $session->ip_address,
+                'agent'             => $agent,
+                'ip_address'        => $session->ip_address,
                 'is_current_device' => $session->id === Request::session()->getId(),
-                'last_active' => Carbon::createFromTimestamp($session->last_activity)->diffForHumans(),
+                'last_active'       => Carbon::createFromTimestamp($session->last_activity)->diffForHumans(),
             ];
         });
     }
@@ -145,11 +145,11 @@ class SquadMSUser extends Authenticatable
         } else {
             $query = $query->where('id', '=', $sessionId);
         }
-            
+
         $query->delete();
     }
 
-    public function getCurrentWebSocketToken() : ?WebsocketToken
+    public function getCurrentWebSocketToken(): ?WebsocketToken
     {
         return $this->websocketTokens()->where('session_id', Request::session()->getId())->first();
     }
@@ -169,7 +169,7 @@ class SquadMSUser extends Authenticatable
      */
     protected function createAgent(mixed $session): Agent
     {
-        return tap(new Agent, function ($agent) use ($session) {
+        return tap(new Agent(), function ($agent) use ($session) {
             $agent->setUserAgent($session->user_agent);
         });
     }
