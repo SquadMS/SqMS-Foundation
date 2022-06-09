@@ -1,22 +1,20 @@
 <?php
 
-namespace SquadMS\Foundation\Contracts;
+namespace SquadMS\Foundation\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Routing\Router;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Route;
 use Jenssegers\Agent\Agent;
 use Spatie\Permission\Traits\HasRoles;
 use SquadMS\Foundation\Models\WebsocketToken;
 
-abstract class SquadMSUser extends Authenticatable
+class SquadMSUser extends Authenticatable
 {
     use HasRoles;
 
