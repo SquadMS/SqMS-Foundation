@@ -16,7 +16,7 @@ class SteamLoginController extends AbstractSteamLoginController
      */
     public function authenticated(Request $request, SteamUser $steamUser): void
     {
-        /** @var \SquadMS\Foundation\Contracts\SquadMSUser Create or Update user, fetch data from SteamAPI */
+        /** @var \SquadMS\Foundation\Models\SquadMSUser Create or Update user, fetch data from SteamAPI */
         $user = UserRepository::createOrUpdate($steamUser);
 
         /* Login the user using the Auth facade */

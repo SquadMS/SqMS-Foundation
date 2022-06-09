@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Config;
 use SquadMS\Foundation\Auth\SteamUser;
-use SquadMS\Foundation\Contracts\SquadMSUser;
+use SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser;
 
 class UserRepository
 {

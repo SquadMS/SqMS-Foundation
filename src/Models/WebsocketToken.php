@@ -4,7 +4,7 @@ namespace SquadMS\Foundation\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use SquadMS\Foundation\Contracts\SquadMSUser;
+use SquadMS\Foundation\Models\SquadMSUser;
 
 class WebsocketToken extends Model
 {

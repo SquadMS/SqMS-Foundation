@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
-use SquadMS\Foundation\Contracts\SquadMSUser;
+use SquadMS\Foundation\Models\SquadMSUser;
 use SquadMS\Foundation\Repositories\UserRepository;
 
 class RoleList extends Component
