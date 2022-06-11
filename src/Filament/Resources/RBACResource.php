@@ -47,7 +47,8 @@ class RBACResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->sortable()
+                Tables\Columns\TextColumn::make('name')->sortable(),
+                Tables\Columns\TextColumn::make('users_count')->counts('users')->sortable()
             ])
             ->filters([
                 //
