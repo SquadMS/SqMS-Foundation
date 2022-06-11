@@ -50,6 +50,7 @@
                 "SquadMS\\Foundation\\Providers\\PermissionsServiceProvider",
                 "SquadMS\\Foundation\\Providers\\RouteServiceProvider",
                 "SquadMS\\Foundation\\Providers\\AuthServiceProvider",
+                "SquadMS\\Foundation\\Providers\\FilamentServiceProvider",
                 "SquadMS\\Foundation\\Providers\\LivewireServiceProvider",
                 "SquadMS\\Foundation\\Providers\\ViewServiceProvider",
                 "SquadMS\\Foundation\\Providers\\ModulesServiceProvider",
