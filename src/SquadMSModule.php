@@ -56,7 +56,7 @@ class SquadMSModule extends SquadMSModuleContract
 
                 SquadMSMenu::register(
                     'main-left',
-                    (new SquadMSMenuEntry(Config::get('sqms.routes.def.admin-dashboard.name'), fn () => __('sqms-foundation::navigation.admin'), true))
+                    (new SquadMSMenuEntry('filament.pages.dashboard', fn () => __('sqms-foundation::navigation.admin'), true))
                     ->setCondition(Config::get('sqms.permissions.module').' admin')
                     ->setOrder(PHP_INT_MAX) // Always last item
                 );
