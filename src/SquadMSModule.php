@@ -97,31 +97,6 @@ class SquadMSModule extends SquadMSModuleContract
                 );
 
                 break;
-
-            case 'admin':
-                SquadMSMenu::register(
-                    'admin',
-                    (new SquadMSMenuEntry(Config::get('sqms.routes.def.admin-dashboard.name'), '<i class="bi bi-house-fill"></i> Dashboard', true))->setView('sqms-foundation::components.navigation.item')
-                    ->setActive(fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.admin-dashboard.name')))
-                    ->setOrder(100)
-                );
-
-                break;
-
-            case 'admin-system':
-                SquadMSMenu::prepend('admin-system', fn () => view('sqms-foundation::components.navigation.heading', [
-                    'title'  => 'System',
-                ])->render());
-
-                SquadMSMenu::register(
-                    'admin-system',
-                    (new SquadMSMenuEntry(Config::get('sqms.routes.def.admin-rbac.name'), '<i class="bi bi-shield-lock-fill"></i> RBAC', true))->setView('sqms-foundation::components.navigation.item')
-                    ->setActive(fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.admin-rbac.name')))
-                    ->setCondition(Config::get('sqms.permissions.module').' admin rbac')
-                    ->setOrder(100)
-                );
-
-                break;
         }
     }
 
