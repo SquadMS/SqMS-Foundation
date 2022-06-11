@@ -59,6 +59,7 @@ class RBACResource extends Resource
     {
         return [
             RelationManagers\PermissionsRelationManager::class,
+            RelationManagers\UsersRelationManager::class,
         ];
     }
 
