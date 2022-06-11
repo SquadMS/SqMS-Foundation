@@ -2,6 +2,8 @@
 
 namespace SquadMS\Foundation\Filament\Resources;
 
+use Filament\Forms;
+use Filament\Tables;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -14,7 +16,13 @@ class RBACResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-shield-check';
 
-    protected static ?string $title = 'RBAC';
+    protected static ?string $navigationLabel = 'RBAC';
+
+    protected static ?string $breadcrumb = 'RBAC';
+
+    protected static ?string $pluralLabel = 'RBAC';
+
+    protected static ?string $label = 'Role';
 
     protected static ?string $slug = 'rbac';
 
@@ -22,7 +30,7 @@ class RBACResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')->required()
             ]);
     }
 
@@ -30,11 +38,12 @@ class RBACResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')->sortable()
             ])
             ->filters([
                 //
-            ]);
+            ])
+            ->defaultSort('name');
     }
     
     public static function getRelations(): array
