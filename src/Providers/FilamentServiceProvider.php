@@ -4,12 +4,12 @@ namespace SquadMS\Foundation\Providers;
 
 use Filament\PluginServiceProvider;
 use Spatie\LaravelPackageTools\Package;
-use SquadMS\Foundation\Filament\Pages\RBAC;
+use SquadMS\Foundation\Filament\Resources\RBAC;
 
 class FilamentServiceProvider extends PluginServiceProvider
 {
-    protected array $pages = [
-        RBAC::class,
+    protected array $resources = [
+        RBACResource::class,
     ];
 
     public function configurePackage(Package $package): void
