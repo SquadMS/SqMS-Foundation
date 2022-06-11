@@ -4,7 +4,7 @@ namespace SquadMS\Foundation\Providers;
 
 use Filament\PluginServiceProvider;
 use Spatie\LaravelPackageTools\Package;
-use SquadMS\Foundation\Filament\Resources\RBAC;
+use SquadMS\Foundation\Filament\Resources\RBACResource;
 
 class FilamentServiceProvider extends PluginServiceProvider
 {
