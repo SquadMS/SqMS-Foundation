@@ -13,8 +13,9 @@ use Illuminate\Support\Facades\Request;
 use Jenssegers\Agent\Agent;
 use Spatie\Permission\Traits\HasRoles;
 use SquadMS\Foundation\Models\WebsocketToken;
+use Filament\Models\Contracts\FilamentUser;
 
-class SquadMSUser extends Authenticatable
+class SquadMSUser extends Authenticatable implements FilamentUser
 {
     use HasRoles;
 
@@ -83,6 +84,11 @@ class SquadMSUser extends Authenticatable
     public function isSystemAdmin(): bool
     {
         return in_array($this->steam_id_64, config('sqms.admins'));
+    }
+
+    public function canAccessFilament(): bool
+    {
+        return $this->can('sqms admin') || $this->isSystemAdmin();
     }
 
     public function getProfileUrlAttribute(): string

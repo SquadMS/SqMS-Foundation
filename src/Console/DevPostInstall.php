@@ -19,6 +19,8 @@ class DevPostInstall extends Command
             $this->call('sqms:permissions-sync');
             $this->call('sqms:publish-assets');
 
+            $this->call('filament:upgrade');
+
             $this->info('Ran all automated dev commands!');
         }
     }
