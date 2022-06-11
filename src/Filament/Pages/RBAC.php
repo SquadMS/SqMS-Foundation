@@ -6,7 +6,11 @@ use Filament\Pages\Page;
 
 class RBAC extends Page
 {
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'heroicon-o-shield-check';
 
-    protected static string $view = 'filament.pages.r-b-a-c';
+    protected static string $view = 'sqms-foundation::filament.pages.rbac';
+
+    protected static ?string $title = 'RBAC';
+
+    protected static ?string $slug = 'rbac';
 }
