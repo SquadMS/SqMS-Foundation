@@ -14,8 +14,9 @@ use Jenssegers\Agent\Agent;
 use Spatie\Permission\Traits\HasRoles;
 use SquadMS\Foundation\Models\WebsocketToken;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
 
-class SquadMSUser extends Authenticatable implements FilamentUser
+class SquadMSUser extends Authenticatable implements FilamentUser, HasAvatar
 {
     use HasRoles;
 
@@ -84,11 +85,6 @@ class SquadMSUser extends Authenticatable implements FilamentUser
     public function isSystemAdmin(): bool
     {
         return in_array($this->steam_id_64, config('sqms.admins'));
-    }
-
-    public function canAccessFilament(): bool
-    {
-        return $this->can('sqms admin') || $this->isSystemAdmin();
     }
 
     public function getProfileUrlAttribute(): string
@@ -178,5 +174,15 @@ class SquadMSUser extends Authenticatable implements FilamentUser
         return tap(new Agent, function ($agent) use ($session) {
             $agent->setUserAgent($session->user_agent);
         });
+    }
+
+    public function canAccessFilament(): bool
+    {
+        return $this->can('sqms admin') || $this->isSystemAdmin();
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return $this->avatar;
     }
 }
