@@ -19,5 +19,9 @@ class ModulesServiceProvider extends ServiceProvider
     public function boot()
     {
         FacadesSquadMSModuleRegistry::register(SquadMSModule::class);
+        
+        $this->app->booted(function () {
+            FacadesSquadMSModuleRegistry::overrideConfigs();
+        });
     }
 }
