@@ -24,7 +24,8 @@
         "hihaho/laravel-encryptable-trait": "^1.4",
         "jenssegers/agent": "^2.6",
         "filament/filament": "^2.0",
-        "doctrine/dbal": "^3.3"
+        "doctrine/dbal": "^3.3",
+        "filament/spatie-laravel-settings-plugin": "^2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~9.0",
