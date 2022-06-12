@@ -4,6 +4,7 @@ namespace SquadMS\Foundation\Modularity;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Config;
 use SquadMS\Foundation\Modularity\Contracts\SquadMSModule;
 use SquadMS\Foundation\Modularity\Exceptions\DuplicateModuleException;
 use SquadMS\Foundation\Modularity\Exceptions\InvalidModuleTypeException;
