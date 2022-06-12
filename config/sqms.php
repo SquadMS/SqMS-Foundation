@@ -125,15 +125,12 @@ return [
         'data-url' => 'https://raw.githubusercontent.com/Squad-Wiki-Editorial/squad-wiki-pipeline-map-data/master/completed_output/_Current%20Version/finished.json',
     ],
     
-    'locales' => [
-        'enabled' => explode(',', env('SQMS_LANGUAGES', implode(',', config('sqms.locales.supported')))),
-        'supported' => [
-            'en',
-            'de',
-            'ar',
-            'he',
-        ]
-    ],
+    'locales' => env('SQMS_LOCALES', implode(',', [
+        'en',
+        'de',
+        'ar',
+        'he',
+    ])),
     
     'config-overrides' => [
         'filament' => [
@@ -145,10 +142,10 @@ return [
             ],
         ],
         'filament-spatie-laravel-translatable-plugin' => [
-            'default_locales' => config('sqms.locales.enabled'),
+            'default_locales' => config('sqms.locales'),
         ],
         'localized-routes' => [
-            'supported-locales' => config('sqms.locales.enabled'),
+            'supported-locales' => config('sqms.locales'),
             'omit_url_prefix_for_locale' => config('app.locale'),
         ]
     ],
