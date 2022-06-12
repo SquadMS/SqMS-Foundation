@@ -131,12 +131,4 @@ return [
         'ar',
         'he',
     ]))),
-    
-    'config-overrides' => [
-        'filament.dark_mode' => true,
-        'filament.auth.pages.login' => \SquadMS\Foundation\Http\Livewire\Auth\Login::class,
-        'filament-spatie-laravel-translatable-plugin.default_locales' => config('sqms.locales'),
-        'localized-routes.supported-locales'=> config('sqms.locales'),
-        'localized-routes.omit_url_prefix_for_locale'=> config('app.locale'),
-    ],
 ];
