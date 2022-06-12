@@ -12,8 +12,6 @@ abstract class SquadMSModule
 
     abstract public static function publishAssets(): void;
 
-    abstract public static function registerAdminMenus(): void;
-
     abstract public static function registerMenuEntries(string $menu): void;
 
     abstract public static function schedule(Schedule $schedule): void;
