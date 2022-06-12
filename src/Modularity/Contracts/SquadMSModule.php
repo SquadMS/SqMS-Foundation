@@ -15,12 +15,12 @@ abstract class SquadMSModule
         //
     }
 
-    abstract public static function registerMenuEntries(string $menu): void
+    public static function registerMenuEntries(string $menu): void
     {
         //
     }
 
-    abstract public static function schedule(Schedule $schedule): void
+    public static function schedule(Schedule $schedule): void
     {
         //
     }
