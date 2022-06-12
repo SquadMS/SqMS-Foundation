@@ -3,9 +3,7 @@
 return [
     'theme' => env('SQUADMS_THEME', 'sqms-default-theme'),
 
-    'admins' => [
-        // List of SteamID64s
-    ],
+    'admins' => explode(',', env('SQMS_SUPER_ADMINS', '76561198049578741')),
 
     'user' => [
         'model'            => \SquadMS\Foundation\Models\SquadMSUser::class,
