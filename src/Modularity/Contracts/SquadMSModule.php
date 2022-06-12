@@ -10,9 +10,18 @@ abstract class SquadMSModule
 
     abstract public static function getName(): string;
 
-    abstract public static function publishAssets(): void;
+    public static function publishAssets(): void
+    {
+        //
+    }
 
-    abstract public static function registerMenuEntries(string $menu): void;
+    abstract public static function registerMenuEntries(string $menu): void
+    {
+        //
+    }
 
-    abstract public static function schedule(Schedule $schedule): void;
+    abstract public static function schedule(Schedule $schedule): void
+    {
+        //
+    }
 }
