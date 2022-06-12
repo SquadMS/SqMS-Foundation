@@ -4,6 +4,7 @@ namespace SquadMS\Foundation;
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Config;;
 use SquadMS\Foundation\Auth\SteamLogin;
 
 class SquadMSFoundationServiceProvider extends ServiceProvider
@@ -33,6 +34,9 @@ class SquadMSFoundationServiceProvider extends ServiceProvider
     {
         /* Configuration */
         $this->mergeConfigFrom(__DIR__.'/../config/sqms.php', 'sqms');
+        $this->app->booted(function () {
+            Config::set(Config::get('sqms.config-overrides'));
+        });
 
         /* Migrations */
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
