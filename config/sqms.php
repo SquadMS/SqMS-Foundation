@@ -125,12 +125,12 @@ return [
         'data-url' => 'https://raw.githubusercontent.com/Squad-Wiki-Editorial/squad-wiki-pipeline-map-data/master/completed_output/_Current%20Version/finished.json',
     ],
     
-    'locales' => env('SQMS_LOCALES', implode(',', [
+    'locales' => explode(',', env('SQMS_LOCALES', implode(',', [
         'en',
         'de',
         'ar',
         'he',
-    ])),
+    ]))),
     
     'config-overrides' => [
         'filament' => [
