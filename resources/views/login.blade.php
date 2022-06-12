@@ -1,0 +1,1 @@
+<a href="{{ route('steam.login') }}">Login</a>
