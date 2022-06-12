@@ -133,7 +133,7 @@ return [
             'ar',
             'he',
         ]
-    ]
+    ],
     
     'config-overrides' => [
         'filament' => [
