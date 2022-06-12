@@ -17,7 +17,7 @@ abstract class SquadMSModule
     
     public static function overrideConfigs(): array
     {
-        //
+        return [];
     }
 
     public static function registerMenuEntries(string $menu): void
