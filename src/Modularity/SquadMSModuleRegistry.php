@@ -44,7 +44,9 @@ class SquadMSModuleRegistry
     public function overrideConfigs(): void
     {
         foreach ($this->store as $identifier => $module) {
-            $module::overrideConfigs();
+            foreach ($module::overrideConfigs() as $config => $value) {
+                Config::set([$config => $value]);
+            }
         }
     }
 
