@@ -15,7 +15,7 @@ abstract class SquadMSModule
         //
     }
     
-    public static function overrideConfigs(): void
+    public static function overrideConfigs(): array
     {
         //
     }
