@@ -124,4 +124,32 @@ return [
     'sdkdata' => [
         'data-url' => 'https://raw.githubusercontent.com/Squad-Wiki-Editorial/squad-wiki-pipeline-map-data/master/completed_output/_Current%20Version/finished.json',
     ],
+    
+    'config-overrides' => [
+        'filament' => [
+            'dark_mode' => true,
+            'auth' => [
+                'pages' => [
+                    'login' => \SquadMS\Foundation\Http\Livewire\Auth\Login::class,
+                ],
+            ],
+        ],
+        'filament-spatie-laravel-translatable-plugin' => [
+            'default_locales' => [
+                'en',
+                'de',
+                'ar',
+                'he',
+            ],
+        ],
+        'localized-routes' => [
+            'supported-locales' => [
+                'en',
+                'de',
+                'ar',
+                'he',
+            ],
+            'omit_url_prefix_for_locale' => 'en',
+        ]
+    ],
 ];
