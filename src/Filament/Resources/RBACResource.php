@@ -18,6 +18,8 @@ use SquadMS\Foundation\Filament\Resources\RBACResource\RelationManagers;
 
 class RBACResource extends Resource
 {
+    protected static ?string $navigationGroup = 'System Management';
+
     protected static ?string $model = Role::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-shield-check';
