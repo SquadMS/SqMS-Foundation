@@ -35,6 +35,17 @@ class SquadMSModule extends SquadMSModuleContract
             '--force'    => true,
         ]);
     }
+    
+    public static function overrideConfigs(): array
+    {
+        return [
+            'filament.dark_mode' => true,
+            'filament.auth.pages.login' => \SquadMS\Foundation\Http\Livewire\Auth\Login::class,
+            'filament-spatie-laravel-translatable-plugin.default_locales' => Config::get('sqms.locales'),
+            'localized-routes.supported-locales'=> Config::get('sqms.locales'),
+            'localized-routes.omit_url_prefix_for_locale'=> Config::get('app.locale'),
+        ];
+    }
 
     public static function registerMenuEntries(string $menu): void
     {
