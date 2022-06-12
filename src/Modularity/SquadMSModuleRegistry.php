@@ -30,9 +30,6 @@ class SquadMSModuleRegistry
             throw new DuplicateModuleException('Modules can not be registeted twice!');
         }
 
-        /* Register the Modules admin menu orders */
-        $module::registerAdminMenus();
-
         $this->store->put($module::getIdentifier(), $module);
     }
 
