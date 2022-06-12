@@ -126,7 +126,7 @@ return [
     ],
     
     'locales' => [
-        'enabled' => explode(',', env('SQMS_LANGUAGES', implode(',', config('sqms,locales.supported')))),
+        'enabled' => explode(',', env('SQMS_LANGUAGES', implode(',', config('sqms.locales.supported')))),
         'supported' => [
             'en',
             'de',
