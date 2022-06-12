@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Request;
 use Illuminate\View\ComponentAttributeBag;
-use SquadMS\Foundation\Facades\SquadMSAdminMenu;
 use SquadMS\Foundation\Facades\SquadMSMenu;
 use SquadMS\Foundation\Helpers\NavigationHelper;
 use SquadMS\Foundation\Jobs\FetchUsers;
@@ -35,12 +34,6 @@ class SquadMSModule extends SquadMSModuleContract
             '--tag'      => 'assets',
             '--force'    => true,
         ]);
-    }
-
-    public static function registerAdminMenus(): void
-    {
-        SquadMSAdminMenu::register('admin', 0);
-        SquadMSAdminMenu::register('admin-system', PHP_INT_MAX);
     }
 
     public static function registerMenuEntries(string $menu): void
