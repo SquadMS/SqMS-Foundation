@@ -34,11 +34,6 @@ class SquadMSFoundationServiceProvider extends ServiceProvider
     {
         /* Configuration */
         $this->mergeConfigFrom(__DIR__.'/../config/sqms.php', 'sqms');
-        $this->app->booted(function () {
-            foreach (Config::get('sqms.config-overrides') as $key => $value) {
-                Config::set([$key => $value]);
-            }
-        });
 
         /* Migrations */
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
