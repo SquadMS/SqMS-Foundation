@@ -23,7 +23,7 @@ class SquadMSRouteHelper
                 Route::localized(function () use ($define) {
                     $define();
                 }, [
-                    'supported-locales' => Config::get('sqms.locales')
+                    'supported-locales' => Config::get('sqms.locales'),
                     'omit_url_prefix_for_locale' => Config::get('sqms.omit_url_prefix_for_locale')
                 ]);
             } else {
