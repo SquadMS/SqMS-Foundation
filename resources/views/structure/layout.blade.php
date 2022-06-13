@@ -57,7 +57,6 @@
         @include('sqms-foundation::structure.footer')
 
         <!-- Styles -->
-        <script src="{{ mix('js/sqms.js', 'themes/sqms-foundation') }}"></script>
         @stack('scripts')
     </body>
 </html>
