@@ -26,7 +26,7 @@ class SquadMSRouteHelper
         }
     }
     
-    public static function localized(Closure $closure): void
+    public static function localized(\Closure $closure): void
     {
         Route::localized(function () use ($closure) {
             $closure();
