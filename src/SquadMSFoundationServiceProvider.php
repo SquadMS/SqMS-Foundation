@@ -23,6 +23,18 @@ class SquadMSFoundationServiceProvider extends ServiceProvider
         $loader = AliasLoader::getInstance();
         $loader->alias('NavigationHelper', \SquadMS\Foundation\Helpers\NavigationHelper::class);
         $loader->alias('LocaleHelper', \SquadMS\Foundation\Helpers\LocaleHelper::class);
+        
+        $this->app->bind(LocalizedUrlGenerator::class, fn () => new class extends LocalizedUrlGenerator {
+            protected function getOmitLocale()
+            {
+                return Config::get('sqms.omit_url_prefix_for_locale', null);
+            }
+
+            protected function getSupportedLocales()
+            {
+                return Config::get('sqms.locales', []);
+            }
+        });
     }
 
     /**
