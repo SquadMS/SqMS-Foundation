@@ -41,15 +41,6 @@ class SquadMSModuleRegistry
             $module::publishAssets();
         }
     }
-    
-    public function overrideConfigs(): void
-    {
-        foreach ($this->store as $identifier => $module) {
-            foreach ($module::overrideConfigs() as $config => $value) {
-                Config::set([$config => $value]);
-            }
-        }
-    }
 
     public function registerMenuEntries(string $menu): void
     {
