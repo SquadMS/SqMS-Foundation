@@ -69,7 +69,7 @@ class SquadMSModule extends SquadMSModuleContract
                 SquadMSMenu::register(
                     'main-right',
                     (new SquadMSMenuHTMLEntry(
-                        fn () => view(Config::get('sqms.theme').'::'.Config::get('sqms.menu.entry-view'), [
+                        fn () => view('sqms-foundation::components.navigation.item', [
                             'attributes' => new ComponentAttributeBag([
                                 'onclick' => 'event.preventDefault(); document.getElementById(\'frm-logout\').submit();',
                             ]),
