@@ -15,21 +15,25 @@ class SquadMSRouteHelper
             /* Create the definitor as an anonymous function */
             $define = function () use ($definition) {
                 $type = Arr::get($definition, 'type', 'get');
-
                 Route::$type(Arr::get($definition, 'path', '/'), [Arr::get($definition, 'controller'), Arr::get($definition, 'executor', 'show')])->middleware(Arr::get($definition, 'middlewares'))->name(Arr::get($definition, 'name'));
             };
 
             if (Arr::get($definition, 'localized', false)) {
-                Route::localized(function () use ($define) {
-                    $define();
-                }, [
-                    'supported-locales' => Config::get('sqms.locales'),
-                    'omit_url_prefix_for_locale' => Config::get('sqms.default_locale'),
-                    'use_locale_middleware' => true
-                ]);
+                self::localized($define);
             } else {
                 $define();
             }
         }
+    }
+    
+    public static function localized(Closure $closure): void
+    {
+        Route::localized(function () use ($closure) {
+            $closure();
+        }, [
+            'supported-locales' => Config::get('sqms.locales'),
+            'omit_url_prefix_for_locale' => Config::get('sqms.default_locale'),
+            'use_locale_middleware' => true
+        ]);
     }
 }
