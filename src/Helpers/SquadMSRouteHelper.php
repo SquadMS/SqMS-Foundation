@@ -4,6 +4,7 @@ namespace SquadMS\Foundation\Helpers;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Config;
 
 class SquadMSRouteHelper
 {
@@ -21,7 +22,9 @@ class SquadMSRouteHelper
             if (Arr::get($definition, 'localized', false)) {
                 Route::localized(function () use ($define) {
                     $define();
-                });
+                }, [
+                    'supported-locales' => Config::get('sqms.locales')
+                ]);
             } else {
                 $define();
             }
