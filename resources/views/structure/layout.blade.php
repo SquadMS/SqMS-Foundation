@@ -18,7 +18,7 @@
         <link href="{{ mix('css/sqms' . (LocaleHelper::isRTL(app()->getLocale()) ? '-rtl' : '') . '.css', 'themes/sqms-foundation') }}" rel="stylesheet">
         @stack('styles')
     </head>
-    <body class="min-vh-100 d-flex flex-column bg-light">
+    <body class="min-vh-100 flex flex-col bg-gray-100">
         <!-- Check WebP as early as possible -->
         <script src="{{ mix('js/webp.js', 'themes/sqms-default-theme') }}"></script>
 
@@ -50,7 +50,7 @@
             </x-slot>
         </x-sqms-foundation::navigation.navbar>
 
-        <main class="flex-grow-1 d-flex flex-column bg-white {{ $mainClass ?? '' }}" {!! $mainAttributes ?? '' !!} role="main">
+        <main class="flex-grow flex flex-col bg-white {{ $mainClass ?? '' }}" {!! $mainAttributes ?? '' !!} role="main">
             @yield('content')
         </main>
 

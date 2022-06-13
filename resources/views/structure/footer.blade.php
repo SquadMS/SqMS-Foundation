@@ -1,10 +1,10 @@
-<footer class="p-4">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center col-md-6 text-md-left">
+<footer class="p-6">
+    <div class="container mx-auto sm:px-4">
+        <div class="flex flex-wrap ">
+            <div class="w-full text-center md:w-1/2 pr-4 pl-4 md:text-left">
                 {{ __('sqms-default-theme::footer.copyright', ['name' => config('app.name'), 'year' => now()->year]) }}
             </div>
-            <div class="col-12 text-center col-md-6 text-md-right">
+            <div class="w-full text-center md:w-1/2 pr-4 pl-4 md:text-right">
                 {!! __('sqms-default-theme::footer.powered-by') !!}
             </div>
         </div>
