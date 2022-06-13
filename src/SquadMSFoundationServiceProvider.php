@@ -2,6 +2,7 @@
 
 namespace SquadMS\Foundation;
 
+use CodeZero\LocalizedRoutes\LocalizedUrlGenerator;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Config;;
