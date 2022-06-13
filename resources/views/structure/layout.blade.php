@@ -22,7 +22,7 @@
         <!-- Check WebP as early as possible -->
         <script src="{{ mix('js/public/webp.js', 'themes/sqms-default-theme') }}"></script>
 
-        <x-sqms-foundation::components.navigation.navbar :brand="config('app.name', 'SquadMS')">
+        <x-sqms-foundation::navigation.navbar :brand="config('app.name', 'SquadMS')">
             <x-slot name="navLeft">
                 {!! \SquadMSMenu::getMenu('main-left')->setWrapperTag()->render() !!}
             </x-slot>
@@ -31,24 +31,24 @@
                 {!! \SquadMSMenu::getMenu('main-right')->setWrapperTag()->render() !!}
 
                 @if (count(\LocaleHelper::getAvailableLocales()) > 1)
-                    <x-sqms-foundation::components.navigation.dropdown>
+                    <x-sqms-foundation::navigation.dropdown>
                         <x-slot name="title">
                             <span class="flag-icon {{ \LocaleHelper::localeToFlagIconsCSS(app()->getLocale()) }}"></span>
                         </x-slot>
 
                         <x-slot name="links">
                             @foreach (\LocaleHelper::getAvailableLocales(true) as $locale)
-                                <x-sqms-foundation::components.dropdown.item :link="\Route::localizedUrl($locale)">
+                                <x-sqms-foundation::dropdown.item :link="\Route::localizedUrl($locale)">
                                     <x-slot name="title">
                                         <span class="flag-icon {{ \LocaleHelper::localeToFlagIconsCSS($locale) }}"></span> {{ \LocaleHelper::getHumanReadableName($locale) }}
                                     </x-slot>
-                                </x-sqms-foundation::components.dropdown.item>
+                                </x-sqms-foundation::dropdown.item>
                             @endforeach
                         </x-slot>
-                    </x-sqms-foundation::components.navigation.dropdown>
+                    </x-sqms-foundation::navigation.dropdown>
                 @endif
             </x-slot>
-        </x-sqms-foundation::components.navigation.navbar>
+        </x-sqms-foundation::navigation.navbar>
 
         <main class="flex-grow-1 d-flex flex-column bg-white {{ $mainClass ?? '' }}" {!! $mainAttributes ?? '' !!} role="main">
             @yield('content')
