@@ -1,38 +1,22 @@
 {
-  "name": "sqms-foundation",
-  "version": "1.0.0",
-  "description": "A foundation to build upon. Basically shared system dependencies and functionality.",
+  "private": true,
   "scripts": {
-    "build": "./node_modules/.bin/webpack build --config=\"./node_modules/laravel-mix/setup/webpack.config.js\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SquadMS/SqMS-Foundation.git"
-  },
-  "keywords": [
-    "laravel",
-    "squadms",
-    "squad",
-    "foundation"
-  ],
-  "author": "Patrick Henninger",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/SquadMS/SqMS-Foundation/issues"
-  },
-  "homepage": "https://github.com/SquadMS/SqMS-Foundation#readme",
-  "dependencies": {
-    "@popperjs/core": "^2.9.2",
-    "bootstrap": "^5.0.0-beta3",
-    "bootstrap-icons": "^1.4.1",
-    "flag-icon-css": "^4.1.7",
-    "laravel-mix": "^6.0.16",
-    "rtlcss": "^3.1.2"
+      "dev": "npm run development",
+      "development": "mix",
+      "watch": "mix watch",
+      "watch-poll": "mix watch -- --watch-options-poll=1000",
+      "hot": "mix watch --hot",
+      "prod": "npm run production",
+      "production": "mix --production"
   },
   "devDependencies": {
-    "@babel/preset-react": "^7.13.13",
-    "resolve-url-loader": "^5.0.0",
-    "sass": "^1.32.10",
-    "sass-loader": "^13.0.0"
+      "@tailwindcss/forms": "^0.4.0",
+      "laravel-mix": "^6.0.6",
+      "postcss": "^8.4.6",
+      "postcss-import": "^14.0.2",
+      "resolve-url-loader": "^5.0.0",
+      "sass": "^1.52.3",
+      "sass-loader": "^12.6.0",
+      "tailwindcss": "^3.0.18"
   }
 }

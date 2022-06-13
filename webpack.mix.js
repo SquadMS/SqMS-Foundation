@@ -17,9 +17,14 @@ mix.setResourceRoot('/themes/sqms-foundation');
 /* Build SCSS/JS assets */
 mix
 /* Admin assets */
-.sass('resources/scss/admin/app.scss', 'css/admin/')
-.js('resources/js/admin/app.js', 'js/admin/')
-
+.sass('resources/scss/sqms.scss', 'public/css')
+.options({
+    postCss: [
+        require('postcss-import'),
+        require('tailwindcss')('./tailwind.config.js'),
+        require('autoprefixer'),
+    ],
+})
 .version();
 
 /* Copy static images */
