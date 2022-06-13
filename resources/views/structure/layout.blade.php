@@ -20,7 +20,7 @@
     </head>
     <body class="min-vh-100 d-flex flex-column bg-light">
         <!-- Check WebP as early as possible -->
-        <script src="{{ mix('js/webp.js', 'themes/sqms-default-theme') }}"></script>
+        <script src="{{ mix('js/webp.js', 'themes/sqms-foundation') }}"></script>
 
         <x-sqms-foundation::navigation.navbar :brand="config('app.name', 'SquadMS')">
             <x-slot name="navLeft">
