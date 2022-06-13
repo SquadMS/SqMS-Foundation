@@ -22,7 +22,7 @@
         <!-- Check WebP as early as possible -->
         <script src="{{ mix('js/public/webp.js', 'themes/sqms-default-theme') }}"></script>
 
-        <x-sqms-default-theme::navigation.navbar :brand="config('app.name', 'SquadMS')">
+        <x-sqms-foundation::navigation.navbar :brand="config('app.name', 'SquadMS')">
             <x-slot name="navLeft">
                 {!! \SquadMSMenu::getMenu('main-left')->setWrapperTag()->render() !!}
             </x-slot>
@@ -48,7 +48,7 @@
                     </x-sqms-default-theme::navigation.dropdown>
                 @endif
             </x-slot>
-        </x-sqms-default-theme::navigation.navbar>
+        </x-sqms-foundation::navigation.navbar>
 
         <main class="flex-grow-1 d-flex flex-column bg-white {{ $mainClass ?? '' }}" {!! $mainAttributes ?? '' !!} role="main">
             @yield('content')
