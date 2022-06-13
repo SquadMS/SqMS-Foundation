@@ -25,6 +25,9 @@ mix
         require('autoprefixer'),
     ],
 })
+
+.js('resources/js/webp.js', 'public/js')
+
 .version();
 
 /* Copy static images */
