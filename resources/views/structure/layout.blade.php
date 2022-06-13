@@ -17,6 +17,7 @@
         <!-- Styles -->
         <link href="{{ mix('css/sqms' . (LocaleHelper::isRTL(app()->getLocale()) ? '-rtl' : '') . '.css', 'themes/sqms-foundation') }}" rel="stylesheet">
         @stack('styles')
+        @include('sqms-foundation::structure.styles')
     </head>
     <body class="min-vh-100 flex flex-col bg-gray-100">
         <!-- Check WebP as early as possible -->
