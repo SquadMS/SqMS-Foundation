@@ -22,7 +22,7 @@
         "laravel/framework": "^8.0",
         "xpaw/steamid": "^2.0.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "codezero/laravel-localized-routes": "dev-patch-3",
+        "codezero/laravel-localized-routes": "patch-3-dev",
         "petercoles/multilingual-language-list": "^1.16",
         "spatie/laravel-permission": "^4.1 || ^5.0",
         "spatie/laravel-menu": "^4.0",
