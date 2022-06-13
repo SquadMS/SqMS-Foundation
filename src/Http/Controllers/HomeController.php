@@ -15,6 +15,6 @@ class HomeController extends Controller
     public function show()
     {
         /* Show home page */
-        return view(Config::get('sqms.theme').'::pages.home');
+        return view('sqms-foundation::home');
     }
 }
