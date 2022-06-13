@@ -1,7 +1,7 @@
 @props(['htmlBrand' => false, 'container' => 'container', 'navLeft' => false, 'navCenter' => false, 'navRight' => false, 'navExtra' => false, 'brand'])
 
 <nav {{ $attributes->merge(['class' => 'navbar navbar-expand-lg navbar-light bg-light']) }}>
-    <div class="{{ $container mx-auto sm:px-4 }}">
+    <div class="container mx-auto sm:px-4">
         @if ($htmlBrand)
             <a class="inline-block pt-1 pb-1 mr-4 text-lg whitespace-no-wrap" href="{{ route(Config::get('sqms.routes.def.home.name')) }}">
                 {!! $brand !!}
