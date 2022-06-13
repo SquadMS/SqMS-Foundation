@@ -22,7 +22,7 @@ class ProfileController extends Controller
         $user = SquadMSUser::where('steam_id_64', $steamId64)->firstOrFail();
 
         /* Show profile page */
-        return view(Config::get('sqms.theme').'::pages.profile', [
+        return view('sqms-foundation::profile', [
             'user' => $user,
         ]);
     }
@@ -41,7 +41,7 @@ class ProfileController extends Controller
         $this->authorize('editSettings', $user);
 
         /* Show profile page */
-        return view(Config::get('sqms.theme').'::pages.profile-settings', [
+        return view('sqms-foundation::profile-settings', [
             'user' => $user,
         ]);
     }
