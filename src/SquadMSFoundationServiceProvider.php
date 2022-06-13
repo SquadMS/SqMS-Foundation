@@ -3,6 +3,7 @@
 namespace SquadMS\Foundation;
 
 use CodeZero\LocalizedRoutes\LocalizedUrlGenerator;
+use CodeZero\LocalizedRoutes\UrlGenerator;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Config;;
@@ -36,6 +37,8 @@ class SquadMSFoundationServiceProvider extends ServiceProvider
                 return Config::get('sqms.locales', []);
             }
         });
+
+        $this->app->bind(UrlGenerator::class, fn ($app, $parameters) => new SquadMSUrlGenerator(...$parameters));
     }
 
     /**
