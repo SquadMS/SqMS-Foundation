@@ -45,7 +45,7 @@ class SquadMSMenuEntry extends AbstractSquadMSMenuEntry
             $url = fn () => route($url, is_callable($this->routeParameters) ? ($this->routeParameters)() : $this->routeParameters);
         }
 
-        return SquadMSMenuView::create($this->view ?? 'foundation::components.navigation.item', [
+        return SquadMSMenuView::create($this->view ?? 'sqms-foundation::components.navigation.item', [
             'attributes' => new ComponentAttributeBag([]),
             'link'       => $url,
             'title'      => is_callable($this->title) ? ($this->title)() : $this->title,
