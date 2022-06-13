@@ -21,7 +21,7 @@ class LocaleHelper
 
     public static function getAvailableLocales(bool $excludeCurrent = false): array
     {
-        $available = Config::get('localized-routes.supported-locales', []);
+        $available = Config::get('sqms.locales', []);
 
         if ($excludeCurrent) {
             $available = array_values(Arr::except(array_combine($available, $available), [
