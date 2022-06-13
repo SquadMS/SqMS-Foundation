@@ -1,6 +1,6 @@
 <?php
 
-namespace SquadMS\Foundation\Filament\Resources\Concerns\Translatable;
+namespace SquadMS\Foundation\Filament\Resources\Concerns;
 
 trait Translatable {
   use \Filament\Resources\Concerns\Translatable;
