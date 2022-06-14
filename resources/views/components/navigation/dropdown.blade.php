@@ -1,19 +1,30 @@
-@props(['active' => false, 'title'])
+@props(['active' => false, 'trigger' => false, 'title'])
 
 <li 
     x-data=="{ open: false }"
     {{ $attributes->merge(['class' => 'nav-item dropdown' . ($active ? ' active' : '')]) }}
 >
-    <a 
-        class="inline-block py-2 px-4 no-underline  inline-block w-0 h-0 ml-1 align border-b-0 border-t-1 border-r-1 border-l-1"
-        href="#"
+    <span 
+        class="inline-block py-2 px-4 no-underline"
         role="button"
-        data-bs-toggle="dropdown"
-        aria-expanded="false">
+        @click="open = ! open"
+    >
         {{ $title }}
-    </a>
+        {{ $trigger }}
+    </span>
 
-    <ul class="list-none">
+    <ul
+        class="list-none"
+        style="display: none;"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="transform opacity-0 scale-95"
+        x-transition:enter-end="transform opacity-100 scale-100"
+        x-transition:leave="transition ease-in duration-75"
+        x-transition:leave-start="transform opacity-100 scale-100"
+        x-transition:leave-end="transform opacity-0 scale-95"
+        x-show="open"
+        @click="open = false">
+    >
         {{ $links }}
     </ul>
 </li>

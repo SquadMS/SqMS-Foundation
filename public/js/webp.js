@@ -34,6 +34,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/scss/flag-icons.scss":
+/*!****************************************!*\
+  !*** ./resources/scss/flag-icons.scss ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./node_modules/supports-webp/dist/supports-webp.common-js.js":
 /*!********************************************************************!*\
   !*** ./node_modules/supports-webp/dist/supports-webp.common-js.js ***!
@@ -166,6 +178,7 @@ module.exports = index;
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"/js/webp": 0,
+/******/ 			"css/flag-icons": 0,
 /******/ 			"css/sqms": 0
 /******/ 		};
 /******/ 		
@@ -216,8 +229,9 @@ module.exports = index;
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/sqms"], () => (__webpack_require__("./resources/js/webp.js")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/sqms"], () => (__webpack_require__("./resources/scss/sqms.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/flag-icons","css/sqms"], () => (__webpack_require__("./resources/js/webp.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/flag-icons","css/sqms"], () => (__webpack_require__("./resources/scss/sqms.scss")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/flag-icons","css/sqms"], () => (__webpack_require__("./resources/scss/flag-icons.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

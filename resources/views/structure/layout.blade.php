@@ -16,6 +16,7 @@
 
         <!-- Styles -->
         <link href="{{ mix('css/sqms.css', 'themes/sqms-foundation') }}" rel="stylesheet">
+        <link href="{{ mix('css/flag-icons.css', 'themes/sqms-foundation') }}" rel="stylesheet">
         @stack('styles')
         @include('sqms-foundation::structure.styles')
     </head>

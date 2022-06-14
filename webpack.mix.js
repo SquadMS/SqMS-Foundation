@@ -27,6 +27,7 @@ mix
 .options({
     postCss: postCssptions,
 })
+.sass('resources/scss/flag-icons.scss', 'public/css')
 
 .js('resources/js/webp.js', 'public/js')
 
