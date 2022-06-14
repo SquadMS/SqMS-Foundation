@@ -57,7 +57,8 @@
 
         @include('sqms-foundation::structure.footer')
 
-        <!-- Styles -->
+        <!-- Scripts -->
+        <script src="//unpkg.com/alpinejs" defer></script>
         @include('sqms-foundation::structure.scripts')
         @stack('scripts')
     </body>
