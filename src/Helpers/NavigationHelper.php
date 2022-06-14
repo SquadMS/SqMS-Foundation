@@ -8,7 +8,7 @@ class NavigationHelper
 {
     public static function isCurrentRoute(string $name): bool
     {
-        foreach (config('localized-routes.supported-locales') as $locale) {
+        foreach (config('sqms.locales') as $locale) {
             if (Route::currentRouteNamed($locale.'.'.$name)) {
                 return true;
             }
