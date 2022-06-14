@@ -1,4 +1,4 @@
-@props(['active' => false, 'trigger' => false, 'handle' => '▼', 'title'])
+@props(['active' => false, 'trigger' => false, 'title'])
 
 <li 
     x-data="{ open: false }"
@@ -13,11 +13,11 @@
         <span
             class="inline-block"
             :class="{ 'ltr:rotate-180 rtl:-rotate-180 transform-gpu transition-transform': open }"
-        >{{ $handle }}</span>
+        >▼</span>
     </span>
 
     <ul
-        class="absolute z-10 ltr:right-0 rtl:left-0 list-none px-0 py-2 border border-slate-300 border-solid"
+        class="absolute top-full z-20 ltr:right-0 rtl:left-0 list-none px-0 py-2 border border-slate-300 border-solid"
         style="display: none;"
         x-transition:enter="transition ease-out duration-200"
         x-transition:enter-start="transform opacity-0 scale-95"
