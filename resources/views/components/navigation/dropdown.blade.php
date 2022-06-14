@@ -1,4 +1,4 @@
-@props(['active' => false, 'trigger' => false, 'title'])
+@props(['active' => false, 'trigger' => false, 'handle' => '▼', 'title'])
 
 <li 
     x-data="{ open: false }"
@@ -10,7 +10,10 @@
         @click="open = ! open"
     >
         {{ $title }}
-        {{ $trigger }}
+        <span
+            class="inline-block"
+            :class="{ 'ltr:rotate-180 rtl:-rotate-180 transform-gpu transition-transform': open }"
+        >{{ $handle }}</span>
     </span>
 
     <ul
