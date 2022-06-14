@@ -39,25 +39,23 @@ class SquadMSModule extends SquadMSModuleContract
     public static function registerMenuEntries(string $menu): void
     {
         switch ($menu) {
-            case 'main-left':
+            case 'main':
                 SquadMSMenu::register(
-                    'main-left',
+                    'main',
                     (new SquadMSMenuEntry(Config::get('sqms.routes.def.home.name'), fn () => __('sqms-foundation::navigation.home'), true))
                     ->setActive(fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.home.name')))
                     ->setOrder(100)
                 );
 
                 SquadMSMenu::register(
-                    'main-left',
+                    'main',
                     (new SquadMSMenuEntry('filament.pages.dashboard', fn () => __('sqms-foundation::navigation.admin'), true))
                     ->setCondition(Config::get('sqms.permissions.module').' admin')
                     ->setOrder(PHP_INT_MAX) // Always last item
                 );
-                break;
-
-            case 'main-right':
+                
                 SquadMSMenu::register(
-                    'main-right',
+                    'main',
                     (new SquadMSMenuEntry(Config::get('sqms.routes.def.profile.name'), fn () => __('sqms-foundation::navigation.profile'), true, function () {
                         return ['steam_id_64' => Auth::user()->steam_id_64];
                     }))
@@ -67,7 +65,7 @@ class SquadMSModule extends SquadMSModuleContract
                 );
 
                 SquadMSMenu::register(
-                    'main-right',
+                    'main',
                     (new SquadMSMenuHTMLEntry(
                         fn () => view('sqms-foundation::components.navigation.item', [
                             'attributes' => new ComponentAttributeBag([
@@ -83,7 +81,7 @@ class SquadMSModule extends SquadMSModuleContract
                 );
 
                 SquadMSMenu::register(
-                    'main-right',
+                    'main',
                     (new SquadMSMenuEntry(Config::get('sqms.routes.def.steam-login.name'), fn () => __('sqms-foundation::navigation.login'), true))
                     ->setCondition(fn () => !Auth::check())
                     ->setOrder(100)
