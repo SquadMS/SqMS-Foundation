@@ -2,7 +2,7 @@
 
 <li 
     x-data="{ open: false }"
-    {{ $attributes->merge(['class' => 'nav-item dropdown' . ($active ? ' active' : '')]) }}
+    {{ $attributes->merge(['class' => 'relative' . ($active ? ' active' : '')]) }}
 >
     <span 
         class="inline-block py-2 px-4 no-underline"
@@ -14,7 +14,7 @@
     </span>
 
     <ul
-        class="list-none"
+        class="absolute ltr:right-0 list-none px-0 py-2 border border-slate-300 border-solid"
         style="display: none;"
         x-transition:enter="transition ease-out duration-200"
         x-transition:enter-start="transform opacity-0 scale-95"
@@ -23,7 +23,7 @@
         x-transition:leave-start="transform opacity-100 scale-100"
         x-transition:leave-end="transform opacity-0 scale-95"
         x-show="open"
-        @click="open = false">
+        @click="open = false"
     >
         {{ $links }}
     </ul>
