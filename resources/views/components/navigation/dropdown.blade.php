@@ -24,6 +24,7 @@
         x-transition:leave-end="transform opacity-0 scale-95"
         x-show="open"
         @click="open = false"
+        @click.away="open = false"
     >
         {{ $links }}
     </ul>
