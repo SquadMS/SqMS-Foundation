@@ -5,7 +5,7 @@
     <div class="container mx-auto sm:px-4">
         <div class="flex flex-wrap  mb-5">
             <div class="relative flex-grow max-w-full flex-1 px-4">
-                <h1>{{ __('sqms-default-theme::pages/profile-settings.heading', ['name' => $user->name . '('. $user->steam_id_64 . ')']) }}</h1>
+                <h1>{{ __('sqms-foundation::pages/profile-settings.heading', ['name' => $user->name . '('. $user->steam_id_64 . ')']) }}</h1>
             </div>
         </div>
 
