@@ -33,14 +33,14 @@
                 @if (count(\LocaleHelper::getAvailableLocales()) > 1)
                     <x-sqms-foundation::navigation.dropdown>
                         <x-slot name="title">
-                            <span class="flag-icon {{ \LocaleHelper::localeToFlagIconsCSS(app()->getLocale()) }}"></span>
+                            <span class="fi {{ \LocaleHelper::localeToFlagIconsCSS(app()->getLocale()) }}"></span>
                         </x-slot>
 
                         <x-slot name="links">
                             @foreach (\LocaleHelper::getAvailableLocales(true) as $locale)
                                 <x-sqms-foundation::dropdown.item :link="\Route::localizedUrl($locale)">
                                     <x-slot name="title">
-                                        <span class="flag-icon {{ \LocaleHelper::localeToFlagIconsCSS($locale) }}"></span> {{ \LocaleHelper::getHumanReadableName($locale) }}
+                                        <span class="fi {{ \LocaleHelper::localeToFlagIconsCSS($locale) }}"></span> {{ \LocaleHelper::getHumanReadableName($locale) }}
                                     </x-slot>
                                 </x-sqms-foundation::dropdown.item>
                             @endforeach
