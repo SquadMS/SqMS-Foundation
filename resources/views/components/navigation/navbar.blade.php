@@ -7,7 +7,7 @@
     <div class="relative container mx-auto flex flex-wrap items-center">
         <!-- Application brand-->
         <a href="{{ route(Config::get('sqms.routes.def.home.name')) }}">
-            <x-sqms-foundation::brand class="block h-12 w-auto" />
+            <x-sqms-foundation::brand class="block p-2 h-12 w-auto" />
         </a>
 
         <!-- Responsive toggle -->
