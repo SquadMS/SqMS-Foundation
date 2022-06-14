@@ -31,7 +31,6 @@
 
         <!-- Responsive menu -->
         <ul
-            x-show="open"
             class="absolute md:relative top-full z-10 basis-full md:basis-auto grow md:grow-0 block md:flex md:items-center list-none ltr:ml-auto rtl:mr-auto"
             :class="{ 'hidden': ! open }"
             x-show.transition="true"
