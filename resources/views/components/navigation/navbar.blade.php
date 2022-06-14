@@ -13,7 +13,7 @@
                 {{ $menu }}
             @endif
 
-            @if ($navExtra)
+            @if ($extra)
                 {{ $extra }}
             @endif
         </ul>
