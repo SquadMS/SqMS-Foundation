@@ -1,7 +1,7 @@
 @props(['active' => false, 'trigger' => false, 'title'])
 
 <li 
-    x-data=="{ open: false }"
+    x-data="{ open: false }"
     {{ $attributes->merge(['class' => 'nav-item dropdown' . ($active ? ' active' : '')]) }}
 >
     <span 
