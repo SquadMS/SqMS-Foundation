@@ -38,11 +38,11 @@
 
                         <x-slot name="links">
                             @foreach (\LocaleHelper::getAvailableLocales(true) as $locale)
-                                <x-sqms-foundation::dropdown.item :link="\Route::localizedUrl($locale)">
+                                <x-sqms-foundation::navigation.dropdown-item :link="\Route::localizedUrl($locale)">
                                     <x-slot name="title">
                                         <span class="fi {{ \LocaleHelper::localeToFlagIconsCSS($locale) }}"></span> {{ \LocaleHelper::getHumanReadableName($locale) }}
                                     </x-slot>
-                                </x-sqms-foundation::dropdown.item>
+                                </x-sqms-foundation::navigation.dropdown-item>
                             @endforeach
                         </x-slot>
                     </x-sqms-foundation::navigation.dropdown>
