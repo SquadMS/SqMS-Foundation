@@ -46,13 +46,6 @@ class SquadMSModule extends SquadMSModuleContract
                     ->setActive(fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.home.name')))
                     ->setOrder(100)
                 );
-
-                SquadMSMenu::register(
-                    'main',
-                    (new SquadMSMenuEntry('filament.pages.dashboard', fn () => __('sqms-foundation::navigation.admin'), true))
-                    ->setCondition(Config::get('sqms.permissions.module').' admin')
-                    ->setOrder(PHP_INT_MAX) // Always last item
-                );
                 
                 SquadMSMenu::register(
                     'main',
@@ -61,7 +54,7 @@ class SquadMSModule extends SquadMSModuleContract
                     }))
                     ->setCondition(fn () => Auth::check())
                     ->setActive(fn () => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.profile.name')) && Request::route('steam_id_64') === Auth::user()->steam_id_64)
-                    ->setOrder(100)
+                    ->setOrder(300)
                 );
 
                 SquadMSMenu::register(
@@ -77,14 +70,21 @@ class SquadMSModule extends SquadMSModuleContract
                         ])->render()
                     ))
                     ->setCondition(fn () => Auth::check())
-                    ->setOrder(200)
+                    ->setOrder(PHP_INT_MAX - 1)
                 );
 
                 SquadMSMenu::register(
                     'main',
                     (new SquadMSMenuEntry(Config::get('sqms.routes.def.steam-login.name'), fn () => __('sqms-foundation::navigation.login'), true))
                     ->setCondition(fn () => !Auth::check())
-                    ->setOrder(100)
+                    ->setOrder(PHP_INT_MAX - 1)
+                );
+
+                SquadMSMenu::register(
+                    'main',
+                    (new SquadMSMenuEntry('filament.pages.dashboard', fn () => __('sqms-foundation::navigation.admin'), true))
+                    ->setCondition(Config::get('sqms.permissions.module').' admin')
+                    ->setOrder(PHP_INT_MAX) // Always last item
                 );
 
                 break;
