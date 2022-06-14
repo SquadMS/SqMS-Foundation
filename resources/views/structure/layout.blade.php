@@ -26,29 +26,9 @@
         <x-sqms-foundation::navigation.navbar :brand="config('app.name', 'SquadMS')">            
             <x-slot name="menu">
                 {!! \SquadMSMenu::getMenu('main')->setWrapperTag()->render() !!}
-
-                @if (count(\LocaleHelper::getAvailableLocales()) > 1)
-                    <x-sqms-foundation::navigation.dropdown>
-                        <x-slot name="title">
-                            <span class="flag-icon {{ \LocaleHelper::localeToFlagIconsCSS(app()->getLocale()) }}"></span>
-                        </x-slot>
-
-                        <x-slot name="links">
-                            @foreach (\LocaleHelper::getAvailableLocales(true) as $locale)
-                                <x-sqms-foundation::dropdown.item :link="\Route::localizedUrl($locale)">
-                                    <x-slot name="title">
-                                        <span class="flag-icon {{ \LocaleHelper::localeToFlagIconsCSS($locale) }}"></span> {{ \LocaleHelper::getHumanReadableName($locale) }}
-                                    </x-slot>
-                                </x-sqms-foundation::dropdown.item>
-                            @endforeach
-                        </x-slot>
-                    </x-sqms-foundation::navigation.dropdown>
-                @endif
             </x-slot>
             
             <x-slot name="extra">
-                {!! \SquadMSMenu::getMenu('main-right')->setWrapperTag()->render() !!}
-
                 @if (count(\LocaleHelper::getAvailableLocales()) > 1)
                     <x-sqms-foundation::navigation.dropdown>
                         <x-slot name="title">
