@@ -19,7 +19,7 @@
         @stack('styles')
         @include('sqms-foundation::structure.styles')
     </head>
-    <body class="min-vh-100 flex flex-col bg-gray-100" dir="{{ LocaleHelper::isRTL(app()->getLocale() ? 'rtl' : 'ltr' }}">
+    <body class="min-vh-100 flex flex-col bg-gray-100" dir="{{ LocaleHelper::isRTL(app()->getLocale()) ? 'rtl' : 'ltr' }}">
         <!-- Check WebP as early as possible -->
         <script src="{{ mix('js/webp.js', 'themes/sqms-foundation') }}"></script>
 
