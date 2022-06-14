@@ -14,16 +14,18 @@ mix.setPublicPath('public');
 
 mix.setResourceRoot('/themes/sqms-foundation');
 
+const postCssptions = [
+    require('postcss-import'),
+    require('tailwindcss')('./tailwind.config.js'),
+    require('autoprefixer'),
+]
+
 /* Build SCSS/JS assets */
 mix
 /* Admin assets */
 .sass('resources/scss/sqms.scss', 'public/css')
 .options({
-    postCss: [
-        require('postcss-import'),
-        require('tailwindcss')('./tailwind.config.js'),
-        require('autoprefixer'),
-    ],
+    postCss: postCssptions,
 })
 
 .js('resources/js/webp.js', 'public/js')
