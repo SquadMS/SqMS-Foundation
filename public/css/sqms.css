@@ -64,9 +64,6 @@
 .mt-4 {
     margin-top: 1rem
 }
-.ml-auto {
-    margin-left: auto
-}
 .block {
     display: block
 }
@@ -286,6 +283,12 @@
 .hover\:bg-red-700:hover {
     --tw-bg-opacity: 1;
     background-color: rgb(185 28 28 / var(--tw-bg-opacity))
+}
+[dir="ltr"] .ltr\:ml-auto {
+    margin-left: auto
+}
+[dir="rtl"] .rtl\:mr-auto {
+    margin-right: auto
 }
 @media (min-width: 640px) {
     .sm\:px-4 {

@@ -8,7 +8,7 @@
         </a>
 
         <!-- Responsive menu -->
-        <ul class="flex items-center list-none ml-auto">
+        <ul class="flex items-center list-none ltr:ml-auto rtl:mr-auto">
             @if ($menu)
                 {{ $menu }}
             @endif
