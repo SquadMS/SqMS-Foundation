@@ -4,7 +4,7 @@
     x-data="{ open: false }"
     {{ $attributes->merge(['class' => 'bg-white relative']) }}
 >
-    <div class="container mx-auto flex flex-wrap items-center">
+    <div class="container mx-auto px-4 flex flex-wrap items-center">
         <!-- Application brand-->
         <a href="{{ route(Config::get('sqms.routes.def.home.name')) }}">
             <x-sqms-foundation::brand class="block p-2 h-12 w-auto" />
@@ -40,8 +40,8 @@
         >
             <ul
                 class="
-                    container mx-auto list-none flex flex-col
-                    md:max-w-none md:flex-row
+                    container mx-auto px-4 list-none flex flex-col
+                    md:max-w-none md:flex-row md:px-0
                 "
             >
                 @if ($menu)
