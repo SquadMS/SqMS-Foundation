@@ -9,7 +9,7 @@
             </div>
         </div>
 
-        @yield('content')
+        @yield('page-content')
     </div>
 </section>
 @endsection

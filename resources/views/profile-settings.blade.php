@@ -4,7 +4,7 @@
     {{ __('sqms-foundation::pages/profile-settings.heading', ['name' => $user->name . '('. $user->steam_id_64 . ')']) }}
 @endsection
 
-@section('content')
+@section('page-content')
 @if (config('session.driver') === 'database')
 <div class="flex flex-wrap  mb-5">
     <div class="w-full">
