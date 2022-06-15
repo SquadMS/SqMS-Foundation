@@ -2,9 +2,9 @@
 
 <nav
     x-data="{ open: false }"
-    {{ $attributes->merge(['class' => 'bg-white']) }}
+    {{ $attributes->merge(['class' => 'bg-white relative']) }}
 >
-    <div class="relative container mx-auto flex flex-wrap items-center">
+    <div class="container mx-auto flex flex-wrap items-center">
         <!-- Application brand-->
         <a href="{{ route(Config::get('sqms.routes.def.home.name')) }}">
             <x-sqms-foundation::brand class="block p-2 h-12 w-auto" />
@@ -30,18 +30,28 @@
         </button>
 
         <!-- Responsive menu -->
-        <ul
-            class="absolute md:relative top-full z-10 basis-full md:basis-auto grow md:grow-0 block md:flex md:items-center list-none ltr:ml-auto rtl:mr-auto"
+        <div
+            class="
+                absolute z-10 top-full left-0 right-0 bg-white 
+                md:relative md:bg-none md:flex md:ltr:ml-auto md:rtl:mr-auto
+            "
             :class="{ 'hidden': ! open }"
             x-show.transition="true"
         >
-            @if ($menu)
-                {{ $menu }}
-            @endif
+            <ul
+                class="
+                    container mx-auto list-none flex flex-col
+                    md:max-w-none md:flex-row
+                "
+            >
+                @if ($menu)
+                    {{ $menu }}
+                @endif
 
-            @if ($extra)
-                {{ $extra }}
-            @endif
-        </ul>
+                @if ($extra)
+                    {{ $extra }}
+                @endif
+            </ul>
+        </div>
     </div>
 </nav>

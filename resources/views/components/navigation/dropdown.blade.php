@@ -17,7 +17,7 @@
     </span>
 
     <ul
-        class="absolute top-full z-20 ltr:right-0 rtl:left-0 list-none px-0 py-2 border border-slate-300 border-solid"
+        class="md:absolute md:top-full md:z-20 md:ltr:right-0 md:rtl:left-0 list-none px-0 py-2 border border-slate-300 border-solid"
         style="display: none;"
         x-transition:enter="transition ease-out duration-200"
         x-transition:enter-start="transform opacity-0 scale-95"
