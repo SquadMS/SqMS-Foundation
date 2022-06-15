@@ -5,11 +5,11 @@
     <div class="container mx-auto px-4">
         <div class="flex flex-wrap ">
             <div class="relative flex-grow max-w-full flex-1">
-                <h1>{{ $title }}</h1>
+                <h1>@yield('title')</h1>
             </div>
         </div>
 
-        {{ $content }}
+        @yield('content')
     </div>
 </section>
 @endsection
