@@ -965,6 +965,9 @@ select {
 .pl-4 {
   padding-left: 1rem;
 }
+.pr-2 {
+  padding-right: 0.5rem;
+}
 .text-center {
   text-align: center;
 }
