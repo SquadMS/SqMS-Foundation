@@ -774,6 +774,9 @@ select {
 .mt-4 {
   margin-top: 1rem;
 }
+.mt-3 {
+  margin-top: 0.75rem;
+}
 .block {
   display: block;
 }
@@ -841,8 +844,14 @@ select {
       -ms-user-select: none;
           user-select: none;
 }
+.list-inside {
+  list-style-position: inside;
+}
 .list-none {
   list-style-type: none;
+}
+.list-disc {
+  list-style-type: disc;
 }
 .appearance-none {
   -webkit-appearance: none;
