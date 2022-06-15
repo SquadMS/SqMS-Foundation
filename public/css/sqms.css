@@ -1002,6 +1002,9 @@ select {
 .font-normal {
   font-weight: 400;
 }
+.font-medium {
+  font-weight: 500;
+}
 .leading-normal {
   line-height: 1.5;
 }
