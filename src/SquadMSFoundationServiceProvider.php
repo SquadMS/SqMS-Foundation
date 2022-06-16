@@ -25,22 +25,15 @@ use SquadMS\Foundation\SDKData\SDKDataReader;
 
 class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 {
+    public static string $name = 'sqms-foundation';
+
     protected array $resources = [
         RBACResource::class,
     ];
 
     public function configureModule(Package $package): void
     {
-        $package->name('sqms-foundation')
-                ->hasConfigFile('sqms')
-                ->hasTranslations()
-                ->hasAssets()
-                ->hasCommands([
-                    PublishAssets::class,
-                    PermissionsSync::class,
-                    DevPostInstall::class,
-                    Install::class,
-                ]);
+        $package->hasAssets();
     }
 
     /**
@@ -134,6 +127,16 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
         return [
             Role::class                    => RBACPolicy::class,
             Config::get('sqms.user.model') => UserPolicy::class,
+        ];
+    }
+
+    protected function getCommands(): array
+    {
+        return [
+            PublishAssets::class,
+            PermissionsSync::class,
+            DevPostInstall::class,
+            Install::class,
         ];
     }
 }
