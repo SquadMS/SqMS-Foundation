@@ -18,8 +18,6 @@ class DevPostInstall extends Command
             /* Run commands */
             $this->call('sqms:permissions-sync');
             $this->call('sqms:publish-assets');
-
-            $this->call('horizon:install');
             
             $this->call('filament:upgrade');
             $this->call('vendor:publish --tag="filament-navigation-assets"');
