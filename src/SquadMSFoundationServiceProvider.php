@@ -128,8 +128,8 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
     public function policies()
     {
         return [
-            Role::class                    => RBACPolicy::class,
-            Config::get('sqms.user.model') => UserPolicy::class,
+            Role::class        => RBACPolicy::class,
+            SquadMSUser::class => UserPolicy::class,
         ];
     }
 
