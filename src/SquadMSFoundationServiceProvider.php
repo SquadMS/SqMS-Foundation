@@ -120,6 +120,10 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
         $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
             FacadesSquadMSModuleRegistry::runSchedulers($schedule);
         });
+
+        $this->app->booted(function() {
+            Config::set('filament-navigation.supported-locales', Config::get('sqms.locales'));
+        });
     }
 
     /**
