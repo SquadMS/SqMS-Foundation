@@ -5,10 +5,22 @@ namespace SquadMS\Foundation;
 use CodeZero\LocalizedRoutes\LocalizedUrlGenerator;
 use CodeZero\LocalizedRoutes\UrlGenerator;
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
 use Spatie\LaravelPackageTools\Package;
 use SquadMS\Foundation\Auth\SteamLogin;
+use SquadMS\Foundation\Console\DevPostInstall;
+use SquadMS\Foundation\Console\Install;
+use SquadMS\Foundation\Console\PermissionsSync;
+use SquadMS\Foundation\Console\PublishAssets;
 use SquadMS\Foundation\Contracts\SquadMSModuleServiceProvider;
+use SquadMS\Foundation\Facades\SquadMSModuleRegistry as FacadesSquadMSModuleRegistry;
+use SquadMS\Foundation\Facades\SquadMSPermissions as FacadesSquadMSPermissions;
+use SquadMS\Foundation\Menu\SquadMSMenu;
+use SquadMS\Foundation\Modularity\SquadMSModuleRegistry;
+use Illuminate\Console\Scheduling\Schedule;
+use SquadMS\Foundation\SDKData\SDKDataReader;
 
 class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 {
@@ -17,7 +29,13 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
         $package->name('sqms-foundation')
                 ->hasConfigFile('sqms')
                 ->hasTranslations()
-                ->hasAssets();
+                ->hasAssets()
+                ->hasCommands([
+                    PublishAssets::class,
+                    PermissionsSync::class,
+                    DevPostInstall::class,
+                    Install::class,
+                ]);
     }
 
     /**
@@ -27,6 +45,14 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
      */
     public function registeringModule(): void
     {
+        $this->app->singleton(SquadMSModuleRegistry::class, function () {
+            return new SquadMSModuleRegistry();
+        });
+
+        $this->app->singleton(SquadMSPermissions::class, function () {
+            return new SquadMSPermissions();
+        });
+
         $this->app->singleton(SteamLogin::class, function () {
             return new SteamLogin();
         });
@@ -48,5 +74,61 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
         });
 
         $this->app->bind(UrlGenerator::class, fn ($app, $parameters) => new SquadMSUrlGenerator(...$parameters));
+
+        $this->app->singleton(SquadMSMenu::class, function () {
+            return new SquadMSMenu();
+        });
+
+        $this->app->singleton(SDKDataReader::class, function () {
+            return new SDKDataReader('mapdata', '2.7.json');
+        });
+    }
+
+    public function bootedModule(): void
+    {
+        FacadesSquadMSModuleRegistry::register(SquadMSModule::class);
+
+        /* Permissions */
+        foreach (Config::get('sqms.permissions.definitions', []) as $definition => $displayName) {
+            FacadesSquadMSPermissions::define(Config::get('sqms.permissions.module'), $definition, $displayName);
+        }
+
+        // Implicitly grant system admins all permissions
+        Gate::before(function ($user, $ability) {
+            return $user->isSystemAdmin() ? true : null;
+        });
+
+        /* Add isAdmin directive */
+        Blade::if('admin', function ($user) {
+            return $user && ($user->isSystemAdmin() || $user->can('admin'));
+        });
+
+        Blade::directive('websocketToken', function ($expression) {
+            return '<?php 
+                if (($user = '.SquadMSUser::class.'::current())) {
+                    if (($t = $user->getCurrentWebSocketToken())) {
+                        $wat = $t->token;
+                        echo \'<meta name="wat" content="\' . $wat . \'">\';
+                    }
+                }
+            ?>';
+        });
+
+        $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
+            FacadesSquadMSModuleRegistry::runSchedulers($schedule);
+        });
+    }
+
+    /**
+     * The policy mappings for the application.
+     *
+     * @return array
+     */
+    public function policies()
+    {
+        return [
+            Role::class                    => RBACPolicy::class,
+            Config::get('sqms.user.model') => UserPolicy::class,
+        ];
     }
 }

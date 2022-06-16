@@ -7,6 +7,8 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 abstract class SquadMSModuleServiceProvider extends PackageServiceProvider
 {
+    use SquadMSAuthServiceProvider;
+
     protected array $routeFileNames = [];
 
     public function configurePackage(Package $package): void
@@ -26,6 +28,9 @@ abstract class SquadMSModuleServiceProvider extends PackageServiceProvider
 
     public function registeringPackage()
     {
+        /* Register any defined policies */
+        $this->registerPolicies();
+
         $this->registeringModule();
     }
 
