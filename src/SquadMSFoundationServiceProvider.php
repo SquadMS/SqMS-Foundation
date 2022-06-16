@@ -21,6 +21,7 @@ use SquadMS\Foundation\Menu\SquadMSMenu;
 use SquadMS\Foundation\Modularity\SquadMSModuleRegistry;
 use Illuminate\Console\Scheduling\Schedule;
 use SquadMS\Foundation\Filament\Resources\RBACResource;
+use SquadMS\Foundation\Models\SquadMSUser;
 use SquadMS\Foundation\SDKData\SDKDataReader;
 
 class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
@@ -92,7 +93,7 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
         }
 
         // Implicitly grant system admins all permissions
-        Gate::before(function ($user, $ability) {
+        Gate::before(function (SquadMSUser $user, $ability) {
             return $user->isSystemAdmin() ? true : null;
         });
 

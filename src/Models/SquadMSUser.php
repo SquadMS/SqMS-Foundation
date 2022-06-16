@@ -85,7 +85,7 @@ class SquadMSUser extends Authenticatable implements FilamentUser, HasAvatar
 
     public function isSystemAdmin(): bool
     {
-        return in_array($this->steam_id_64, config('sqms.admins'));
+        return in_array($this->steam_id_64, Config::get('sqms.admins'));
     }
 
     public function getProfileUrlAttribute(): string
@@ -98,7 +98,7 @@ class SquadMSUser extends Authenticatable implements FilamentUser, HasAvatar
     public function getRunningSessions(): Collection
     {
         return collect(
-            DB::connection(config('session.connection'))->table(config('session.table', 'sessions'))
+            DB::connection(Config::get('session.connection'))->table(Config::get('session.table', 'sessions'))
                     ->where('user_id', $this->getAuthIdentifier())
                     ->orderBy('last_activity', 'desc')
                     ->get()
