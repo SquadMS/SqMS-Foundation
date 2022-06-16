@@ -36,7 +36,8 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
     public function configureModule(Package $package): void
     {
         $package->hasAssets()
-                ->hasConfigFile('sqms');
+                ->hasConfigFile('sqms')
+                ->hasRoutes(['web']);
     }
 
     /**
