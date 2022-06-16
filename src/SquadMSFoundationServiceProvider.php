@@ -20,10 +20,15 @@ use SquadMS\Foundation\Facades\SquadMSPermissions as FacadesSquadMSPermissions;
 use SquadMS\Foundation\Menu\SquadMSMenu;
 use SquadMS\Foundation\Modularity\SquadMSModuleRegistry;
 use Illuminate\Console\Scheduling\Schedule;
+use SquadMS\Foundation\Filament\Resources\RBACResource;
 use SquadMS\Foundation\SDKData\SDKDataReader;
 
 class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 {
+    protected array $resources = [
+        RBACResource::class,
+    ];
+
     public function configureModule(Package $package): void
     {
         $package->name('sqms-foundation')

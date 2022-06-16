@@ -47,16 +47,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "SquadMS\\Foundation\\SquadMSFoundationServiceProvider",
-                "SquadMS\\Foundation\\Providers\\ScheduleServiceProvider",
-                "SquadMS\\Foundation\\Providers\\PermissionsServiceProvider",
-                "SquadMS\\Foundation\\Providers\\RouteServiceProvider",
-                "SquadMS\\Foundation\\Providers\\AuthServiceProvider",
-                "SquadMS\\Foundation\\Providers\\FilamentServiceProvider",
-                "SquadMS\\Foundation\\Providers\\LivewireServiceProvider",
-                "SquadMS\\Foundation\\Providers\\ViewServiceProvider",
-                "SquadMS\\Foundation\\Providers\\ModulesServiceProvider",
-                "SquadMS\\Foundation\\Providers\\CommandsServiceProvider"
+                "SquadMS\\Foundation\\SquadMSFoundationServiceProvider"
             ],
             "aliases": {
                 "SquadMSPermissions": "SquadMS\\Foundation\\Facades\\SquadMSPermissions",

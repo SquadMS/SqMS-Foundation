@@ -3,34 +3,32 @@
 namespace SquadMS\Foundation\Contracts;
 
 use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Filament\PluginServiceProvider;
 
-abstract class SquadMSModuleServiceProvider extends PackageServiceProvider
+abstract class SquadMSModuleServiceProvider extends PluginServiceProvider
 {
     use SquadMSAuthServiceProvider;
 
     protected array $routeFileNames = [];
 
-    public function configurePackage(Package $package): void
+    public function packageConfigured(Package $package): void
     {
         /* Register migrations if available */
         if ($migrations = array_diff(scandir($this->package->basePath('/../database/migrations')), ['..'. '.'])) {
             $package->hasMigrations($migrations);
         }
-       
+    
         $this->configureModule($package);
     }
 
-    public function configureModule(Package $package): void
-    {
-        //
-    }
+    abstract public function configureModule(Package $package): void;
 
     public function registeringPackage()
     {
         /* Register any defined policies */
         $this->registerPolicies();
 
+        /* Allow the module to run some registering code too */
         $this->registeringModule();
     }
 
@@ -44,6 +42,7 @@ abstract class SquadMSModuleServiceProvider extends PackageServiceProvider
         /* Register migrations that exist */
         $this->package->hasMigrations(array_diff(scandir($this->package->basePath('/../database/migrations')), ['..'. '.']));
 
+        /* Allow the module to run some booting code too */
         $this->bootingModule();
 
         /* Prevent routes from being registered during boot (allow sqms foundation to boot) */
@@ -56,8 +55,11 @@ abstract class SquadMSModuleServiceProvider extends PackageServiceProvider
         //
     }
 
-    public function packageBooted()
+    public function packageBooted(): void
     {
+        /* Run parent booted method first */
+        parent::packageBooted();
+
         /* Register routes once application / sqms foundation has booted */
         $this->app->booted(function() {
             foreach ($this->routeFileNames as $routeFileName) {
@@ -65,6 +67,7 @@ abstract class SquadMSModuleServiceProvider extends PackageServiceProvider
             }
         });
 
+        /* Allow the module to run some booted code too */
         $this->bootedModule();
     }
 
