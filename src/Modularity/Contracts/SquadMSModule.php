@@ -19,9 +19,4 @@ abstract class SquadMSModule
     {
         //
     }
-
-    public static function schedule(Schedule $schedule): void
-    {
-        //
-    }
 }

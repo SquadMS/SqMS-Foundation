@@ -22,6 +22,7 @@ use SquadMS\Foundation\Modularity\SquadMSModuleRegistry;
 use Illuminate\Console\Scheduling\Schedule;
 use RyanChandler\FilamentNavigation\Facades\FilamentNavigation;
 use SquadMS\Foundation\Filament\Resources\RBACResource;
+use SquadMS\Foundation\Jobs\FetchUsers;
 use SquadMS\Foundation\Models\SquadMSUser;
 use SquadMS\Foundation\SDKData\SDKDataReader;
 
@@ -144,10 +145,16 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
         ];
     }
 
-    public function registerNavigationTypes(): void
+    public function addNavigationTypes(): void
     {    
         FilamentNavigation::addItemType('Home');    
         FilamentNavigation::addItemType('Profile');
         FilamentNavigation::addItemType('Account Settings');
+    }
+
+    public function schedule(Schedule $schedule): void
+    {
+        /* Fetch unfetched or outdated users */
+        $schedule->job(new FetchUsers())->withoutOverlapping()->everyFiveMinutes();
     }
 }

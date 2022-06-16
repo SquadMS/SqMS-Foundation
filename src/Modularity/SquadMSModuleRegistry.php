@@ -54,12 +54,4 @@ class SquadMSModuleRegistry
             $this->registeredMenus->push($menu);
         }
     }
-
-    public function runSchedulers(Schedule $schedule): void
-    {
-        /** @var SquadMSModule $module */
-        foreach ($this->store as $identifier => $module) {
-            $module::schedule($schedule);
-        }
-    }
 }
