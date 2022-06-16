@@ -2,15 +2,15 @@ const mix = require('laravel-mix');
 const fs = require('fs');
 
 /* Remove old build and restore required file structure */
-if (fs.existsSync('public')) {
-    fs.rmdirSync('public', { recursive: true });
+if (fs.existsSync('resources/dist')) {
+    fs.rmdirSync('resources/dist', { recursive: true });
 
-    fs.mkdirSync('public');
-    fs.mkdirSync('public/images');
+    fs.mkdirSync('resources/dist');
+    fs.mkdirSync('resources/dist/images');
 }
 
 /* Configure the public path */
-mix.setPublicPath('public');
+mix.setPublicPath('resources/dist');
 
 mix.setResourceRoot('/themes/sqms-foundation');
 
@@ -23,15 +23,15 @@ const postCssptions = [
 /* Build SCSS/JS assets */
 mix
 /* Admin assets */
-.sass('resources/scss/sqms.scss', 'public/css')
+.sass('resources/scss/sqms.scss', 'resources/dist/css')
 .options({
     postCss: postCssptions,
 })
-.sass('resources/scss/flag-icons.scss', 'public/css')
+.sass('resources/scss/flag-icons.scss', 'resources/dist/css')
 
-.js('resources/js/webp.js', 'public/js')
+.js('resources/js/webp.js', 'resources/dist/js')
 
 .version();
 
 /* Copy static images */
-mix.copyDirectory('resources/images/static', 'public/static-images');
+mix.copyDirectory('resources/images/static', 'resources/dist/static-images');

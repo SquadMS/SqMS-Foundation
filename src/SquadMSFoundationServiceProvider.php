@@ -5,18 +5,27 @@ namespace SquadMS\Foundation;
 use CodeZero\LocalizedRoutes\LocalizedUrlGenerator;
 use CodeZero\LocalizedRoutes\UrlGenerator;
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Config;;
+use Illuminate\Support\Facades\Config;
+use Spatie\LaravelPackageTools\Package;
 use SquadMS\Foundation\Auth\SteamLogin;
+use SquadMS\Foundation\Contracts\SquadMSModuleServiceProvider;
 
-class SquadMSFoundationServiceProvider extends ServiceProvider
+class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 {
+    public function configureModule(Package $package): void
+    {
+        $package->name('sqms-foundation')
+                ->hasConfigFile('sqms')
+                ->hasTranslations()
+                ->hasAssets();
+    }
+
     /**
      * Register any application services.
      *
      * @return void
      */
-    public function register()
+    public function registeringModule(): void
     {
         $this->app->singleton(SteamLogin::class, function () {
             return new SteamLogin();
@@ -39,30 +48,5 @@ class SquadMSFoundationServiceProvider extends ServiceProvider
         });
 
         $this->app->bind(UrlGenerator::class, fn ($app, $parameters) => new SquadMSUrlGenerator(...$parameters));
-    }
-
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        /* Configuration */
-        $this->mergeConfigFrom(__DIR__.'/../config/sqms.php', 'sqms');
-
-        /* Migrations */
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-
-        /* Load Translations */
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'sqms-foundation');
-
-        /* Publish Assets */
-        if ($this->app->runningInConsole()) {
-            // Publish assets
-            $this->publishes([
-                __DIR__.'/../public' => public_path('themes/sqms-foundation'),
-            ], 'assets');
-        }
     }
 }
