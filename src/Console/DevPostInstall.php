@@ -20,6 +20,7 @@ class DevPostInstall extends Command
             $this->call('sqms:publish-assets');
 
             $this->call('filament:upgrade');
+            $this->call('vendor:publish --tag="filament-navigation-assets"');
 
             $this->info('Ran all automated dev commands!');
         }
