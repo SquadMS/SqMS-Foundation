@@ -67,6 +67,9 @@ abstract class SquadMSModuleServiceProvider extends PluginServiceProvider
             }
         });
 
+        /* Register any NavigationTypes this module might have */
+        $this->registerNavigationTypes();
+
         /* Allow the module to run some booted code too */
         $this->bootedModule();
     }
@@ -74,5 +77,10 @@ abstract class SquadMSModuleServiceProvider extends PluginServiceProvider
     public function bootedModule(): void
     {
         //
+    }
+
+    public function registerNavigationTypes(): void
+    {
+
     }
 }

@@ -20,6 +20,7 @@ use SquadMS\Foundation\Facades\SquadMSPermissions as FacadesSquadMSPermissions;
 use SquadMS\Foundation\Menu\SquadMSMenu;
 use SquadMS\Foundation\Modularity\SquadMSModuleRegistry;
 use Illuminate\Console\Scheduling\Schedule;
+use RyanChandler\FilamentNavigation\Facades\FilamentNavigation;
 use SquadMS\Foundation\Filament\Resources\RBACResource;
 use SquadMS\Foundation\Models\SquadMSUser;
 use SquadMS\Foundation\SDKData\SDKDataReader;
@@ -140,5 +141,12 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
             DevPostInstall::class,
             Install::class,
         ];
+    }
+
+    public function registerNavigationTypes(): void
+    {    
+        FilamentNavigation::addItemType('Home');    
+        FilamentNavigation::addItemType('Profile');
+        FilamentNavigation::addItemType('Account Settings');
     }
 }
