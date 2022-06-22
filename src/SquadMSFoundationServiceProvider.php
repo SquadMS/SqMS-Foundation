@@ -4,6 +4,7 @@ namespace SquadMS\Foundation;
 
 use CodeZero\LocalizedRoutes\LocalizedUrlGenerator;
 use CodeZero\LocalizedRoutes\UrlGenerator;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Config;
@@ -17,10 +18,12 @@ use SquadMS\Foundation\Console\PublishAssets;
 use SquadMS\Foundation\Contracts\SquadMSModuleServiceProvider;
 use SquadMS\Foundation\Facades\SquadMSModuleRegistry as FacadesSquadMSModuleRegistry;
 use SquadMS\Foundation\Facades\SquadMSPermissions as FacadesSquadMSPermissions;
-use SquadMS\Foundation\Menu\SquadMSMenu;
+use SquadMS\Foundation\Menu\MenuManager;
 use SquadMS\Foundation\Modularity\SquadMSModuleRegistry;
 use Illuminate\Console\Scheduling\Schedule;
-use RyanChandler\FilamentNavigation\Facades\FilamentNavigation;
+use SquadMS\Foundation\Facades\MenuManager as FacadesMenuManager;
+use SquadMS\Foundation\Filament\Resources\MenuItemResource;
+use SquadMS\Foundation\Filament\Resources\MenuResource;
 use SquadMS\Foundation\Filament\Resources\RBACResource;
 use SquadMS\Foundation\Jobs\FetchUsers;
 use SquadMS\Foundation\Models\SquadMSUser;
@@ -32,6 +35,8 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 
     protected array $resources = [
         RBACResource::class,
+        MenuResource::class,
+        MenuItemResource::class,
     ];
 
     public function configureModule(Package $package): void
@@ -78,9 +83,7 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 
         $this->app->bind(UrlGenerator::class, fn ($app, $parameters) => new SquadMSUrlGenerator(...$parameters));
 
-        $this->app->singleton(SquadMSMenu::class, function () {
-            return new SquadMSMenu();
-        });
+        $this->app->singleton(MenuManager::class, fn () => new MenuManager());
 
         $this->app->singleton(SDKDataReader::class, function () {
             return new SDKDataReader('mapdata', '2.7.json');
@@ -150,10 +153,15 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
     }
 
     public function addNavigationTypes(): void
-    {    
-        FilamentNavigation::addItemType('Home');    
-        FilamentNavigation::addItemType('Profile');
-        FilamentNavigation::addItemType('Account Settings');
+    {
+        FacadesMenuManager::addItemType('URL', [
+            TextInput::make('url')
+                ->required()
+        ]);   
+
+        FacadesMenuManager::addItemType('Home');    
+        FacadesMenuManager::addItemType('Profile');
+        FacadesMenuManager::addItemType('Account Settings');
     }
 
     public function schedule(Schedule $schedule): void

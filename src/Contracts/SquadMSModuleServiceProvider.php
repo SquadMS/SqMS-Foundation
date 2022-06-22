@@ -12,13 +12,8 @@ abstract class SquadMSModuleServiceProvider extends PluginServiceProvider
 
     protected array $routeFileNames = [];
 
-    public function packageConfigured(Package $package): void
-    {
-        /* Register migrations if available */
-        if ($migrations = array_diff(scandir($this->package->basePath('/../database/migrations')), ['..'. '.'])) {
-            $package->hasMigrations($migrations);
-        }
-    
+    public function packageConfiguring(Package $package): void
+    {    
         $this->configureModule($package);
     }
 
@@ -40,9 +35,6 @@ abstract class SquadMSModuleServiceProvider extends PluginServiceProvider
 
     public function bootingPackage()
     {
-        /* Register migrations that exist */
-        $this->package->hasMigrations(array_diff(scandir($this->package->basePath('/../database/migrations')), ['..'. '.']));
-
         /* Allow the module to run some booting code too */
         $this->bootingModule();
 
@@ -60,6 +52,13 @@ abstract class SquadMSModuleServiceProvider extends PluginServiceProvider
     {
         /* Run parent booted method first */
         parent::packageBooted();
+
+        /* Register migrations */
+        if ($this->app->runningInConsole()) {
+            $this->loadMigrationsFrom([
+                $this->package->basePath('../database/migrations'),
+            ]);
+        }
 
         /* Register routes once application / sqms foundation has booted */
         $this->app->booted(function() {
