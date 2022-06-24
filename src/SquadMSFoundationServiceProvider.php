@@ -28,6 +28,7 @@ use SquadMS\Foundation\Jobs\FetchUsers;
 use SquadMS\Foundation\Models\SquadMSUser;
 use SquadMS\Foundation\SDKData\SDKDataReader;
 use RyanChandler\FilamentNavigation\Facades\FilamentNavigation;
+use RyanChandler\FilamentNavigation\Filament\Resources\NavigationResource;
 
 class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 {
@@ -122,8 +123,9 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 
         $this->app->booted(function() {
             Config::set('filament-navigation.supported-locales', Config::get('sqms.locales'));
-            Config::set('filament-navigation.navigation-group', 'System Management');
         });
+
+        NavigationResource::navigationGroup('System Management');
     }
 
     /**
