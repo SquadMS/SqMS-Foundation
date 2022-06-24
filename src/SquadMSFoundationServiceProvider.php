@@ -4,11 +4,15 @@ namespace SquadMS\Foundation;
 
 use CodeZero\LocalizedRoutes\LocalizedUrlGenerator;
 use CodeZero\LocalizedRoutes\UrlGenerator;
+use Filament\Facades\Filament;
 use Filament\Forms\Components\TextInput;
+use Filament\Navigation\NavigationBuilder;
+use Filament\Navigation\NavigationItem;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Console\Scheduling\Schedule;
 use Spatie\LaravelPackageTools\Package;
 use SquadMS\Foundation\Auth\SteamLogin;
 use SquadMS\Foundation\Console\DevPostInstall;
@@ -18,16 +22,12 @@ use SquadMS\Foundation\Console\PublishAssets;
 use SquadMS\Foundation\Contracts\SquadMSModuleServiceProvider;
 use SquadMS\Foundation\Facades\SquadMSModuleRegistry as FacadesSquadMSModuleRegistry;
 use SquadMS\Foundation\Facades\SquadMSPermissions as FacadesSquadMSPermissions;
-use SquadMS\Foundation\Menu\MenuManager;
 use SquadMS\Foundation\Modularity\SquadMSModuleRegistry;
-use Illuminate\Console\Scheduling\Schedule;
-use SquadMS\Foundation\Facades\MenuManager as FacadesMenuManager;
-use SquadMS\Foundation\Filament\Resources\MenuItemResource;
-use SquadMS\Foundation\Filament\Resources\MenuResource;
 use SquadMS\Foundation\Filament\Resources\RBACResource;
 use SquadMS\Foundation\Jobs\FetchUsers;
 use SquadMS\Foundation\Models\SquadMSUser;
 use SquadMS\Foundation\SDKData\SDKDataReader;
+use RyanChandler\FilamentNavigation\Facades\FilamentNavigation;
 
 class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 {
@@ -35,8 +35,6 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 
     protected array $resources = [
         RBACResource::class,
-        MenuResource::class,
-        MenuItemResource::class,
     ];
 
     public function configureModule(Package $package): void
@@ -83,8 +81,6 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 
         $this->app->bind(UrlGenerator::class, fn ($app, $parameters) => new SquadMSUrlGenerator(...$parameters));
 
-        $this->app->singleton(MenuManager::class, fn () => new MenuManager());
-
         $this->app->singleton(SDKDataReader::class, function () {
             return new SDKDataReader('mapdata', '2.7.json');
         });
@@ -126,6 +122,7 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 
         $this->app->booted(function() {
             Config::set('filament-navigation.supported-locales', Config::get('sqms.locales'));
+            Config::set('filament-navigation.navigation-group', 'System Management');
         });
     }
 
@@ -154,14 +151,14 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 
     public function addNavigationTypes(): void
     {
-        FacadesMenuManager::addItemType('URL', [
+        FilamentNavigation::addItemType('URL', [
             TextInput::make('url')
                 ->required()
         ]);   
 
-        FacadesMenuManager::addItemType('Home');    
-        FacadesMenuManager::addItemType('Profile');
-        FacadesMenuManager::addItemType('Account Settings');
+        FilamentNavigation::addItemType('Home');    
+        FilamentNavigation::addItemType('Profile');
+        FilamentNavigation::addItemType('Account Settings');
     }
 
     public function schedule(Schedule $schedule): void
