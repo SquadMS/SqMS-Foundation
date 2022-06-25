@@ -29,6 +29,11 @@ use SquadMS\Foundation\Models\SquadMSUser;
 use SquadMS\Foundation\SDKData\SDKDataReader;
 use RyanChandler\FilamentNavigation\Facades\FilamentNavigation;
 use RyanChandler\FilamentNavigation\Filament\Resources\NavigationResource;
+use Spatie\LaravelSettings\Settings;
+use SquadMS\Foundation\Facades\SquadMSSettings;
+use SquadMS\Foundation\Settings\SettingsManager;
+use SquadMS\Foundation\Themes\Settings\ThemesNavigationsSettings;
+use SquadMS\Foundation\Themes\ThemeManager;
 
 class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 {
@@ -85,11 +90,30 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
         $this->app->singleton(SDKDataReader::class, function () {
             return new SDKDataReader('mapdata', '2.7.json');
         });
+
+        $this->app->singleton(ThemeManager::class, function () {
+            return new ThemeManager();
+        });
+
+        $this->app->singleton(SettingsManager::class, function () {
+            return new SettingsManager();
+        });
     }
 
     public function bootedModule(): void
     {
-        FacadesSquadMSModuleRegistry::register(SquadMSModule::class);
+        /* Settings */
+        $this->app->booted(function() {
+            /* Get the SettingsContainer and clear all registered settings */
+            $settingsContainer = resolve(SettingsContainer::class);
+            $settingsContainer->clearCache();
+
+            /* Append all SQMS module settings to the configured ones */
+            Config::set('settings.settings', array_merge(Config::get('settings.settings', []), SquadMSSettings::getSettings()));
+
+            /* Load the new settings configuration */
+            $settingsContainer->registerBindings();
+        });
 
         /* Permissions */
         foreach (Config::get('sqms.permissions.definitions', []) as $definition => $displayName) {
@@ -117,14 +141,18 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
             ?>';
         });
 
+        /* Make sure all module schedulers are registered once the Schedule has been resolved */
         $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
             FacadesSquadMSModuleRegistry::runSchedulers($schedule);
         });
 
+        /* Re-Configure any 3rd party packages */
         $this->app->booted(function() {
+            /* Make sure filament-navigation does use squadms locales */
             Config::set('filament-navigation.supported-locales', Config::get('sqms.locales'));
         });
 
+        /* Group Navigations resource into System Management */
         NavigationResource::navigationGroup('System Management');
     }
 
@@ -167,5 +195,12 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
     {
         /* Fetch unfetched or outdated users */
         $schedule->job(new FetchUsers())->withoutOverlapping()->everyFiveMinutes();
+    }
+
+    public function settings(): array
+    {
+        return [
+            ThemesNavigationsSettings::class
+        ];
     }
 }

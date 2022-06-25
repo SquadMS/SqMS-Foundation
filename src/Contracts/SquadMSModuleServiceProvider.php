@@ -5,6 +5,8 @@ namespace SquadMS\Foundation\Contracts;
 use Spatie\LaravelPackageTools\Package;
 use Filament\PluginServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
+use SquadMS\Foundation\Facades\SquadMSModuleRegistry;
+use SquadMS\Foundation\Facades\SquadMSSettings;
 
 abstract class SquadMSModuleServiceProvider extends PluginServiceProvider
 {
@@ -67,6 +69,11 @@ abstract class SquadMSModuleServiceProvider extends PluginServiceProvider
             }
         });
 
+        /* Register module settings */
+        foreach ($this->settings() as $setting) {
+            SquadMSSettings::register($setting);
+        }
+
         /* Register any NavigationTypes this module might have */
         $this->addNavigationTypes();
 
@@ -74,6 +81,11 @@ abstract class SquadMSModuleServiceProvider extends PluginServiceProvider
         $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
             $this->schedule($schedule);
         });
+
+        /* Register Modularity (if it does exist) */
+        if (class_exists($fqcn = substr(get_called_class(), 0, strrpos(get_called_class(), "\\")).'\\SquadMSModule')) {
+            SquadMSModuleRegistry::register($fqcn);
+        }
 
         /* Allow the module to run some booted code too */
         $this->bootedModule();
@@ -92,5 +104,10 @@ abstract class SquadMSModuleServiceProvider extends PluginServiceProvider
     public function schedule(Schedule $schedule): void
     {
         //
+    }
+
+    public function settings(): array
+    {
+        return [];
     }
 }
