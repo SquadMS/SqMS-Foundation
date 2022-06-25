@@ -2,7 +2,7 @@
 
 use Spatie\LaravelSettings\Migrations\SettingsBlueprint;
 use Spatie\LaravelSettings\Migrations\SettingsMigration;
-use SquadMS\Foundation\Settings\ThemesNavigationsSettings;
+use SquadMS\Foundation\Themes\Settings\ThemesNavigationsSettings;
 
 return new class extends SettingsMigration
 {
