@@ -2,8 +2,6 @@
 
 namespace SquadMS\Foundation\Settings;
 
-use Spatie\LaravelSettings\Settings;
-
 class SettingsManager
 {
     private array $settings = [];
@@ -13,7 +11,7 @@ class SettingsManager
         return $this->settings;
     }
 
-    public function register(Settings $settings): void
+    public function register(string $settings): void
     {
         $this->settings[] = $settings;
     }
