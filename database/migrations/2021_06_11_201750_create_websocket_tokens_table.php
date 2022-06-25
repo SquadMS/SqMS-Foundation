@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWebsocketTokensTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -18,10 +18,10 @@ class CreateWebsocketTokensTable extends Migration
 
             /* The Session related to this token  */
             $table->string('session_id');
-            $table->foreign('session_id')->references('id')->on('sessions')->onDelete('cascade');
+            $table->foreign('session_id')->references('id')->on('sessions')->cascadeOnDelete();
 
             /* The User related to the token */
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
 
             /* The actual Token */
             $table->string('token')->unique();
@@ -39,4 +39,4 @@ class CreateWebsocketTokensTable extends Migration
     {
         Schema::dropIfExists('websocket_tokens');
     }
-}
+};

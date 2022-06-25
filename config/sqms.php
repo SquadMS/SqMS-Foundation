@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'nav-group' => 'System Management',
+
     'theme' => env('SQUADMS_THEME', 'sqms-default-theme'),
 
     'admins' => explode(',', env('SQMS_SUPER_ADMINS', '76561198049578741')),

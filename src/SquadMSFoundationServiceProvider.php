@@ -4,20 +4,74 @@ namespace SquadMS\Foundation;
 
 use CodeZero\LocalizedRoutes\LocalizedUrlGenerator;
 use CodeZero\LocalizedRoutes\UrlGenerator;
+use Filament\Facades\Filament;
+use Filament\Forms\Components\TextInput;
+use Filament\Navigation\NavigationBuilder;
+use Filament\Navigation\NavigationItem;
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Config;;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Console\Scheduling\Schedule;
+use Spatie\LaravelPackageTools\Package;
 use SquadMS\Foundation\Auth\SteamLogin;
+use SquadMS\Foundation\Console\DevPostInstall;
+use SquadMS\Foundation\Console\Install;
+use SquadMS\Foundation\Console\PermissionsSync;
+use SquadMS\Foundation\Console\PublishAssets;
+use SquadMS\Foundation\Contracts\SquadMSModuleServiceProvider;
+use SquadMS\Foundation\Facades\SquadMSModuleRegistry as FacadesSquadMSModuleRegistry;
+use SquadMS\Foundation\Facades\SquadMSPermissions as FacadesSquadMSPermissions;
+use SquadMS\Foundation\Modularity\SquadMSModuleRegistry;
+use SquadMS\Foundation\Filament\Resources\RBACResource;
+use SquadMS\Foundation\Jobs\FetchUsers;
+use SquadMS\Foundation\Models\SquadMSUser;
+use SquadMS\Foundation\SDKData\SDKDataReader;
+use RyanChandler\FilamentNavigation\Facades\FilamentNavigation;
+use RyanChandler\FilamentNavigation\Filament\Resources\NavigationResource;
+use Spatie\LaravelSettings\Settings;
+use Spatie\LaravelSettings\SettingsContainer;
+use SquadMS\Foundation\Facades\SquadMSNavigation;
+use SquadMS\Foundation\Facades\SquadMSSettings;
+use SquadMS\Foundation\Filament\Pages\ManageNavigationSlots;
+use SquadMS\Foundation\Settings\SettingsManager;
+use SquadMS\Foundation\Themes\Settings\ThemesNavigationsSettings;
+use SquadMS\Foundation\Themes\ThemeManager;
 
-class SquadMSFoundationServiceProvider extends ServiceProvider
+class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 {
+    public static string $name = 'sqms-foundation';
+
+    protected array $resources = [
+        RBACResource::class,
+    ];
+
+    protected array $pages = [
+        ManageNavigationSlots::class,
+    ];
+
+    public function configureModule(Package $package): void
+    {
+        $package->hasAssets()
+                ->hasConfigFile('sqms')
+                ->hasRoutes(['web']);
+    }
+
     /**
      * Register any application services.
      *
      * @return void
      */
-    public function register()
+    public function registeringModule(): void
     {
+        $this->app->singleton(SquadMSModuleRegistry::class, function () {
+            return new SquadMSModuleRegistry();
+        });
+
+        $this->app->singleton(SquadMSPermissions::class, function () {
+            return new SquadMSPermissions();
+        });
+
         $this->app->singleton(SteamLogin::class, function () {
             return new SteamLogin();
         });
@@ -39,30 +93,120 @@ class SquadMSFoundationServiceProvider extends ServiceProvider
         });
 
         $this->app->bind(UrlGenerator::class, fn ($app, $parameters) => new SquadMSUrlGenerator(...$parameters));
+
+        $this->app->singleton(SDKDataReader::class, function () {
+            return new SDKDataReader('mapdata', '2.7.json');
+        });
+
+        $this->app->singleton(ThemeManager::class, function () {
+            return new ThemeManager();
+        });
+
+        $this->app->singleton(SettingsManager::class, function () {
+            return new SettingsManager();
+        });
+    }
+
+    public function bootedModule(): void
+    {
+        /* Settings */
+        $this->app->booted(function() {
+            /* Get the SettingsContainer and clear all registered settings */
+            $settingsContainer = resolve(SettingsContainer::class);
+            $settingsContainer->clearCache();
+
+            /* Append all SQMS module settings to the configured ones */
+            Config::set('settings.settings', array_merge(Config::get('settings.settings', []), SquadMSSettings::getSettings()));
+
+            /* Load the new settings configuration */
+            $settingsContainer->registerBindings();
+        });
+
+        /* Permissions */
+        foreach (Config::get('sqms.permissions.definitions', []) as $definition => $displayName) {
+            FacadesSquadMSPermissions::define(Config::get('sqms.permissions.module'), $definition, $displayName);
+        }
+
+        // Implicitly grant system admins all permissions
+        Gate::before(function (SquadMSUser $user, $ability) {
+            return $user->isSystemAdmin() ? true : null;
+        });
+
+        /* Add isAdmin directive */
+        Blade::if('admin', function ($user) {
+            return $user && ($user->isSystemAdmin() || $user->can('admin'));
+        });
+
+        Blade::directive('websocketToken', function ($expression) {
+            return '<?php 
+                if (($user = '.SquadMSUser::class.'::current())) {
+                    if (($t = $user->getCurrentWebSocketToken())) {
+                        $wat = $t->token;
+                        echo \'<meta name="wat" content="\' . $wat . \'">\';
+                    }
+                }
+            ?>';
+        });
+
+        /* Make sure all module schedulers are registered once the Schedule has been resolved */
+        $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
+            FacadesSquadMSModuleRegistry::runSchedulers($schedule);
+        });
+
+        /* Re-Configure any 3rd party packages */
+        $this->app->booted(function() {
+            /* Make sure filament-navigation does use squadms locales */
+            Config::set('filament-navigation.supported-locales', Config::get('sqms.locales'));
+        });
+
+        /* Group Navigations resource into System Management */
+        NavigationResource::navigationGroup('System Management');
     }
 
     /**
-     * Bootstrap any application services.
+     * The policy mappings for the application.
      *
-     * @return void
+     * @return array
      */
-    public function boot()
+    public function policies()
     {
-        /* Configuration */
-        $this->mergeConfigFrom(__DIR__.'/../config/sqms.php', 'sqms');
+        return [
+            Role::class        => RBACPolicy::class,
+            SquadMSUser::class => UserPolicy::class,
+        ];
+    }
 
-        /* Migrations */
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+    protected function getCommands(): array
+    {
+        return [
+            PublishAssets::class,
+            PermissionsSync::class,
+            DevPostInstall::class,
+            Install::class,
+        ];
+    }
 
-        /* Load Translations */
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'sqms-foundation');
+    public function addNavigationTypes(): void
+    {
+        SquadMSNavigation::addType('Home', fn () => route('home'));    
+        SquadMSNavigation::addType('Profile', fn () => route('profile', [
+            'steam_id_64' => SquadMSUser::current()->steam_id_64
+        ]));
+        SquadMSNavigation::addType('Account Settings', fn () => route('profile-settings', [
+            'steam_id_64' => SquadMSUser::current()->steam_id_64
+        ]));
+    }
 
-        /* Publish Assets */
-        if ($this->app->runningInConsole()) {
-            // Publish assets
-            $this->publishes([
-                __DIR__.'/../public' => public_path('themes/sqms-foundation'),
-            ], 'assets');
-        }
+    public function schedule(Schedule $schedule): void
+    {
+        /* Fetch unfetched or outdated users */
+        $schedule->job(new FetchUsers())->withoutOverlapping()->everyFiveMinutes();
+    }
+
+    public function settings(): array
+    {
+        return [
+            ThemesNavigationsSettings::class
+        ];
     }
 }

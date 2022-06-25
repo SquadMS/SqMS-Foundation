@@ -29,6 +29,6 @@
         @click="open = false"
         @click.away="open = false"
     >
-        {{ $links }}
+        {!! $links ?? '' !!}
     </ul>
 </li>

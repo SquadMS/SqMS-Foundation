@@ -4,6 +4,8 @@ namespace SquadMS\Foundation\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Config;
+use SquadMS\Foundation\Models\Menu;
+use SquadMS\Foundation\Models\MenuMenuItem;
 
 class HomeController extends Controller
 {

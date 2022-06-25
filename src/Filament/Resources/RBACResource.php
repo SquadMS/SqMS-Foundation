@@ -2,17 +2,12 @@
 
 namespace SquadMS\Foundation\Filament\Resources;
 
-use Illuminate\Support\Str;
 use Filament\Forms;
 use Filament\Tables;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Arr;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
-use SquadMS\Foundation\Facades\SquadMSPermissions;
 use SquadMS\Foundation\Filament\Resources\RBACResource\Pages;
 use SquadMS\Foundation\Filament\Resources\RBACResource\RelationManagers;
 

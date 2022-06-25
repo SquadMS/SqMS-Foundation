@@ -90,10 +90,4 @@ class SquadMSModule extends SquadMSModuleContract
                 break;
         }
     }
-
-    public static function schedule(Schedule $schedule): void
-    {
-        /* Fetch unfetched or outdated users */
-        $schedule->job(new FetchUsers())->withoutOverlapping()->everyFiveMinutes();
-    }
 }

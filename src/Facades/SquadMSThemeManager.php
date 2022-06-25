@@ -3,9 +3,9 @@
 namespace SquadMS\Foundation\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use SquadMS\Foundation\Menu\SquadMSAdminMenu as FoundationSquadMSAdminMenu;
+use SquadMS\Foundation\Themes\ThemeManager;
 
-class SquadMSAdminMenu extends Facade
+class SquadMSThemeManager extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -14,6 +14,6 @@ class SquadMSAdminMenu extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return FoundationSquadMSAdminMenu::class;
+        return ThemeManager::class;
     }
 }
