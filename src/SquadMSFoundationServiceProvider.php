@@ -31,6 +31,7 @@ use RyanChandler\FilamentNavigation\Facades\FilamentNavigation;
 use RyanChandler\FilamentNavigation\Filament\Resources\NavigationResource;
 use Spatie\LaravelSettings\Settings;
 use Spatie\LaravelSettings\SettingsContainer;
+use SquadMS\Foundation\Facades\SquadMSNavigation;
 use SquadMS\Foundation\Facades\SquadMSSettings;
 use SquadMS\Foundation\Filament\Pages\ManageNavigationSlots;
 use SquadMS\Foundation\Settings\SettingsManager;
@@ -187,14 +188,13 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 
     public function addNavigationTypes(): void
     {
-        FilamentNavigation::addItemType('URL', [
-            TextInput::make('url')
-                ->required()
-        ]);   
-
-        FilamentNavigation::addItemType('Home');    
-        FilamentNavigation::addItemType('Profile');
-        FilamentNavigation::addItemType('Account Settings');
+        SquadMSNavigation::addType('Home', fn () => route('home'));    
+        SquadMSNavigation::addType('Profile', fn () => route('profile', [
+            'steam_id_64' => SquadMSUser::current()->steam_id_64
+        ]));
+        SquadMSNavigation::addType('Account Settings', fn () => route('profile-settings', [
+            'steam_id_64' => SquadMSUser::current()->steam_id_64
+        ]));
     }
 
     public function schedule(Schedule $schedule): void

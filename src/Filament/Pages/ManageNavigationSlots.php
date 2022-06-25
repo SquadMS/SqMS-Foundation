@@ -29,7 +29,7 @@ class ManageNavigationSlots extends SettingsPage
                     Select::make('slot')
                         ->options(SquadMSThemeManager::getMenuSlots())
                         ->required(),
-                    NavigationSelect::make('handle')
+                    NavigationSelect::make('navigation')
                         ->required(),
                 ]),
         ];
