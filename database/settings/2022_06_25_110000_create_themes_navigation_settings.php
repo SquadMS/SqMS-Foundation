@@ -9,7 +9,7 @@ return new class extends SettingsMigration
     public function up(): void
     {
         $this->migrator->inGroup(ThemesNavigationsSettings::group(), function (SettingsBlueprint $migrator) {
-            $migrator->add('slotHandles', 'laravel-settings');
+            $migrator->add('slotHandles', []);
         });
     }
 };

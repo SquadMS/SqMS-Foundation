@@ -13,12 +13,18 @@ class ManageNavigationSlots extends SettingsPage
 {
     protected static ?string $navigationIcon = 'heroicon-o-cog';
 
+    protected static ?string $navigationGroup = 'Design';
+
+    protected static ?string $title = 'Navigation Slots';
+
     protected static string $settings = ThemesNavigationsSettings::class;
 
     protected function getFormSchema(): array
     {
         return [
+//            TextInput::make('test')->required(),
             Repeater::make('slotHandles')
+                ->disableItemMovement()
                 ->schema([
                     Select::make('slot')
                         ->options(SquadMSThemeManager::getMenuSlots())
