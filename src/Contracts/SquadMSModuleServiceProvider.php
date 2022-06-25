@@ -59,6 +59,7 @@ abstract class SquadMSModuleServiceProvider extends PluginServiceProvider
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom([
                 $this->package->basePath('../database/migrations'),
+                $this->package->basePath('../database/settings'),
             ]);
         }
 
