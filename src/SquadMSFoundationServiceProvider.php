@@ -32,6 +32,7 @@ use RyanChandler\FilamentNavigation\Filament\Resources\NavigationResource;
 use Spatie\LaravelSettings\Settings;
 use Spatie\LaravelSettings\SettingsContainer;
 use SquadMS\Foundation\Facades\SquadMSSettings;
+use SquadMS\Foundation\Filament\Pages\ManageNavigationSlots;
 use SquadMS\Foundation\Settings\SettingsManager;
 use SquadMS\Foundation\Themes\Settings\ThemesNavigationsSettings;
 use SquadMS\Foundation\Themes\ThemeManager;
@@ -42,6 +43,10 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 
     protected array $resources = [
         RBACResource::class,
+    ];
+
+    protected array $pages = [
+        ManageNavigationSlots::class,
     ];
 
     public function configureModule(Package $package): void
