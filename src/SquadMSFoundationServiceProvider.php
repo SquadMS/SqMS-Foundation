@@ -30,6 +30,7 @@ use SquadMS\Foundation\SDKData\SDKDataReader;
 use RyanChandler\FilamentNavigation\Facades\FilamentNavigation;
 use RyanChandler\FilamentNavigation\Filament\Resources\NavigationResource;
 use Spatie\LaravelSettings\Settings;
+use Spatie\LaravelSettings\SettingsContainer;
 use SquadMS\Foundation\Facades\SquadMSSettings;
 use SquadMS\Foundation\Settings\SettingsManager;
 use SquadMS\Foundation\Themes\Settings\ThemesNavigationsSettings;
