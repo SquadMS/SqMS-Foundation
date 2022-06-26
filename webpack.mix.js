@@ -12,7 +12,7 @@ if (fs.existsSync('resources/dist')) {
 /* Configure the public path */
 mix.setPublicPath('resources/dist');
 
-mix.setResourceRoot('/themes/sqms-foundation');
+mix.setResourceRoot('/vendor/sqms-foundation');
 
 const postCssptions = [
     require('postcss-import'),
