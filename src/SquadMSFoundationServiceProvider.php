@@ -4,10 +4,6 @@ namespace SquadMS\Foundation;
 
 use CodeZero\LocalizedRoutes\LocalizedUrlGenerator;
 use CodeZero\LocalizedRoutes\UrlGenerator;
-use Filament\Facades\Filament;
-use Filament\Forms\Components\TextInput;
-use Filament\Navigation\NavigationBuilder;
-use Filament\Navigation\NavigationItem;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Config;
@@ -27,13 +23,12 @@ use SquadMS\Foundation\Filament\Resources\RBACResource;
 use SquadMS\Foundation\Jobs\FetchUsers;
 use SquadMS\Foundation\Models\SquadMSUser;
 use SquadMS\Foundation\SDKData\SDKDataReader;
-use RyanChandler\FilamentNavigation\Facades\FilamentNavigation;
 use RyanChandler\FilamentNavigation\Filament\Resources\NavigationResource;
-use Spatie\LaravelSettings\Settings;
 use Spatie\LaravelSettings\SettingsContainer;
 use SquadMS\Foundation\Facades\SquadMSNavigation;
 use SquadMS\Foundation\Facades\SquadMSSettings;
 use SquadMS\Foundation\Filament\Pages\ManageNavigationSlots;
+use SquadMS\Foundation\Menu\MenuManager;
 use SquadMS\Foundation\Settings\SettingsManager;
 use SquadMS\Foundation\Themes\Settings\ThemesNavigationsSettings;
 use SquadMS\Foundation\Themes\ThemeManager;
@@ -104,6 +99,10 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 
         $this->app->singleton(SettingsManager::class, function () {
             return new SettingsManager();
+        });
+
+        $this->app->singleton(MenuManager::class, function () {
+            return new MenuManager();
         });
     }
 
