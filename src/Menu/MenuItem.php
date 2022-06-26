@@ -2,20 +2,24 @@
 
 namespace SquadMS\Foundation\Menu;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
+
 class MenuItem
 {
-    private string $label;
+    private array|string $label;
     private ?\Closure $resolver = null;
     private ?\Closure $active   = null;
 
     private array $children = [];
 
-    public static function make(string $label, ?\Closure $resolver = null): self
+    public static function make(array|string $label, ?\Closure $resolver = null): self
     {
         return new self($label, $resolver);
     }
 
-    protected function __construct(string $label, ?\Closure $resolver = null)
+    protected function __construct(array|string $label, ?\Closure $resolver = null)
     {
         $this->setLabel($label);
         $this->setResolver($resolver);
@@ -28,6 +32,10 @@ class MenuItem
 
     public function label(): string
     {
+        if (is_array($this->label)) {
+            return Arr::get($this->label, App::currentLocale(), Config::get('app.fallback_locale', 'en'));
+        }
+
         return $this->label;
     }
 
