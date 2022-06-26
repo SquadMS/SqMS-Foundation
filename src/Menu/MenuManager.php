@@ -14,13 +14,15 @@ class MenuManager
 
     private array $conditions = [];
 
-    public function addType(string $name, \Closure $resolver, array $actions = [], \Closure $condition = fn () => true)
+    public function addType(string $name, \Closure $resolver, array $actions = [], ?\Closure $condition = null)
     {
         /* Register item type resolver */
         $this->resolvers[Str::slug($name)] = $resolver;
 
         /* Register item type condition */
-        $this->conditions[Str::slug($name)] = $condition;
+        if (! is_null($condition)) {
+            $this->conditions[Str::slug($name)] = $condition;
+        }
 
         /* Register item type to navigations plugin */
         FilamentNavigation::addItemType($name, $actions);
