@@ -15,14 +15,14 @@
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
         <!-- Styles -->
-        <link href="{{ mix('css/sqms.css', 'themes/sqms-foundation') }}" rel="stylesheet">
-        <link href="{{ mix('css/flag-icons.css', 'themes/sqms-foundation') }}" rel="stylesheet">
+        <link href="{{ mix('css/sqms.css', 'vendor/sqms-foundation') }}" rel="stylesheet">
+        <link href="{{ mix('css/flag-icons.css', 'vendor/sqms-foundation') }}" rel="stylesheet">
         @stack('styles')
         @include('sqms-foundation::structure.styles')
     </head>
     <body class="min-h-screen m-0 flex flex-col bg-gray-100" dir="{{ LocaleHelper::isRTL(app()->getLocale()) ? 'rtl' : 'ltr' }}">
         <!-- Check WebP as early as possible -->
-        <script src="{{ mix('js/webp.js', 'themes/sqms-foundation') }}"></script>
+        <script src="{{ mix('js/webp.js', 'vendor/sqms-foundation') }}"></script>
 
         <x-sqms-foundation::navigation.navbar :brand="config('app.name', 'SquadMS')">            
             <x-slot name="menu">
