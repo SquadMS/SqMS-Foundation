@@ -191,10 +191,10 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
         SquadMSNavigation::addType('Home', fn () => route('home'));    
         SquadMSNavigation::addType('Profile', fn () => route('profile', [
             'steam_id_64' => SquadMSUser::current()->steam_id_64
-        ]));
+        ]), condition: fn () => SquadMSUser::current());
         SquadMSNavigation::addType('Account Settings', fn () => route('profile-settings', [
             'steam_id_64' => SquadMSUser::current()->steam_id_64
-        ]));
+        ]), condition: fn () => SquadMSUser::current());
     }
 
     public function schedule(Schedule $schedule): void

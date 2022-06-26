@@ -3,19 +3,28 @@
 namespace SquadMS\Foundation\Menu;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
-use Illuminate\View\ComponentAttributeBag;
 use RyanChandler\FilamentNavigation\Models\Navigation;
 use RyanChandler\FilamentNavigation\Facades\FilamentNavigation;
-use Spatie\Menu\Laravel\Html;
-use Spatie\Menu\Laravel\Menu;
-use Spatie\Menu\Laravel\View as MenuView;
 use SquadMS\Foundation\Themes\Settings\ThemesNavigationsSettings;
 
 class MenuManager
 {
     private array $resolvers = [];
+
+    private array $conditions = [];
+
+    public function addType(string $name, \Closure $resolver, array $actions = [], \Closure $condition = fn () => true)
+    {
+        /* Register item type resolver */
+        $this->resolvers[Str::slug($name)] = $resolver;
+
+        /* Register item type condition */
+        $this->conditions[Str::slug($name)] = $condition;
+
+        /* Register item type to navigations plugin */
+        FilamentNavigation::addItemType($name, $actions);
+    }
 
     public function get(string $slot, ?\Closure $submenu = null): array
     {
@@ -31,20 +40,16 @@ class MenuManager
         return [];
     }
 
-    public function addType(string $name, \Closure $resolver, array $actions = [])
-    {
-        /* Register item type resolver */
-        $this->resolvers[Str::slug($name)] = $resolver;
-
-        /* Register item type to navigations plugin */
-        FilamentNavigation::addItemType($name, $actions);
-    }
-
     private function structure(array $items): array
     {
         $menu = [];
 
         foreach ($items as $item) {
+            /* Check if this item has a display condition and omit it if the condition is not met */
+            if (Arr::has($this->conditions, $item['type']) && !$this->conditions[$item['type']]()) {
+                continue;
+            }
+
             $menuItem = MenuItem::make($item['label'], $item['type'] ? Arr::get($this->resolvers, $item['type']) : null);
 
             if (count($item['children'])) {
