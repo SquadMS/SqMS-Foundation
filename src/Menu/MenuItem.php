@@ -33,7 +33,7 @@ class MenuItem
     public function label(): string
     {
         if (is_array($this->label)) {
-            return Arr::get($this->label, App::currentLocale(), Config::get('app.fallback_locale', 'en'));
+            return Arr::get($this->label, App::currentLocale()) ?? Arr::get($this->label, Config::get('app.fallback_locale', 'en'));
         }
 
         return $this->label;
