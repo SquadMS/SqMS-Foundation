@@ -1,3 +1,3 @@
 <li {{ $attributes->merge() }}>
-    <hr class="h-0 my-2 overflow-hidden border-t-1 border-gray-300">
+    <hr class="sqmsf-h-0 sqmsf-my-2 sqmsf-overflow-hidden sqmsf-border-t-1 sqmsf-border-gray-300">
 </li>

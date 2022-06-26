@@ -6,17 +6,17 @@
 
 <div {{ $attributes->whereDoesntStartWith('wire:') }}>
     @if ($label)
-        <label for="{{ $id }}" class="form-label">{{ $label }}</label>
+        <label for="{{ $id }}" class="sqmsf-rm-label">{{ $label }}</label>
     @endif
-    <input {{ $attributes->whereStartsWith('wire:') }} id="{{ $id }}" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded {{ $name && $errors->has($name) ? 'bg-red-700' : '' }}" name="{{ $name }}" type="{{ $type }}" placeholder="{{ $placeholder }}" aria-label="{{ $label ?? $placeholder }}" {{ $disabled ? 'disabled' : ''}}>
+    <input {{ $attributes->whereStartsWith('wire:') }} id="{{ $id }}" class="sqmsf-block sqmsf-appearance-none sqmsf-w-full sqmsf-py-1 sqmsf-px-2 sqmsf-mb-1 sqmsf-text-base sqmsf-leading-normal sqmsf-bg-white sqmsf-text-gray-800 sqmsf-border sqmsf-border-gray-200 sqmsf-rounded {{ $name && $errors->has($name) ? 'sqmsf-bg-red-700' : '' }}" name="{{ $name }}" type="{{ $type }}" placeholder="{{ $placeholder }}" aria-label="{{ $label ?? $placeholder }}" {{ $disabled ? 'disabled' : ''}}>
 
     @if ($help)
-        <div id="{{ $id }}Help" class="block mt-1">{{ $help }}</div>
+        <div id="{{ $id }}Help" class="sqmsf-block sqmsf-mt-1">{{ $help }}</div>
     @endif
 
     @if ($name)
         @error($name) 
-            <div id="validation{{ $id }}" class="hidden mt-1 text-sm text-red">
+            <div id="validation{{ $id }}" class="sqmsf-hidden sqmsf-mt-1 sqmsf-text-sm sqmsf-text-red">
                 {{ $message }}
             </div>
         @enderror

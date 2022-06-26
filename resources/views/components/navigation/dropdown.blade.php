@@ -2,29 +2,29 @@
 
 <li 
     x-data="{ open: false }"
-    {{ $attributes->merge(['class' => 'relative' . ($active ? ' active' : '')]) }}
+    {{ $attributes->merge(['class' => 'sqmsf-relative' . ($active ? ' active' : '')]) }}
 >
     <span 
-        class="inline-block py-2 px-4 no-underline"
+        class="sqmsf-inline-block sqmsf-py-2 sqmsf-px-4 sqmsf-no-underline"
         role="button"
         @click="open = ! open"
     >
         {{ $title }}
         <span
             class="inline-block"
-            :class="{ 'ltr:rotate-180 rtl:-rotate-180 transform-gpu transition-transform': open }"
+            :class="{ 'ltr:sqmsf-rotate-180 rtl:sqmsf--rotate-180 sqmsf-transform-gpu sqmsf-transition-transform': open }"
         >▼</span>
     </span>
 
     <ul
-        class="md:absolute md:top-full md:z-20 md:ltr:right-0 md:rtl:left-0 list-none px-0 py-2 border border-slate-300 border-solid bg-white"
+        class="md:sqmsf-absolute md:sqmsf-top-full md:sqmsf-z-20 md:ltr:sqmsf-right-0 md:rtl:sqmsf-left-0 sqmsf-list-none sqmsf-px-0 sqmsf-py-2 sqmsf-border sqmsf-border-slate-300 sqmsf-border-solid sqmsf-bg-white"
         style="display: none;"
-        x-transition:enter="transition ease-out duration-200"
-        x-transition:enter-start="transform opacity-0 scale-95"
-        x-transition:enter-end="transform opacity-100 scale-100"
-        x-transition:leave="transition ease-in duration-75"
-        x-transition:leave-start="transform opacity-100 scale-100"
-        x-transition:leave-end="transform opacity-0 scale-95"
+        x-transition:enter="sqmsf-transition sqmsf-ease-out sqmsf-duration-200"
+        x-transition:enter-start="sqmsf-transform sqmsf-opacity-0 sqmsf-scale-95"
+        x-transition:enter-end="sqmsf-transform sqmsf-opacity-100 sqmsf-scale-100"
+        x-transition:leave="sqmsf-transition sqmsf-ease-in sqmsf-duration-75"
+        x-transition:leave-start="sqmsf-transform sqmsf-opacity-100 sqmsf-scale-100"
+        x-transition:leave-end="sqmsf-transform sqmsf-opacity-0 sqmsf-scale-95"
         x-show="open"
         @click="open = false"
         @click.away="open = false"

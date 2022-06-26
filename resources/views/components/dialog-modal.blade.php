@@ -8,7 +8,7 @@
         <div class="modal-body">
             {{ $content }}
         </div>
-        <div class="modal-footer bg-gray-100">
+        <div class="modal-footer sqmsf-bg-gray-100">
             {{ $footer }}
         </div>
     </div>

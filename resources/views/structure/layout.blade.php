@@ -17,10 +17,10 @@
         <!-- Styles -->
         <link href="{{ mix('css/sqms.css', 'vendor/sqms-foundation') }}" rel="stylesheet">
         <link href="{{ mix('css/flag-icons.css', 'vendor/sqms-foundation') }}" rel="stylesheet">
-        @stack('styles')
         @include('sqms-foundation::structure.styles')
+        @stack('styles')
     </head>
-    <body class="min-h-screen m-0 flex flex-col bg-gray-100" dir="{{ LocaleHelper::isRTL(app()->getLocale()) ? 'rtl' : 'ltr' }}">
+    <body class="sqmsf-min-h-screen sqmsf-m-0 sqmsf-flex sqmsf-flex-col sqmsf-bg-gray-100" dir="{{ LocaleHelper::isRTL(app()->getLocale()) ? 'rtl' : 'ltr' }}">
         <!-- Check WebP as early as possible -->
         <script src="{{ mix('js/webp.js', 'vendor/sqms-foundation') }}"></script>
 
@@ -53,7 +53,7 @@
             </x-slot>
         </x-sqms-foundation::navigation.navbar>
 
-        <main class="flex-grow flex flex-col bg-white {{ $mainClass ?? '' }}" {!! $mainAttributes ?? '' !!} role="main">
+        <main class="sqmsf-flex-grow sqmsf-flex sqmsf-flex-col sqmsf-bg-white {{ $mainClass ?? '' }}" {!! $mainAttributes ?? '' !!} role="main">
             @yield('content')
         </main>
 
@@ -61,7 +61,7 @@
 
         <!-- Scripts -->
         <script src="//unpkg.com/alpinejs" defer></script>
-        @include('sqms-foundation::structure.scripts')
         @stack('scripts')
+        @include('sqms-foundation::structure.scripts')
     </body>
 </html>

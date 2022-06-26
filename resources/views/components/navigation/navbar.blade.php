@@ -2,28 +2,28 @@
 
 <nav
     x-data="{ open: false }"
-    {{ $attributes->merge(['class' => 'bg-white relative']) }}
+    {{ $attributes->merge(['class' => 'sqmsf-bg-white sqmsf-relative']) }}
 >
-    <div class="container mx-auto px-4 flex flex-wrap items-center">
+    <div class="sqmsf-container sqmsf-mx-auto sqmsf-px-4 sqmsf-flex sqmsf-flex-wrap sqmsf-items-center">
         <!-- Application brand-->
         <a href="{{ route(Config::get('sqms.routes.def.home.name')) }}">
-            <x-sqms-foundation::brand class="block py-2 pr-2 h-12 w-auto" />
+            <x-sqms-foundation::brand class="sqmsf-block sqmsf-py-2 sqmsf-pr-2 sqmsf-h-12 sqmsf-w-auto" />
         </a>
 
         <!-- Responsive toggle -->
         <button
-            class="inline-block ltr:ml-auto rtl:mr-auto md:hidden p-3 border-2 border-slate-300 border-solid rounded-lg"
-            x-transition:enter="transition ease-out duration-200"
-            x-transition:enter-start="transform opacity-0 scale-95"
-            x-transition:enter-end="transform opacity-100 scale-100"
-            x-transition:leave="transition ease-in duration-75"
-            x-transition:leave-start="transform opacity-100 scale-100"
-            x-transition:leave-end="transform opacity-0 scale-95"
+            class="sqmsf-inline-block ltr:sqmsf-ml-auto rtl:sqmsf-mr-auto md:sqmsf-hidden sqmsf-p-3 sqmsf-border-2 sqmsf-border-slate-300 sqmsf-border-solid sqmsf-rounded-lg"
+            x-transition:enter="tsqmsf-ransition sqmsf-ease-out sqmsf-duration-200"
+            x-transition:enter-start="sqmsf-transform sqmsf-opacity-0 sqmsf-scale-95"
+            x-transition:enter-end="sqmsf-transform sqmsf-opacity-100 sqmsf-scale-100"
+            x-transition:leave="sqmsf-transition sqmsf-ease-in sqmsf-duration-75"
+            x-transition:leave-start="sqmsf-transform sqmsf-opacity-100 sqmsf-scale-100"
+            x-transition:leave-end="sqmsf-transform sqmsf-opacity-0 sqmsf-scale-95"
             @click="open = ! open"
         >
             <i 
-                class="inline-block"
-                :class="{ 'ltr:rotate-180 rtl:-rotate-180 transform-gpu transition-transform': open }"
+                class="sqmsf-inline-block"
+                :class="{ 'ltr:sqmsf-rotate-180 rtl:sqmsf--rotate-180 sqmsf-transform-gpu sqmsf-transition-transform': open }"
             >
                 ▼
             </i>
@@ -32,16 +32,16 @@
         <!-- Responsive menu -->
         <div
             class="
-                absolute z-10 top-full left-0 right-0 bg-white 
-                md:relative md:bg-none md:flex md:ltr:ml-auto md:rtl:mr-auto
+                sqmsf-absolute sqmsf-z-10 sqmsf-top-full sqmsf-left-0 sqmsf-right-0 sqmsf-bg-white 
+                md:sqmsf-relative md:sqmsf-bg-none md:sqmsf-flex md:ltr:sqmsf-ml-auto md:rtl:sqmsf-mr-auto
             "
-            :class="{ 'hidden': ! open }"
+            :class="{ 'sqmsf-hidden': ! open }"
             x-show.transition="true"
         >
             <ul
                 class="
-                    container mx-auto px-4 list-none flex flex-col
-                    md:max-w-none md:flex-row md:px-0
+                    sqmsf-container sqmsf-mx-auto sqmsf-px-4 sqmsf-list-none sqmsf-flex sqmsf-flex-col
+                    md:sqmsf-max-w-none md:sqmsf-flex-row md:sqmsf-px-0
                 "
             >
                 @if ($menu)
