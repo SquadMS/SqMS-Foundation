@@ -25,7 +25,7 @@ class MenuItem
         $this->setResolver($resolver);
     }
 
-    public function setLabel(string $label): void
+    public function setLabel(array|string $label): void
     {
         $this->label = $label;
     }
