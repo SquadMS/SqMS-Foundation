@@ -945,6 +945,10 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(185 28 28 / var(--tw-bg-opacity));
 }
+.sqmsf-bg-gray-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+}
 .sqmsf-p-6 {
   padding: 1.5rem;
 }
@@ -973,6 +977,10 @@ select {
 .sqmsf-px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+}
+.sqmsf-py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
 }
 .sqmsf-px-0 {
   padding-left: 0px;
