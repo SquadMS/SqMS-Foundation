@@ -5,7 +5,7 @@
 @endsection
 
 @section('page-content')
-    <div>
+    <div class="md:flex no-wrap">
         <div class="sqmsf-w-full md:sqmsf-w-3/12">
             <img src="{{ $user->avatar }}" />
 
