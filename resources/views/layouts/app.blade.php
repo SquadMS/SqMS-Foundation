@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ \LocaleHelper::isRTL(app()->getLocale()) ? 'rtl' : 'ltr' }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ $direction ? 'rtl' : 'ltr' }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +20,7 @@
         @include('sqms-foundation::structure.styles')
         @stack('styles')
     </head>
-    <body class="sqmsf-min-h-screen sqmsf-m-0 sqmsf-flex sqmsf-flex-col sqmsf-bg-gray-100" dir="{{ $direction ? 'rtl' : 'ltr' }}">
+    <body {{ $attributes->merge(['class' => 'sqmsf-min-h-screen sqmsf-m-0 sqmsf-flex sqmsf-flex-col sqmsf-bg-gray-100', 'dir' =>  $direction ? 'rtl' : 'ltr']) }}">
         <!-- Check WebP as early as possible -->
         <script src="{{ mix('js/webp.js', 'vendor/sqms-foundation') }}"></script>
 
