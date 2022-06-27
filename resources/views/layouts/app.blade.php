@@ -54,7 +54,7 @@
         </x-sqms-foundation::navigation.navbar>
 
         <main class="sqmsf-flex-grow sqmsf-flex sqmsf-flex-col sqmsf-bg-white {{ $mainClass ?? '' }}" {!! $mainAttributes ?? '' !!} role="main">
-            @yield('content')
+            {{ $slot }}
         </main>
 
         @include('sqms-foundation::structure.footer')

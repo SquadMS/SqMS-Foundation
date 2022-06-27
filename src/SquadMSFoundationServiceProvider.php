@@ -2,6 +2,7 @@
 
 namespace SquadMS\Foundation;
 
+use App\View\Components\AppLayout;
 use CodeZero\LocalizedRoutes\LocalizedUrlGenerator;
 use CodeZero\LocalizedRoutes\UrlGenerator;
 use Illuminate\Foundation\AliasLoader;
@@ -32,6 +33,7 @@ use SquadMS\Foundation\Menu\MenuManager;
 use SquadMS\Foundation\Settings\SettingsManager;
 use SquadMS\Foundation\Themes\Settings\ThemesNavigationsSettings;
 use SquadMS\Foundation\Themes\ThemeManager;
+use SquadMS\Foundation\View\Components\Templates\PageTemplate;
 
 class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 {
@@ -146,6 +148,9 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
                 }
             ?>';
         });
+
+        Blade::component('app-layout', AppLayout::class);
+        Blade::component('page-template', PageTemplate::class);
 
         /* Make sure all module schedulers are registered once the Schedule has been resolved */
         $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
