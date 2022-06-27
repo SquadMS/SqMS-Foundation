@@ -53,7 +53,7 @@
             </x-slot>
         </x-sqms-foundation::navigation.navbar>
 
-        <main class="sqmsf-flex-grow sqmsf-flex sqmsf-flex-col sqmsf-bg-white {{ $mainClass ?? '' }}" {!! $mainAttributes ?? '' !!} role="main">
+        <main class="sqmsf-flex-grow sqmsf-flex sqmsf-flex-col sqmsf-bg-white {{ $mainClass }}" {!! $mainAttributes ?? '' !!} role="main">
             {{ $slot }}
         </main>
 

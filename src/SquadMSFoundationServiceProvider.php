@@ -32,8 +32,6 @@ use SquadMS\Foundation\Menu\MenuManager;
 use SquadMS\Foundation\Settings\SettingsManager;
 use SquadMS\Foundation\Themes\Settings\ThemesNavigationsSettings;
 use SquadMS\Foundation\Themes\ThemeManager;
-use SquadMS\Foundation\View\Components\Layouts\AppLayout;
-use SquadMS\Foundation\View\Components\Templates\PageTemplate;
 
 class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 {
@@ -149,8 +147,7 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
             ?>';
         });
 
-        Blade::component('app-layout', AppLayout::class);
-        Blade::component('page-template', PageTemplate::class);
+        Blade::componentNamespace('SquadMS\\Foundation\\View\\Components' , 'sqms-foundation');
 
         /* Make sure all module schedulers are registered once the Schedule has been resolved */
         $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {

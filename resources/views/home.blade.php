@@ -1,4 +1,4 @@
-<x-app-layout mainClass="sqmsf-justify-center">
+<x-sqms-foundation::layouts.app main-class="sqmsf-justify-center">
     <section>
         <div class="sqmsf-container sqmsf-mx-auto sqmsf-px-4">
             <div class="sqmsf-flex sqmsf-flex-col sqmsf-items-center sqmsf-flex-wrap">
@@ -7,4 +7,4 @@
             </div>
         </div>
     </section>
-</x-app-layout>
+</x-sqms-foundation::layouts.app>

@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-sqms-foundation::layouts.app>
     <section class="sqmsf-bg-gray-200 sqmsf-py-5">
         <div class="sqmsf-container sqmsf-mx-auto sqmsf-px-4">
             <div class="sqmsf-flex sqmsf-flex-wrap">
@@ -13,4 +13,4 @@
             {{ $slot }}
         </div>
     </section>
-</x-app-layout>
+</x-sqms-foundation::layouts.app>
