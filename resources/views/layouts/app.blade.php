@@ -26,10 +26,7 @@
 
         <x-sqms-foundation::navigation.navbar :brand="config('app.name', 'SquadMS')">            
             <x-slot name="menu">
-                {!! 
-                    (new \SquadMS\Foundation\Menu\NavigationWalker(\SquadMSNavigation::get('main')))
-                        ->render()
-                !!}
+                {!! $navWalker->render() !!}
             </x-slot>
             
             <x-slot name="extra">
