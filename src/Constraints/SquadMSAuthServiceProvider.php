@@ -1,6 +1,6 @@
 <?php
 
-namespace SquadMS\Foundation\Contracts;
+namespace SquadMS\Foundation\Constraints;
 
 use Illuminate\Support\Facades\Gate;
 

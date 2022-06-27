@@ -2,7 +2,6 @@
 
 namespace SquadMS\Foundation;
 
-use App\View\Components\AppLayout;
 use CodeZero\LocalizedRoutes\LocalizedUrlGenerator;
 use CodeZero\LocalizedRoutes\UrlGenerator;
 use Illuminate\Foundation\AliasLoader;
@@ -33,6 +32,7 @@ use SquadMS\Foundation\Menu\MenuManager;
 use SquadMS\Foundation\Settings\SettingsManager;
 use SquadMS\Foundation\Themes\Settings\ThemesNavigationsSettings;
 use SquadMS\Foundation\Themes\ThemeManager;
+use SquadMS\Foundation\View\Components\Layouts\AppLayout;
 use SquadMS\Foundation\View\Components\Templates\PageTemplate;
 
 class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider

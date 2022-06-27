@@ -5,6 +5,7 @@ namespace SquadMS\Foundation\Contracts;
 use Spatie\LaravelPackageTools\Package;
 use Filament\PluginServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
+use SquadMS\Foundation\Constraints\SquadMSAuthServiceProvider;
 use SquadMS\Foundation\Facades\SquadMSModuleRegistry;
 use SquadMS\Foundation\Facades\SquadMSSettings;
 
