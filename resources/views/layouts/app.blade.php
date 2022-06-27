@@ -20,7 +20,7 @@
         @include('sqms-foundation::structure.styles')
         @stack('styles')
     </head>
-    <body class="sqmsf-min-h-screen sqmsf-m-0 sqmsf-flex sqmsf-flex-col sqmsf-bg-gray-100" dir="{{ LocaleHelper::isRTL(app()->getLocale()) ? 'rtl' : 'ltr' }}">
+    <body class="sqmsf-min-h-screen sqmsf-m-0 sqmsf-flex sqmsf-flex-col sqmsf-bg-gray-100" dir="{{ $direction ? 'rtl' : 'ltr' }}">
         <!-- Check WebP as early as possible -->
         <script src="{{ mix('js/webp.js', 'vendor/sqms-foundation') }}"></script>
 
@@ -30,17 +30,17 @@
             </x-slot>
             
             <x-slot name="extra">
-                @if (count(\LocaleHelper::getAvailableLocales()) > 1)
+                @if (count($locales))
                     <x-sqms-foundation::navigation.dropdown>
                         <x-slot name="title">
-                            <span class="fi {{ \LocaleHelper::localeToFlagIconsCSS(app()->getLocale()) }}"></span>
+                            <span class="fi {{ $currentLocaleClass }}"></span>
                         </x-slot>
 
                         <x-slot name="links">
-                            @foreach (\LocaleHelper::getAvailableLocales(true) as $locale)
-                                <x-sqms-foundation::dropdown.item :link="\Route::localizedUrl($locale)">
+                            @foreach ($locales as $locale => $data)
+                                <x-sqms-foundation::dropdown.item :link="$data['url']">
                                     <x-slot name="title">
-                                        <span class="fi {{ \LocaleHelper::localeToFlagIconsCSS($locale) }}"></span> {{ \LocaleHelper::getHumanReadableName($locale) }}
+                                        <span class="fi {{ $data['class'] }}"></span> {{ $data['name'] }}
                                     </x-slot>
                                 </x-sqms-foundation::dropdown.item>
                             @endforeach
