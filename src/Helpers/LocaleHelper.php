@@ -10,15 +10,6 @@ use PeterColes\Languages\LanguagesFacade;
 
 class LocaleHelper
 {
-    public static function getHumanReadableName(string $locale): ?string
-    {
-        /* Lookup language names for the current language */
-        $lookup = LanguagesFacade::lookup(self::getAvailableLocales(), App::getLocale());
-
-        /* Get the translated locale or null */
-        return Arr::get($lookup, $locale, null);
-    }
-
     public static function getAvailableLocales(bool $excludeCurrent = false): array
     {
         $available = Config::get('sqms.locales', []);

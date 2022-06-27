@@ -17,7 +17,6 @@
         "xpaw/steamid": "^2.0.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "skyraptor/laravel-localized-routes": "^2.7.2",
-        "petercoles/multilingual-language-list": "^1.16",
         "livewire/livewire": "^2.4.4",
         "skyraptor/laravel-encryptable-trait": "^1.5",
         "jenssegers/agent": "^2.6",
