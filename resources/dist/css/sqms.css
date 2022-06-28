@@ -742,16 +742,9 @@ select {
 .sqmsf-m-0 {
   margin: 0px;
 }
-.sqmsf-m-2 {
-  margin: 0.5rem;
-}
 .sqmsf-mx-auto {
   margin-left: auto;
   margin-right: auto;
-}
-.sqmsf-mx-2 {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
 }
 .sqmsf-my-2 {
   margin-top: 0.5rem;
@@ -765,6 +758,9 @@ select {
 }
 .sqmsf-mb-3 {
   margin-bottom: 0.75rem;
+}
+.sqmsf-mb-6 {
+  margin-bottom: 1.5rem;
 }
 .sqmsf-mr-3 {
   margin-right: 0.75rem;
@@ -780,12 +776,6 @@ select {
 }
 .sqmsf-mt-4 {
   margin-top: 1rem;
-}
-.sqmsf-mb-4 {
-  margin-bottom: 1rem;
-}
-.sqmsf-mb-6 {
-  margin-bottom: 1.5rem;
 }
 .sqmsf-block {
   display: block;
@@ -968,6 +958,9 @@ select {
 .sqmsf-p-6 {
   padding: 1.5rem;
 }
+.sqmsf-p-4 {
+  padding: 1rem;
+}
 .sqmsf-p-2 {
   padding: 0.5rem;
 }
@@ -1004,9 +997,6 @@ select {
 }
 .sqmsf-pr-2 {
   padding-right: 0.5rem;
-}
-.sqmsf-pt-4 {
-  padding-top: 1rem;
 }
 .sqmsf-text-center {
   text-align: center;
