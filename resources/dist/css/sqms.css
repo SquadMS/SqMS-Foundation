@@ -352,6 +352,9 @@ select {
 .sqmsf-ml-2 {
     margin-left: 0.5rem;
 }
+.sqmsf-mt-4 {
+    margin-top: 1rem;
+}
 .sqmsf-mb-6 {
     margin-bottom: 1.5rem;
 }
@@ -366,9 +369,6 @@ select {
 }
 .sqmsf-mt-3 {
     margin-top: 0.75rem;
-}
-.sqmsf-mt-4 {
-    margin-top: 1rem;
 }
 .sqmsf-block {
     display: block;
@@ -599,6 +599,10 @@ select {
 .sqmsf-align-middle {
     vertical-align: middle;
 }
+.sqmsf-text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+}
 .sqmsf-text-xs {
     font-size: 0.75rem;
     line-height: 1rem;
@@ -618,11 +622,11 @@ select {
 .sqmsf-font-bold {
     font-weight: 700;
 }
-.sqmsf-font-light {
-    font-weight: 300;
-}
 .sqmsf-font-normal {
     font-weight: 400;
+}
+.sqmsf-font-light {
+    font-weight: 300;
 }
 .sqmsf-font-semibold {
     font-weight: 600;

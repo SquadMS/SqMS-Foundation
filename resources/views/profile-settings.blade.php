@@ -2,7 +2,7 @@
 @if (config('session.driver') === 'database')
 <div class="sqmsf-flex sqmsf-flex-wrap sqmsf-mb-5">
     <div class="sqmsf-w-full">
-        <h3>Active Sessions</h3>
+        <h3 class="sqmsf-font-bold sqmsf-text-lg">Active Sessions</h3>
     </div>
     <div class="sqmsf-w-full">
         @php
@@ -42,18 +42,18 @@
                     </div>
                 </div>
             @endforeach
+
+            @if ($user->id === Auth::user()->id)
+                <form class="sqmsf-mt-4" action="{{ route(Config::get('sqms.routes.def.logoutOtherDevices.name')) }}" method="POST">
+                    @csrf
+
+                    <button type="submit" class="sqmsf-inline-block sqmsf-align-middle sqmsf-text-center sqmsf-select-none sqmsf-border sqmsf-font-normal sqmsf-whitespace-no-wrap sqmsf-rounded sqmsf-py-1 sqmsf-px-3 sqmsf-leading-normal sqmsf-no-underline sqmsf-bg-red-600 sqmsf-text-white hover:sqmsf-bg-red-700">Log out other devices</button>
+                </form>
+            @endif
         @else
             <p class="sqmsf-text-xl sqmsf-font-light">No active sessions.</p>
         @endif
     </div>
 </div>
-@endif
-
-@if ($user->id === Auth::user()->id)
-    <form action="{{ route(Config::get('sqms.routes.def.logoutOtherDevices.name')) }}" method="POST">
-        @csrf
-
-        <button type="submit" class="sqmsf-inline-block sqmsf-align-middle sqmsf-text-center sqmsf-select-none sqmsf-border sqmsf-font-normal sqmsf-whitespace-no-wrap sqmsf-rounded sqmsf-py-1 sqmsf-px-3 sqmsf-leading-normal sqmsf-no-underline sqmsf-bg-red-600 sqmsf-text-white hover:sqmsf-bg-red-700">Log out other devices</button>
-    </form>
 @endif
 </x-sqms-foundation::templates.page>
