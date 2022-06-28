@@ -1,4 +1,4 @@
-<x-sqms-foundation::templates.page :title="__('sqms-foundation::pages/profile.heading', ['name' => $user->name . '('. $user->steam_id_64 . ')'])">
+<x-sqms-foundation::templates.page :title="__('sqms-foundation::pages/profile.heading', ['name' => $user->name])">
     <div class="md:sqmsf-flex sqmsf-no-wrap">
         <!-- Info Frame -->
         <div class="sqmsf-w-full md:sqmsf-w-3/12 md:sqmsf-mr-2 sqmsf-p-4 sqmsf-bg-gray-200">
