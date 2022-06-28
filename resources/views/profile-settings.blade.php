@@ -50,19 +50,10 @@
 @endif
 
 @if ($user->id === Auth::user()->id)
-<div class="sqmsf-flex sqmsf-flex-wrap sqmsf-mb-5">
-    <div class="sqmsf-relative sqmsf-flex-grow sqmsf-max-w-full sqmsf-flex-1 sqmsf-px-4">
-        <div class="sqmsf-relative sqmsf-flex sqmsf-flex-col sqmsf-min-w-0 sqmsf-rounded sqmsf-break-words sqmsf-border sqmsf-bg-white sqmsf-border-1 sqmsf-border-gray-300">
-            <div class="sqmsf-flex-auto sqmsf-p-6">
-                <h5 class="sqmsf-mb-3">Logout other devices</h5>
-                <form action="{{ route(Config::get('sqms.routes.def.logoutOtherDevices.name')) }}" method="POST">
-                    @csrf
+    <form action="{{ route(Config::get('sqms.routes.def.logoutOtherDevices.name')) }}" method="POST">
+        @csrf
 
-                    <button type="submit" class="sqmsf-inline-block sqmsf-align-middle sqmsf-text-center sqmsf-select-none sqmsf-border sqmsf-font-normal sqmsf-whitespace-no-wrap sqmsf-rounded sqmsf-py-1 sqmsf-px-3 sqmsf-leading-normal sqmsf-no-underline sqmsf-bg-red-600 sqmsf-text-white hover:sqmsf-bg-red-700">Log out other devices</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+        <button type="submit" class="sqmsf-inline-block sqmsf-align-middle sqmsf-text-center sqmsf-select-none sqmsf-border sqmsf-font-normal sqmsf-whitespace-no-wrap sqmsf-rounded sqmsf-py-1 sqmsf-px-3 sqmsf-leading-normal sqmsf-no-underline sqmsf-bg-red-600 sqmsf-text-white hover:sqmsf-bg-red-700">Log out other devices</button>
+    </form>
 @endif
 </x-sqms-foundation::templates.page>

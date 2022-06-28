@@ -18,4 +18,7 @@ module.exports = {
         require('@tailwindcss/forms'),
         require('tailwindcss-rtl')
     ],
+    corePlugins: {
+        preflight: false,
+    }
 };
