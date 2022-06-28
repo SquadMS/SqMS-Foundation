@@ -15,9 +15,9 @@
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
         <!-- Styles -->
+        @include('sqms-foundation::structure.styles')
         <link href="{{ mix('css/sqms.css', 'vendor/sqms-foundation') }}" rel="stylesheet">
         <link href="{{ mix('css/flag-icons.css', 'vendor/sqms-foundation') }}" rel="stylesheet">
-        @include('sqms-foundation::structure.styles')
         @stack('styles')
     </head>
     <body {{ $attributes->merge(['class' => 'sqmsf-min-h-screen sqmsf-m-0 sqmsf-flex sqmsf-flex-col sqmsf-bg-gray-100', 'dir' =>  $direction ? 'rtl' : 'ltr']) }}">
