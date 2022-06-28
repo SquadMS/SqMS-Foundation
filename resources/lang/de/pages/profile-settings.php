@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'heading' => 'Profil-Einstellungen von :name',
+    'heading' => 'Profil-Einstellungen',
 ];

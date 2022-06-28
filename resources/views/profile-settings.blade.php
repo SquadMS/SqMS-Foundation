@@ -1,4 +1,4 @@
-<x-sqms-foundation::templates.page :title="__('sqms-foundation::pages/profile-settings.heading', ['name' => $user->name . '('. $user->steam_id_64 . ')'])">
+<x-sqms-foundation::templates.page :title="__('sqms-foundation::pages/profile-settings.heading')">
 @if (config('session.driver') === 'database')
 <div class="sqmsf-flex sqmsf-flex-wrap sqmsf-mb-5">
     <div class="sqmsf-w-full">

@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'heading' => 'הגדרות פרופיל :name',
+    'heading' => 'הגדרות פרופיל',
 ];
