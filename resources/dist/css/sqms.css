@@ -385,6 +385,9 @@ select {
 .sqmsf-hidden {
     display: none;
 }
+.sqmsf-aspect-square {
+    aspect-ratio: 1 / 1;
+}
 .sqmsf-h-auto {
     height: auto;
 }
