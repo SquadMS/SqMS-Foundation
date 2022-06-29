@@ -28,6 +28,7 @@ use Spatie\LaravelSettings\SettingsContainer;
 use SquadMS\Foundation\Facades\SquadMSNavigation;
 use SquadMS\Foundation\Facades\SquadMSSettings;
 use SquadMS\Foundation\Filament\Pages\ManageNavigationSlots;
+use SquadMS\Foundation\Http\Livewire\Auth\Login;
 use SquadMS\Foundation\Menu\MenuManager;
 use SquadMS\Foundation\Settings\SettingsManager;
 use SquadMS\Foundation\Themes\Settings\ThemesNavigationsSettings;
@@ -156,6 +157,10 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 
         /* Re-Configure any 3rd party packages */
         $this->app->booted(function() {
+            /* Configure Filament */
+            Config::set('filament.dark_mode', true);
+            Config::set('filament.auth.pages.login', Login::class);
+
             /* Make sure filament-navigation does use squadms locales */
             Config::set('filament-navigation.supported-locales', Config::get('sqms.locales'));
         });
