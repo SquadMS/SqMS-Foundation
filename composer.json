@@ -54,7 +54,8 @@
                 "SquadMSPermissions": "SquadMS\\Foundation\\Facades\\SquadMSPermissions",
                 "SquadMSThemeManager": "SquadMS\\Foundation\\Facades\\SquadMSThemeManager",
                 "SquadMSModuleRegistry": "SquadMS\\Foundation\\Facades\\SquadMSModuleRegistry",
-                "SquadMSNavigation": "SquadMS\\Foundation\\Facades\\SquadMSNavigation"
+                "SquadMSNavigation": "SquadMS\\Foundation\\Facades\\SquadMSNavigation",
+                "SquadMSProfile": "SquadMS\\Foundation\\Facades\\SquadMSProfile"
             }
         }
     },

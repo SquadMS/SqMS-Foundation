@@ -27,11 +27,16 @@ use SquadMS\Foundation\SDKData\SDKDataReader;
 use RyanChandler\FilamentNavigation\Filament\Resources\NavigationResource;
 use Spatie\LaravelSettings\SettingsContainer;
 use SquadMS\Foundation\Facades\SquadMSNavigation;
+use SquadMS\Foundation\Facades\SquadMSProfile;
 use SquadMS\Foundation\Facades\SquadMSSettings;
 use SquadMS\Foundation\Filament\Pages\ManageNavigationSlots;
 use SquadMS\Foundation\Http\Livewire\Auth\Login;
+use SquadMS\Foundation\Http\Livewire\ProfileTabAbout;
 use SquadMS\Foundation\Http\Livewire\ProfileTabs;
+use SquadMS\Foundation\Http\Livewire\ProfileTabStats;
 use SquadMS\Foundation\Menu\MenuManager;
+use SquadMS\Foundation\Profile\ProfileManager;
+use SquadMS\Foundation\Profile\ProfileTab;
 use SquadMS\Foundation\Settings\SettingsManager;
 use SquadMS\Foundation\Themes\Settings\ThemesNavigationsSettings;
 use SquadMS\Foundation\Themes\ThemeManager;
@@ -49,7 +54,9 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
     ];
 
     protected array $livewireComponents = [
-        'profile-tabs' => ProfileTabs::class
+        'profile-tabs' => ProfileTabs::class,
+        'profile-tab-about' => ProfileTabAbout::class,
+        'profile-tab-stats' => ProfileTabStats::class
     ];
 
     public function configureModule(Package $package): void
@@ -110,6 +117,10 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 
         $this->app->singleton(MenuManager::class, function () {
             return new MenuManager();
+        });
+
+        $this->app->singleton(ProfileManager::class, function () {
+            return new ProfileManager();
         });
     }
 
@@ -173,6 +184,9 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 
         /* Group Navigations resource into System Management */
         NavigationResource::navigationGroup('System Management');
+
+        SquadMSProfile::addTab(new ProfileTab('sqms-foundation::profile-tab-about', 'about', fn () => __('About')));
+        SquadMSProfile::addTab(new ProfileTab('sqms-foundation::profile-tab-stats', 'stats', fn () => __('Statistics')));
     }
 
     /**

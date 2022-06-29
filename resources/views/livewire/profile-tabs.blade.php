@@ -5,13 +5,14 @@
         <h3 
             class="sqmsf-px-4 sqmsf-py-2 sqmsf-border-black	sqmsf-border-solid sqmsf-border-y-2 sqmsf-border-r-2 first:sqmsf-border-l-2"
             role="button"
-            wire:click="openTab('{{ $t }}')"
+            wire:click="setTab('{{ $t }}')"
         >{{ $t }}</h2>
         @endforeach
     </div>
 
     <!-- Content -->
     <div class="sqmsf-flex-grow sqmsf-border-black sqmsf-border-solid sqmsf-border-2">
-        {{ $tabs[$tab] }}
+        {{ $component }}
+        @livewire($component, ['user' => $user])
     </div>
 </div>
