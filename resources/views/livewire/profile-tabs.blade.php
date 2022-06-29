@@ -12,7 +12,7 @@
 
     <!-- Content -->
     <div class="sqmsf-flex-grow sqmsf-border-black sqmsf-border-solid sqmsf-border-2">
-        {{ $component }}
-        @livewire($component, ['user' => $user])
+        <!-- Load tab content component -->
+        <livewire:is :component="$component" wire:key="{{ $component }}" />
     </div>
 </div>
