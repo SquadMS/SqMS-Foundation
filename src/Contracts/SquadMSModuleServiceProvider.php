@@ -5,6 +5,7 @@ namespace SquadMS\Foundation\Contracts;
 use Spatie\LaravelPackageTools\Package;
 use Filament\PluginServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
+use Livewire\Livewire;
 use SquadMS\Foundation\Constraints\SquadMSAuthServiceProvider;
 use SquadMS\Foundation\Facades\SquadMSModuleRegistry;
 use SquadMS\Foundation\Facades\SquadMSSettings;
@@ -14,6 +15,8 @@ abstract class SquadMSModuleServiceProvider extends PluginServiceProvider
     use SquadMSAuthServiceProvider;
 
     protected array $routeFileNames = [];
+
+    protected array $livewireComponents = [];
 
     public function packageConfiguring(Package $package): void
     {    
@@ -87,6 +90,11 @@ abstract class SquadMSModuleServiceProvider extends PluginServiceProvider
         /* Register Modularity (if it does exist) */
         if (class_exists($fqcn = substr(get_called_class(), 0, strrpos(get_called_class(), "\\")).'\\SquadMSModule')) {
             SquadMSModuleRegistry::register($fqcn);
+        }
+
+        /* Register Livewire Components */
+        foreach ($this->livewireComponents as $name => $class) {
+            Livewire::component(static::$name.'::'.$name, $class);
         }
 
         /* Allow the module to run some booted code too */

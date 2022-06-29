@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Console\Scheduling\Schedule;
+use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use SquadMS\Foundation\Auth\SteamLogin;
 use SquadMS\Foundation\Console\DevPostInstall;
@@ -29,6 +30,7 @@ use SquadMS\Foundation\Facades\SquadMSNavigation;
 use SquadMS\Foundation\Facades\SquadMSSettings;
 use SquadMS\Foundation\Filament\Pages\ManageNavigationSlots;
 use SquadMS\Foundation\Http\Livewire\Auth\Login;
+use SquadMS\Foundation\Http\Livewire\ProfileTabs;
 use SquadMS\Foundation\Menu\MenuManager;
 use SquadMS\Foundation\Settings\SettingsManager;
 use SquadMS\Foundation\Themes\Settings\ThemesNavigationsSettings;
@@ -44,6 +46,10 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 
     protected array $pages = [
         ManageNavigationSlots::class,
+    ];
+
+    protected array $livewireComponents = [
+        'profile-tabs' => ProfileTabs::class
     ];
 
     public function configureModule(Package $package): void
