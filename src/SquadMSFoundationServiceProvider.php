@@ -40,6 +40,7 @@ use SquadMS\Foundation\Profile\ProfileTab;
 use SquadMS\Foundation\Settings\SettingsManager;
 use SquadMS\Foundation\Themes\Settings\ThemesNavigationsSettings;
 use SquadMS\Foundation\Themes\ThemeManager;
+use SquadMS\Foundation\Policies\RBACPolicy;
 
 class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 {
