@@ -167,11 +167,6 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 
         Blade::componentNamespace('SquadMS\\Foundation\\View\\Components' , 'sqms-foundation');
 
-        /* Make sure all module schedulers are registered once the Schedule has been resolved */
-        $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
-            FacadesSquadMSModuleRegistry::runSchedulers($schedule);
-        });
-
         /* Re-Configure any 3rd party packages */
         $this->app->booted(function() {
             /* Configure Filament */
