@@ -37,7 +37,7 @@ class SDKReaderTest extends TestCase
     public function test_get_layer_for_display_name()
     {
         $this->assertSame('FoolsRoad_TC_v1', SDKDataReader::getLayer('Fool\'s Road TC v1'));
-        $this->assertSame('GooseBay_RAAS_v1', SDKDataReader::getLayer('CAF Goose Bay RAAS v1'));
+        $this->assertSame('GooseBay_RAAS_v1', SDKDataReader::getLayer('Goose Bay RAAS v1'));
     }
 
     /**
