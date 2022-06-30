@@ -15,7 +15,6 @@ class LocaleHelper
         if ($excludeCurrent) {
             $available = array_values(Arr::except(array_combine($available, $available), [
                 app()->getLocale(),
-                app()->getLocale(),
             ]));
         }
 
