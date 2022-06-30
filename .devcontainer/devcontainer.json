@@ -1,6 +1,6 @@
 // https://aka.ms/devcontainer.json
 {
-	"name": "Dockerfile",
+	"name": "PHP & Node environment",
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
