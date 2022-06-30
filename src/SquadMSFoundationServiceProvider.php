@@ -39,6 +39,8 @@ use SquadMS\Foundation\SDKData\SDKDataReader;
 use SquadMS\Foundation\Settings\SettingsManager;
 use SquadMS\Foundation\Themes\Settings\ThemesNavigationsSettings;
 use SquadMS\Foundation\Themes\ThemeManager;
+use SquadMS\Foundation\Policies\UserPolicy;
+use SquadMS\Foundation\Policies\RBACPolicy;
 
 class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 {
@@ -166,11 +168,6 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
         });
 
         Blade::componentNamespace('SquadMS\\Foundation\\View\\Components', 'sqms-foundation');
-
-        /* Make sure all module schedulers are registered once the Schedule has been resolved */
-        $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
-            FacadesSquadMSModuleRegistry::runSchedulers($schedule);
-        });
 
         /* Re-Configure any 3rd party packages */
         $this->app->booted(function () {
