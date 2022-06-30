@@ -17,7 +17,6 @@ class TestCase extends OrchestraTestCase
         return [
             // Package Providers
             \Livewire\LivewireServiceProvider::class,
-            \PeterColes\Languages\LanguagesServiceProvider::class,
             \CodeZero\LocalizedRoutes\LocalizedRoutesServiceProvider::class,
 
             // SquadMS Foundation Providers
