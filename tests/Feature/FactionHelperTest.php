@@ -8,7 +8,7 @@ use SquadMS\Foundation\Tests\TestCase;
 class FactionHelperTest extends TestCase
 {
     /**
-     * Validate that the getHumanReadableName helper function is working as intended.
+     * Validate that the getFactionTag helper function is working as intended.
      *
      * @return void
      */
