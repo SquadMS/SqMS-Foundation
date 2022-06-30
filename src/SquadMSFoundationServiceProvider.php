@@ -18,7 +18,6 @@ use SquadMS\Foundation\Console\Install;
 use SquadMS\Foundation\Console\PermissionsSync;
 use SquadMS\Foundation\Console\PublishAssets;
 use SquadMS\Foundation\Contracts\SquadMSModuleServiceProvider;
-use SquadMS\Foundation\Facades\SquadMSModuleRegistry as FacadesSquadMSModuleRegistry;
 use SquadMS\Foundation\Facades\SquadMSNavigation;
 use SquadMS\Foundation\Facades\SquadMSPermissions as FacadesSquadMSPermissions;
 use SquadMS\Foundation\Facades\SquadMSProfile;
@@ -33,14 +32,14 @@ use SquadMS\Foundation\Jobs\FetchUsers;
 use SquadMS\Foundation\Menu\MenuManager;
 use SquadMS\Foundation\Models\SquadMSUser;
 use SquadMS\Foundation\Modularity\SquadMSModuleRegistry;
+use SquadMS\Foundation\Policies\RBACPolicy;
+use SquadMS\Foundation\Policies\UserPolicy;
 use SquadMS\Foundation\Profile\ProfileManager;
 use SquadMS\Foundation\Profile\ProfileTab;
 use SquadMS\Foundation\SDKData\SDKDataReader;
 use SquadMS\Foundation\Settings\SettingsManager;
 use SquadMS\Foundation\Themes\Settings\ThemesNavigationsSettings;
 use SquadMS\Foundation\Themes\ThemeManager;
-use SquadMS\Foundation\Policies\UserPolicy;
-use SquadMS\Foundation\Policies\RBACPolicy;
 
 class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 {
