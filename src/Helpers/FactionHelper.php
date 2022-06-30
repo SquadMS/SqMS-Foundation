@@ -8,7 +8,7 @@ class FactionHelper
 {
     public static function getFactionTag(?string $factionName): string
     {
-        if (!is_null($factionName)) {
+        if (! is_null($factionName)) {
             if (Str::contains($factionName, ['Canadian Army'])) {
                 return 'caf';
             } elseif (Str::contains($factionName, ['Irregular Militia Forces'])) {

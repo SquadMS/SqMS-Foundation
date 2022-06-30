@@ -9,8 +9,10 @@ use Illuminate\Support\Facades\Config;
 class MenuItem
 {
     private array|string $label;
+
     private ?\Closure $resolver = null;
-    private ?\Closure $active   = null;
+
+    private ?\Closure $active = null;
 
     private array $children = [];
 
@@ -49,7 +51,7 @@ class MenuItem
         if (! is_null($this->resolver)) {
             return ($this->resolver)();
         }
-        
+
         return null;
     }
 
@@ -71,7 +73,7 @@ class MenuItem
     {
         foreach ($children as $child) {
             $this->children[] = $child;
-        } 
+        }
     }
 
     public function children(): array
@@ -81,6 +83,6 @@ class MenuItem
 
     public function hasChildren(): bool
     {
-        return !!count($this->children());
+        return (bool) count($this->children());
     }
 }

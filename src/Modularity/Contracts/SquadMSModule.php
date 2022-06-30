@@ -2,8 +2,6 @@
 
 namespace SquadMS\Foundation\Modularity\Contracts;
 
-use Illuminate\Console\Scheduling\Schedule;
-
 abstract class SquadMSModule
 {
     abstract public static function getIdentifier(): string;

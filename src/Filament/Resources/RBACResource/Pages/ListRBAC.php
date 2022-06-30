@@ -2,8 +2,8 @@
 
 namespace SquadMS\Foundation\Filament\Resources\RBACResource\Pages;
 
-use SquadMS\Foundation\Filament\Resources\RBACResource;
 use Filament\Resources\Pages\ListRecords;
+use SquadMS\Foundation\Filament\Resources\RBACResource;
 
 class ListRBAC extends ListRecords
 {

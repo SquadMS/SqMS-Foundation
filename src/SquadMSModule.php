@@ -2,7 +2,6 @@
 
 namespace SquadMS\Foundation;
 
-use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -10,7 +9,6 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\View\ComponentAttributeBag;
 use SquadMS\Foundation\Facades\SquadMSMenu;
 use SquadMS\Foundation\Helpers\NavigationHelper;
-use SquadMS\Foundation\Jobs\FetchUsers;
 use SquadMS\Foundation\Menu\SquadMSMenuEntry;
 use SquadMS\Foundation\Menu\SquadMSMenuHTMLEntry;
 use SquadMS\Foundation\Modularity\Contracts\SquadMSModule as SquadMSModuleContract;
@@ -30,7 +28,7 @@ class SquadMSModule extends SquadMSModuleContract
     public static function publishAssets(): void
     {
         Artisan::call('vendor:publish', [
-            '--tag'      => self::getIdentifier() . '-assets',
+            '--tag'      => self::getIdentifier().'-assets',
             '--force'    => true,
         ]);
     }
@@ -45,7 +43,7 @@ class SquadMSModule extends SquadMSModuleContract
                     ->setActive(fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms.routes.def.home.name')))
                     ->setOrder(100)
                 );
-                
+
                 SquadMSMenu::register(
                     'main',
                     (new SquadMSMenuEntry(Config::get('sqms.routes.def.profile.name'), fn () => __('sqms-foundation::navigation.profile'), true, function () {
@@ -75,7 +73,7 @@ class SquadMSModule extends SquadMSModuleContract
                 SquadMSMenu::register(
                     'main',
                     (new SquadMSMenuEntry(Config::get('sqms.routes.def.steam-login.name'), fn () => __('sqms-foundation::navigation.login'), true))
-                    ->setCondition(fn () => !Auth::check())
+                    ->setCondition(fn () => ! Auth::check())
                     ->setOrder(PHP_INT_MAX - 1)
                 );
 

@@ -40,7 +40,7 @@ class PermissionsRelationManager extends BelongsToManyRelationManager
                 })
                 ->getOptionLabelFromRecordUsing(function (Permission $record) {
                     return Arr::get(SquadMSPermissions::getPermissions(), $record->name, $record->name);
-                })
+                }),
             ])->collapsible();
         }
 
@@ -51,7 +51,7 @@ class PermissionsRelationManager extends BelongsToManyRelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->sortable()
+                Tables\Columns\TextColumn::make('name')->sortable(),
             ])
             ->filters([
                 //

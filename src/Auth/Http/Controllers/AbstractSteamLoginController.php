@@ -26,8 +26,8 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
     /**
      * AbstractSteamLoginController constructor.
      *
-     * @param \Illuminate\Http\Request            $request
-     * @param \SquadMS\Foundation\Auth\SteamLogin $steam
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \SquadMS\Foundation\Auth\SteamLogin  $steam
      */
     public function __construct(Request $request, SteamLogin $steam)
     {
@@ -36,7 +36,7 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function login(Request $request): RedirectResponse
     {
@@ -44,7 +44,7 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function logout(Request $request): RedirectResponse
     {
@@ -83,7 +83,7 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function redirectToSteam(Request $request): RedirectResponse
     {
@@ -103,7 +103,7 @@ abstract class AbstractSteamLoginController extends Controller implements SteamL
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      *
      * @throws \Exception
      */

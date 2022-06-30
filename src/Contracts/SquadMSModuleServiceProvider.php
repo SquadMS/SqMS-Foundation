@@ -2,10 +2,10 @@
 
 namespace SquadMS\Foundation\Contracts;
 
-use Spatie\LaravelPackageTools\Package;
 use Filament\PluginServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
 use Livewire\Livewire;
+use Spatie\LaravelPackageTools\Package;
 use SquadMS\Foundation\Constraints\SquadMSAuthServiceProvider;
 use SquadMS\Foundation\Facades\SquadMSModuleRegistry;
 use SquadMS\Foundation\Facades\SquadMSSettings;
@@ -19,7 +19,7 @@ abstract class SquadMSModuleServiceProvider extends PluginServiceProvider
     protected array $livewireComponents = [];
 
     public function packageConfiguring(Package $package): void
-    {    
+    {
         $this->configureModule($package);
     }
 
@@ -68,7 +68,7 @@ abstract class SquadMSModuleServiceProvider extends PluginServiceProvider
         }
 
         /* Register routes once application / sqms foundation has booted */
-        $this->app->booted(function() {
+        $this->app->booted(function () {
             foreach ($this->routeFileNames as $routeFileName) {
                 $this->loadRoutesFrom("{$this->package->basePath('/../routes/')}{$routeFileName}.php");
             }
@@ -88,7 +88,7 @@ abstract class SquadMSModuleServiceProvider extends PluginServiceProvider
         });
 
         /* Register Modularity (if it does exist) */
-        if (class_exists($fqcn = substr(get_called_class(), 0, strrpos(get_called_class(), "\\")).'\\SquadMSModule')) {
+        if (class_exists($fqcn = substr(get_called_class(), 0, strrpos(get_called_class(), '\\')).'\\SquadMSModule')) {
             SquadMSModuleRegistry::register($fqcn);
         }
 
@@ -108,7 +108,6 @@ abstract class SquadMSModuleServiceProvider extends PluginServiceProvider
 
     public function addNavigationTypes(): void
     {
-
     }
 
     public function schedule(Schedule $schedule): void

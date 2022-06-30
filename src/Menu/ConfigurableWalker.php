@@ -8,13 +8,18 @@ use SquadMS\Foundation\Menu\Contracts\Walker;
 class ConfigurableWalker extends Walker
 {
     private ?string $itemParentTag = 'li';
+
     private array  $itemParentClass = [];
+
     private array  $itemParentActiveClass = ['active'];
+
     private array  $itemParentAttributes = [];
 
     private array $itemClass = [];
+
     private array $itemActiveClass = ['active'];
-    private array $itemAttributes  = [];
+
+    private array $itemAttributes = [];
 
     public function set(
         false|null|string $itemParentTag = false,
@@ -23,9 +28,8 @@ class ConfigurableWalker extends Walker
         ?array $itemParentAttributes = null,
         ?array $itemClass = null,
         ?array $itemActiveClass = null,
-        ?array $itemAttributes  = null,
-    ): void
-    {
+        ?array $itemAttributes = null,
+    ): void {
         if ($itemParentTag !== false) {
             $this->itemParentTag = $itemParentTag;
         }
@@ -36,7 +40,7 @@ class ConfigurableWalker extends Walker
             'itemParentAttributes',
             'itemClass',
             'itemActiveClass',
-            'itemAttributes'
+            'itemAttributes',
         ] as $parameter) {
             if (! is_null(${$paramenter})) {
                 $this->$parameter = ${$parameter};
@@ -59,7 +63,7 @@ class ConfigurableWalker extends Walker
     {
         $content = $this->tag('a', new ComponentAttributeBag([
             'href'  => $item->resolve(),
-            'class' => $this->itemClass + ($item->isActive() ? $this->itemActiveClass : [])
+            'class' => $this->itemClass + ($item->isActive() ? $this->itemActiveClass : []),
         ] + $this->itemAttributes), $item->label());
 
         if ($item->hasChildren()) {
@@ -73,6 +77,6 @@ class ConfigurableWalker extends Walker
 
     private function tag(string $tag, ComponentAttributeBag $attributes = new ComponentAttributeBag(), string $content = ''): string
     {
-        return '<'. $tag . ' '.$attributes.'>'.$content.'</'.$tag.'>';
+        return '<'.$tag.' '.$attributes.'>'.$content.'</'.$tag.'>';
     }
 }

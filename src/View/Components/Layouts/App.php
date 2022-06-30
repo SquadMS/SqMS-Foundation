@@ -41,7 +41,7 @@ class App extends Component
     /**
      * Create the component instance.
      *
-     * @param  ?string $mainClass
+     * @param  ?string  $mainClass
      * @return void
      */
     public function __construct(string $mainClass = '')
@@ -57,8 +57,8 @@ class App extends Component
             $locale => [
                 'url'   => Route::localizedUrl($locale),
                 'class' => LocaleHelper::localeToFlagIconsCSS($locale),
-                'name'  => locale_get_display_name($locale, FacadesApp::currentLocale())
-            ]
+                'name'  => locale_get_display_name($locale, FacadesApp::currentLocale()),
+            ],
         ])->toArray();
     }
 

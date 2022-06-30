@@ -2,9 +2,7 @@
 
 namespace SquadMS\Foundation\Modularity;
 
-use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Config;
 use SquadMS\Foundation\Modularity\Contracts\SquadMSModule;
 use SquadMS\Foundation\Modularity\Exceptions\DuplicateModuleException;
 use SquadMS\Foundation\Modularity\Exceptions\InvalidModuleTypeException;
@@ -23,7 +21,7 @@ class SquadMSModuleRegistry
 
     public function register(string $module): void
     {
-        if (!class_exists($module) || !is_subclass_of($module, SquadMSModule::class)) {
+        if (! class_exists($module) || ! is_subclass_of($module, SquadMSModule::class)) {
             throw new InvalidModuleTypeException('Modules have to extend the SquadMSModule Contract.');
         }
 
@@ -45,7 +43,7 @@ class SquadMSModuleRegistry
     public function registerMenuEntries(string $menu): void
     {
         /* Do not register the same menu twice */
-        if (!$this->registeredMenus->contains($menu)) {
+        if (! $this->registeredMenus->contains($menu)) {
             /** @var SquadMSModule $module */
             foreach ($this->store as $identifier => $module) {
                 $module::registerMenuEntries($menu);

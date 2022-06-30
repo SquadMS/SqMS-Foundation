@@ -31,8 +31,7 @@ interface SteamLoginInterface
     /**
      * Is the current request valid for.
      *
-     * @param \Illuminate\Http\Request|null $request
-     *
+     * @param  \Illuminate\Http\Request|null  $request
      * @return bool
      */
     public function validRequest(Request $request): bool;

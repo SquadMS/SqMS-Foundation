@@ -57,19 +57,18 @@ class SteamLogin implements SteamLoginInterface
     /**
      * Build the login url with optional openid.return_to and ?redirect.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param string|null              $return
-     * @param string|null              $redirectTo
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string|null  $return
+     * @param  string|null  $redirectTo
+     * @return string
      *
      * @throws \InvalidArgumentException
-     *
-     * @return string
      */
     public function buildLoginUrl(Request $request, ?string $redirectTo = null): string
     {
         /* Get auth route with https prefix (required) */
         $secure = $request->secure();
-        $secure && !$request->isSecure() && URL::forceScheme('https'); // Force the use og HTTPS
+        $secure && ! $request->isSecure() && URL::forceScheme('https'); // Force the use og HTTPS
         $authRoute = route(Config::get('sqms.routes.def.steam-auth.name'));
         URL::forceScheme($secure ? 'https' : 'http'); // Revert forced use of HTTPS
 
@@ -82,7 +81,7 @@ class SteamLogin implements SteamLoginInterface
             'lang' => App::getLocale(),
         ];
 
-        if (!is_null($redirectTo)) {
+        if (! is_null($redirectTo)) {
             $redirectParams['redirect'] = $redirectTo;
         }
 
@@ -97,8 +96,7 @@ class SteamLogin implements SteamLoginInterface
     /**
      * Set the Guzzle instance to use.
      *
-     * @param \GuzzleHttp\Client $guzzle
-     *
+     * @param  \GuzzleHttp\Client  $guzzle
      * @return void
      */
     public function setGuzzle(GuzzleClient $guzzle): void
@@ -109,9 +107,8 @@ class SteamLogin implements SteamLoginInterface
     /**
      * Set the openid.realm either by passing the URL or the domain only.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param string                   $realm
-     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $realm
      * @return \SquadMS\Foundation\Auth\SteamLogin
      */
     public function setRealm(Request $request, ?string $realm = null): self
@@ -124,7 +121,7 @@ class SteamLogin implements SteamLoginInterface
 
         $realm = ($request->secure() ? 'https' : 'http').'://'.$host;
 
-        if (!filter_var($realm, FILTER_VALIDATE_URL)) {
+        if (! filter_var($realm, FILTER_VALIDATE_URL)) {
             throw new \InvalidArgumentException('$realm: `'.$realm.'` is not a valid URL.');
         }
 
@@ -134,8 +131,7 @@ class SteamLogin implements SteamLoginInterface
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return string
      */
     public function getRealm(Request $request): string
@@ -150,15 +146,14 @@ class SteamLogin implements SteamLoginInterface
     /**
      * Check if login is valid.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
+     * @return SteamUser|null
      *
      * @throws Exception
-     *
-     * @return SteamUser|null
      */
     public function validated(Request $request): ?SteamUser
     {
-        if (!$this->validRequest($request)) {
+        if (! $this->validRequest($request)) {
             if ($request->has('openid_error')) {
                 throw new \Exception('OpenID Error: '.$request->input('openid_error'));
             }
@@ -168,19 +163,18 @@ class SteamLogin implements SteamLoginInterface
 
         $steamid = $this->validate($request);
 
-        return !empty($steamid) ? new SteamUser($steamid) : null;
+        return ! empty($steamid) ? new SteamUser($steamid) : null;
     }
 
     /**
      * Return the steamid if validated.
      *
-     * @param \Illuminate\Http\Request $request
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return string|null
      */
     public function validate(Request $request): ?string
     {
-        if (!$request->has('openid_signed') || $request->query('openid_claimed_id') !== $request->query('openid_identity')) {
+        if (! $request->has('openid_signed') || $request->query('openid_claimed_id') !== $request->query('openid_identity')) {
             return null;
         }
 
@@ -228,8 +222,7 @@ class SteamLogin implements SteamLoginInterface
     /**
      * Check if query parameters are valid post steam login.
      *
-     * @param \Illuminate\Http\Request $request
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return bool
      */
     public function validRequest(Request $request): bool
@@ -247,8 +240,7 @@ class SteamLogin implements SteamLoginInterface
     /**
      * Returns Steam Login button with link.
      *
-     * @param string $type
-     *
+     * @param  string  $type
      * @return string
      */
     public function loginButton(Request $request, string $type = 'small'): string
@@ -259,8 +251,7 @@ class SteamLogin implements SteamLoginInterface
     /**
      * Return the URL of Steam Login buttons.
      *
-     * @param string $type
-     *
+     * @param  string  $type
      * @return string
      */
     public static function button(string $type = 'small'): string

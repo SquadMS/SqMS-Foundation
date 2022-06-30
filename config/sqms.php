@@ -124,7 +124,7 @@ return [
     'sdkdata' => [
         'data-url' => 'https://raw.githubusercontent.com/Squad-Wiki-Editorial/squad-wiki-pipeline-map-data/master/completed_output/_Current%20Version/finished.json',
     ],
-    
+
     'default_locale' => env('SQMS_DEFAULT_LOCALE', 'en'),
     'locales' => explode(',', env('SQMS_LOCALES', implode(',', [
         'en',

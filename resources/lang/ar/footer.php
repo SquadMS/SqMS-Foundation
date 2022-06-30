@@ -2,5 +2,5 @@
 
 return [
     'copyright' => '© :year :name. جميع الحقوق محفوظة !',
-    'powered-by' => 'مدعوم بكل فخر من قبل :brand'
+    'powered-by' => 'مدعوم بكل فخر من قبل :brand',
 ];

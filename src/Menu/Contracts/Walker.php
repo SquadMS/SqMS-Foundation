@@ -6,7 +6,7 @@ abstract class Walker
 {
     protected readonly array $items;
 
-    function __construct(array $items)
+    public function __construct(array $items)
     {
         $this->items = $items;
     }

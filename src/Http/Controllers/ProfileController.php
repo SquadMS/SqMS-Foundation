@@ -4,7 +4,6 @@ namespace SquadMS\Foundation\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Config;
 use SquadMS\Foundation\Models\SquadMSUser;
 
 class ProfileController extends Controller

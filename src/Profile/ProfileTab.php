@@ -12,7 +12,7 @@ class ProfileTab
 
     private readonly \Closure|string $label;
 
-    function __construct(string $component, string $name, \Closure|string|null $label = null)
+    public function __construct(string $component, string $name, \Closure|string|null $label = null)
     {
         $this->component = $component;
         $this->name = $name;

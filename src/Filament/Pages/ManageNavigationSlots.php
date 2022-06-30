@@ -22,7 +22,7 @@ class ManageNavigationSlots extends SettingsPage
     protected function getFormSchema(): array
     {
         return [
-//            TextInput::make('test')->required(),
+            //            TextInput::make('test')->required(),
             Repeater::make('slotHandles')
                 ->disableItemMovement()
                 ->schema([

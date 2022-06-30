@@ -11,7 +11,7 @@ class Page extends Component
     /**
      * Create the component instance.
      *
-     * @param  ?string $title
+     * @param  ?string  $title
      * @return void
      */
     public function __construct(string $title = '')

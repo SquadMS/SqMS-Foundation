@@ -4,13 +4,14 @@ namespace SquadMS\Foundation;
 
 use CodeZero\LocalizedRoutes\LocalizedUrlGenerator;
 use CodeZero\LocalizedRoutes\UrlGenerator;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Console\Scheduling\Schedule;
-use Livewire\Livewire;
+use RyanChandler\FilamentNavigation\Filament\Resources\NavigationResource;
 use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelSettings\SettingsContainer;
 use SquadMS\Foundation\Auth\SteamLogin;
 use SquadMS\Foundation\Console\DevPostInstall;
 use SquadMS\Foundation\Console\Install;
@@ -18,25 +19,23 @@ use SquadMS\Foundation\Console\PermissionsSync;
 use SquadMS\Foundation\Console\PublishAssets;
 use SquadMS\Foundation\Contracts\SquadMSModuleServiceProvider;
 use SquadMS\Foundation\Facades\SquadMSModuleRegistry as FacadesSquadMSModuleRegistry;
-use SquadMS\Foundation\Facades\SquadMSPermissions as FacadesSquadMSPermissions;
-use SquadMS\Foundation\Modularity\SquadMSModuleRegistry;
-use SquadMS\Foundation\Filament\Resources\RBACResource;
-use SquadMS\Foundation\Jobs\FetchUsers;
-use SquadMS\Foundation\Models\SquadMSUser;
-use SquadMS\Foundation\SDKData\SDKDataReader;
-use RyanChandler\FilamentNavigation\Filament\Resources\NavigationResource;
-use Spatie\LaravelSettings\SettingsContainer;
 use SquadMS\Foundation\Facades\SquadMSNavigation;
+use SquadMS\Foundation\Facades\SquadMSPermissions as FacadesSquadMSPermissions;
 use SquadMS\Foundation\Facades\SquadMSProfile;
 use SquadMS\Foundation\Facades\SquadMSSettings;
 use SquadMS\Foundation\Filament\Pages\ManageNavigationSlots;
+use SquadMS\Foundation\Filament\Resources\RBACResource;
 use SquadMS\Foundation\Http\Livewire\Auth\Login;
 use SquadMS\Foundation\Http\Livewire\ProfileTabAbout;
 use SquadMS\Foundation\Http\Livewire\ProfileTabs;
 use SquadMS\Foundation\Http\Livewire\ProfileTabStats;
+use SquadMS\Foundation\Jobs\FetchUsers;
 use SquadMS\Foundation\Menu\MenuManager;
+use SquadMS\Foundation\Models\SquadMSUser;
+use SquadMS\Foundation\Modularity\SquadMSModuleRegistry;
 use SquadMS\Foundation\Profile\ProfileManager;
 use SquadMS\Foundation\Profile\ProfileTab;
+use SquadMS\Foundation\SDKData\SDKDataReader;
 use SquadMS\Foundation\Settings\SettingsManager;
 use SquadMS\Foundation\Themes\Settings\ThemesNavigationsSettings;
 use SquadMS\Foundation\Themes\ThemeManager;
@@ -56,7 +55,7 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
     protected array $livewireComponents = [
         'profile-tabs' => ProfileTabs::class,
         'profile-tab-about' => ProfileTabAbout::class,
-        'profile-tab-stats' => ProfileTabStats::class
+        'profile-tab-stats' => ProfileTabStats::class,
     ];
 
     public function configureModule(Package $package): void
@@ -88,8 +87,9 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
         $loader = AliasLoader::getInstance();
         $loader->alias('NavigationHelper', \SquadMS\Foundation\Helpers\NavigationHelper::class);
         $loader->alias('LocaleHelper', \SquadMS\Foundation\Helpers\LocaleHelper::class);
-        
-        $this->app->bind(LocalizedUrlGenerator::class, fn () => new class extends LocalizedUrlGenerator {
+
+        $this->app->bind(LocalizedUrlGenerator::class, fn () => new class extends LocalizedUrlGenerator
+        {
             protected function getOmitLocale()
             {
                 return Config::get('sqms.omit_url_prefix_for_locale', null);
@@ -127,7 +127,7 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
     public function bootedModule(): void
     {
         /* Settings */
-        $this->app->booted(function() {
+        $this->app->booted(function () {
             /* Get the SettingsContainer and clear all registered settings */
             $settingsContainer = resolve(SettingsContainer::class);
             $settingsContainer->clearCache();
@@ -165,7 +165,7 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
             ?>';
         });
 
-        Blade::componentNamespace('SquadMS\\Foundation\\View\\Components' , 'sqms-foundation');
+        Blade::componentNamespace('SquadMS\\Foundation\\View\\Components', 'sqms-foundation');
 
         /* Make sure all module schedulers are registered once the Schedule has been resolved */
         $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
@@ -173,7 +173,7 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
         });
 
         /* Re-Configure any 3rd party packages */
-        $this->app->booted(function() {
+        $this->app->booted(function () {
             /* Configure Filament */
             Config::set('filament.dark_mode', true);
             Config::set('filament.auth.pages.login', Login::class);
@@ -214,12 +214,12 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 
     public function addNavigationTypes(): void
     {
-        SquadMSNavigation::addType('Home', fn () => route('home'));    
+        SquadMSNavigation::addType('Home', fn () => route('home'));
         SquadMSNavigation::addType('Profile', fn () => route('profile', [
-            'steam_id_64' => SquadMSUser::current()->steam_id_64
+            'steam_id_64' => SquadMSUser::current()->steam_id_64,
         ]), condition: fn () => SquadMSUser::current());
         SquadMSNavigation::addType('Account Settings', fn () => route('profile-settings', [
-            'steam_id_64' => SquadMSUser::current()->steam_id_64
+            'steam_id_64' => SquadMSUser::current()->steam_id_64,
         ]), condition: fn () => SquadMSUser::current());
     }
 
@@ -232,7 +232,7 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
     public function settings(): array
     {
         return [
-            ThemesNavigationsSettings::class
+            ThemesNavigationsSettings::class,
         ];
     }
 }

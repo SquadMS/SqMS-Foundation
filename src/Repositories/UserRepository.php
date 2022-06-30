@@ -16,7 +16,7 @@ class UserRepository
 
         /** @var \SquadMS\Foundation\Auth\SteamUser $steamUser */
         foreach ($steamUsers as $steamUser) {
-            $rows[] = self::createUserData($steamUser, !$shallow);
+            $rows[] = self::createUserData($steamUser, ! $shallow);
         }
 
         $updateRows = [
@@ -27,7 +27,7 @@ class UserRepository
             'steam_id_3',
         ];
 
-        if (!$shallow) {
+        if (! $shallow) {
             $updateRows = array_merge($updateRows, [
                 'name',
                 'avatar',
@@ -43,7 +43,7 @@ class UserRepository
     {
         return SquadMSUser::updateOrCreate([
             'steam_account_id' => $steamUser->accountId,
-        ], self::createUserData($steamUser, !$shallow));
+        ], self::createUserData($steamUser, ! $shallow));
     }
 
     public static function createUserData(SteamUser $steamUser, bool $fetch = true): array
@@ -59,7 +59,7 @@ class UserRepository
 
         if ($fetch) {
             /* Fetch the User from the SteamAPI if it is not already fetched */
-            if (!$steamUser->isFetched()) {
+            if (! $steamUser->isFetched()) {
                 $steamUser->getUserInfo();
             }
 

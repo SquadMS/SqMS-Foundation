@@ -3,10 +3,8 @@
 namespace SquadMS\Foundation\Helpers;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
-use PeterColes\Languages\LanguagesFacade;
 
 class LocaleHelper
 {

@@ -7,7 +7,7 @@ class ThemeManager
     public function getMenuSlots(): array
     {
         return [
-            'main' => 'Main Menu'
+            'main' => 'Main Menu',
         ];
     }
 }

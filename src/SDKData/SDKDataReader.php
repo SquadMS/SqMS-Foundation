@@ -153,8 +153,7 @@ class SDKDataReader
      * Tries to find the real layer name from a Layers display Name (from ShowCurrentMap).
      * THIS WILL NOT WORK FOR JENSENS RANGE AS THEY ALL HAVE THE SAME DISPLAY NAME!
      *
-     * @param string $layerDisplayName
-     *
+     * @param  string  $layerDisplayName
      * @return string|null
      */
     public function getLayer(string $layerDisplayName): ?string

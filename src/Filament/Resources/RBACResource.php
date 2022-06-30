@@ -3,10 +3,10 @@
 namespace SquadMS\Foundation\Filament\Resources;
 
 use Filament\Forms;
-use Filament\Tables;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
+use Filament\Tables;
 use Spatie\Permission\Models\Role;
 use SquadMS\Foundation\Filament\Resources\RBACResource\Pages;
 use SquadMS\Foundation\Filament\Resources\RBACResource\RelationManagers;
@@ -35,8 +35,8 @@ class RBACResource extends Resource
             ->schema([
                 Forms\Components\Section::make('Role')->schema([
                     Forms\Components\TextInput::make('name')
-                    ->required()
-                ])
+                    ->required(),
+                ]),
             ]);
     }
 
@@ -45,14 +45,14 @@ class RBACResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->sortable(),
-                Tables\Columns\TextColumn::make('users_count')->counts('users')->sortable()
+                Tables\Columns\TextColumn::make('users_count')->counts('users')->sortable(),
             ])
             ->filters([
                 //
             ])
             ->defaultSort('name');
     }
-    
+
     public static function getRelations(): array
     {
         return [

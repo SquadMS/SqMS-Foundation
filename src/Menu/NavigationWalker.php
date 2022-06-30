@@ -19,7 +19,7 @@ class NavigationWalker extends Walker
         return $html;
     }
 
-    private function renderItem(MenuItem $item) : string
+    private function renderItem(MenuItem $item): string
     {
         if ($item->hasChildren()) {
             return $this->buildDropdown($item)->render();
@@ -33,7 +33,7 @@ class NavigationWalker extends Walker
         return View::make('sqms-foundation::components.navigation.dropdown', [
             'attributes' => new ComponentAttributeBag([]),
             'title'      => $item->label(),
-            'links'      => collect($item->children())->map(fn (MenuItem $child) => $this->renderItem($child))->join('')
+            'links'      => collect($item->children())->map(fn (MenuItem $child) => $this->renderItem($child))->join(''),
         ]);
     }
 
@@ -42,7 +42,7 @@ class NavigationWalker extends Walker
         return View::make('sqms-foundation::components.navigation.item', [
             'attributes' => new ComponentAttributeBag([]),
             'title'      => $item->label(),
-            'link'       => $item->resolve()
+            'link'       => $item->resolve(),
         ]);
     }
 }

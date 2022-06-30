@@ -3,8 +3,8 @@
 namespace SquadMS\Foundation\Helpers;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Route;
 
 class SquadMSRouteHelper
 {
@@ -25,7 +25,7 @@ class SquadMSRouteHelper
             }
         }
     }
-    
+
     public static function localized(\Closure $closure): void
     {
         Route::localized(function () use ($closure) {
@@ -33,7 +33,7 @@ class SquadMSRouteHelper
         }, [
             'supported-locales' => Config::get('sqms.locales'),
             'omit_url_prefix_for_locale' => Config::get('sqms.default_locale'),
-            'use_locale_middleware' => true
+            'use_locale_middleware' => true,
         ]);
     }
 }

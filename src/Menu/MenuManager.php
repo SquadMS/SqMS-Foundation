@@ -4,8 +4,8 @@ namespace SquadMS\Foundation\Menu;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use RyanChandler\FilamentNavigation\Models\Navigation;
 use RyanChandler\FilamentNavigation\Facades\FilamentNavigation;
+use RyanChandler\FilamentNavigation\Models\Navigation;
 use SquadMS\Foundation\Themes\Settings\ThemesNavigationsSettings;
 
 class MenuManager
@@ -48,7 +48,7 @@ class MenuManager
 
         foreach ($items as $item) {
             /* Check if this item has a display condition and omit it if the condition is not met */
-            if (Arr::has($this->conditions, $item['type']) && !$this->conditions[$item['type']]()) {
+            if (Arr::has($this->conditions, $item['type']) && ! $this->conditions[$item['type']]()) {
                 continue;
             }
 

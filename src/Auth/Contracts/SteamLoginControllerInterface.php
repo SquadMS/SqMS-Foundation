@@ -11,8 +11,7 @@ interface SteamLoginControllerInterface
     /**
      * Redirect to steam login page or maybe show a login page if overridden.
      *
-     * @param \Illuminate\Http\Request $request
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function login(Request $request): RedirectResponse;
@@ -20,8 +19,7 @@ interface SteamLoginControllerInterface
     /**
      * Logout the current user and redirect to the configured home route.
      *
-     * @param \Illuminate\Http\Request $request
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function logout(Request $request): RedirectResponse;
@@ -36,8 +34,7 @@ interface SteamLoginControllerInterface
     /**
      * Authenticate the incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
     public function authenticate(Request $request);
@@ -45,9 +42,8 @@ interface SteamLoginControllerInterface
     /**
      * Called when the request is successfully authenticated.
      *
-     * @param \Illuminate\Http\Request           $request
-     * @param \SquadMS\Foundation\Auth\SteamUser $steamUser
-     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \SquadMS\Foundation\Auth\SteamUser  $steamUser
      * @return void
      */
     public function authenticated(Request $request, SteamUser $steamUser): void;

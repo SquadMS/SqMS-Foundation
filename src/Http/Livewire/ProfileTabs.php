@@ -31,16 +31,17 @@ class ProfileTabs extends Component
     public function render()
     {
         $component = $this->currentTab()->component;
-        
+
         return view('sqms-foundation::livewire.profile-tabs', [
-            'component' => $this->currentTab()->component
+            'component' => $this->currentTab()->component,
         ]);
     }
 
     private function currentTab(): ProfileTab
     {
-        /** @var ProfileTab Fix for IntellSense*/
+        /** @var ProfileTab Fix for IntellSense */
         $tab = collect(SquadMSProfile::getTabs())->filter(fn (ProfileTab $tab) => $tab->name === $this->tab)->firstOrFail();
+
         return $tab;
     }
 }

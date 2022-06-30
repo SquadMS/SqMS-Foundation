@@ -85,8 +85,8 @@ class SteamUser extends Fluent
     /**
      * SteamUser constructor. Extends SteamID and constructs that first.
      *
-     * @param string|int        $steamId
-     * @param GuzzleClient|null $guzzle
+     * @param  string|int  $steamId
+     * @param  GuzzleClient|null  $guzzle
      */
     public function __construct($steamId, GuzzleClient $guzzle = null, $data = [])
     {
@@ -170,8 +170,7 @@ class SteamUser extends Fluent
     /**
      * Same as userInfo but for bulk, use with raw steamId's.
      *
-     * @param array $steamIds
-     *
+     * @param  array  $steamIds
      * @return SteamUser[]
      */
     public static function userInfoBulk(array $steamIds): array
@@ -213,8 +212,7 @@ class SteamUser extends Fluent
     /**
      * Parse a single api request.
      *
-     * @param string $body
-     *
+     * @param  string  $body
      * @return array
      */
     protected static function parseApiProfileData(string $body): array
@@ -232,8 +230,7 @@ class SteamUser extends Fluent
     /**
      * Helper to reformat API player results.
      *
-     * @param array $player
-     *
+     * @param  array  $player
      * @return array
      */
     protected static function parseApiProfilePlayer(array $player): array
@@ -245,8 +242,8 @@ class SteamUser extends Fluent
             'isPublic'        => $player['communityvisibilitystate'] === 3,
             'privacyState'    => $player['communityvisibilitystate'] === 3 ? 'Public' : 'Private',
             'visibilityState' => $player['communityvisibilitystate'],
-            'isOnline'        => !in_array($player['personastate'], [0, 4]),
-            'onlineState'     => isset($player['gameid']) ? 'In-Game' : (!in_array($player['personastate'], [0, 4]) ? 'Online' : 'Offline'),
+            'isOnline'        => ! in_array($player['personastate'], [0, 4]),
+            'onlineState'     => isset($player['gameid']) ? 'In-Game' : (! in_array($player['personastate'], [0, 4]) ? 'Online' : 'Offline'),
             'joined'          => $player['timecreated'] ?? null,
             'avatarIcon'      => $player['avatar'],
             'avatarSmall'     => $player['avatar'],
@@ -260,8 +257,7 @@ class SteamUser extends Fluent
     /**
      * Parse API XML response.
      *
-     * @param string $body
-     *
+     * @param  string  $body
      * @return array
      */
     protected static function parseXmlProfileData(string $body): array
@@ -294,6 +290,6 @@ class SteamUser extends Fluent
 
     public function isFetched(): bool
     {
-        return !is_null($this->name) && !is_null($this->avatar) && !is_null($this->avatarMedium) && !is_null($this->avatarSmall);
+        return ! is_null($this->name) && ! is_null($this->avatar) && ! is_null($this->avatarMedium) && ! is_null($this->avatarSmall);
     }
 }

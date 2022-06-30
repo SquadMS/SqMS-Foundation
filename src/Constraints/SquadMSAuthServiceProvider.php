@@ -35,5 +35,3 @@ trait SquadMSAuthServiceProvider
         return $this->policies;
     }
 }
-
-

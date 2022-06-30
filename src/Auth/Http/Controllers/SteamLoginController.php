@@ -12,7 +12,7 @@ use SquadMS\Foundation\Repositories\UserRepository;
 class SteamLoginController extends AbstractSteamLoginController
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function authenticated(Request $request, SteamUser $steamUser): void
     {

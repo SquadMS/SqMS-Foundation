@@ -2,8 +2,8 @@
 
 namespace SquadMS\Foundation\Filament\Resources\RBACResource\Pages;
 
-use SquadMS\Foundation\Filament\Resources\RBACResource;
 use Filament\Resources\Pages\CreateRecord;
+use SquadMS\Foundation\Filament\Resources\RBACResource;
 
 class CreateRBAC extends CreateRecord
 {

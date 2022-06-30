@@ -3,6 +3,8 @@
 namespace SquadMS\Foundation\Models;
 
 use Carbon\Carbon;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Collection;
@@ -12,9 +14,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Jenssegers\Agent\Agent;
 use Spatie\Permission\Traits\HasRoles;
-use SquadMS\Foundation\Models\WebsocketToken;
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Models\Contracts\HasAvatar;
 
 class SquadMSUser extends Authenticatable implements FilamentUser, HasAvatar
 {
@@ -64,8 +63,7 @@ class SquadMSUser extends Authenticatable implements FilamentUser, HasAvatar
     /**
      * Scope a query to only include users that have the given websocket_token.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeHasWebsocketToken($query, $token)
