@@ -18,6 +18,7 @@ class TestCase extends OrchestraTestCase
             // Package Providers
             \Livewire\LivewireServiceProvider::class,
             \CodeZero\LocalizedRoutes\LocalizedRoutesServiceProvider::class,
+            \Spatie\LaravelSettings\LaravelSettingsServiceProvider::class,
 
             // SquadMS Foundation Providers
             \SquadMS\Foundation\SquadMSFoundationServiceProvider::class,
