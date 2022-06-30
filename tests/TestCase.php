@@ -21,14 +21,6 @@ class TestCase extends OrchestraTestCase
 
             // SquadMS Foundation Providers
             \SquadMS\Foundation\SquadMSFoundationServiceProvider::class,
-            \SquadMS\Foundation\Providers\ScheduleServiceProvider::class,
-            \SquadMS\Foundation\Providers\PermissionsServiceProvider::class,
-            \SquadMS\Foundation\Providers\RouteServiceProvider::class,
-            \SquadMS\Foundation\Providers\AuthServiceProvider::class,
-            \SquadMS\Foundation\Providers\LivewireServiceProvider::class,
-            \SquadMS\Foundation\Providers\ViewServiceProvider::class,
-            \SquadMS\Foundation\Providers\ModulesServiceProvider::class,
-            \SquadMS\Foundation\Providers\CommandsServiceProvider::class,
         ];
     }
 
