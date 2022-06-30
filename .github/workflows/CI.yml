@@ -53,7 +53,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
         env:
-          runner: ubuntu-latest
+          runner: ubuntu-22.04
 
       - name: Validate composer.json and composer.lock
         run: composer validate
