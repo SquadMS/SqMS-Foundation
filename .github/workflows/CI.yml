@@ -31,16 +31,18 @@ jobs:
         run: ./vendor/bin/pint --test
 
   test:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
       fail-fast: false
       matrix:
-        php-versions: [8.1]
-        experimental: [false]
+        php-versions: [ 8.1 ]
+        experimental: [ false ]
+        composer-extra: [ '' ]
         include:
           - php-versions: 8.2
             experimental: true
-    continue-on-error: ${{ matrix.experimental }}
+            composer-extra: '--ignore-platform-req=php+'
     env:
       PHP_VERSION: ${{ matrix.php-versions }}
     name: Test PHP-${{ matrix.php-versions }}
@@ -52,8 +54,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
-        env:
-          runner: ubuntu-22.04
 
       - name: Validate composer.json and composer.lock
         run: composer validate
