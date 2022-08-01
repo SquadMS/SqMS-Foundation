@@ -18,7 +18,7 @@ abstract class SquadMSModuleServiceProvider extends PluginServiceProvider
 
     protected array $livewireComponents = [];
 
-    public function packageConfiguring(Package $package): void
+    public function packageConfigured(Package $package): void
     {
         $this->configureModule($package);
     }
