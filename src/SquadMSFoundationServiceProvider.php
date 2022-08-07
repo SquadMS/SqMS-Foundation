@@ -170,10 +170,6 @@ class SquadMSFoundationServiceProvider extends SquadMSModuleServiceProvider
 
         /* Re-Configure any 3rd party packages */
         $this->app->booted(function () {
-            /* Configure Filament */
-            Config::set('filament.dark_mode', true);
-            Config::set('filament.auth.pages.login', Login::class);
-
             /* Make sure filament-navigation does use squadms locales */
             Config::set('filament-navigation.supported-locales', Config::get('sqms.locales'));
         });
