@@ -2,17 +2,16 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./resources/js/webp.js":
+/***/ "./resources/js/webp.js"
 /*!******************************!*\
   !*** ./resources/js/webp.js ***!
   \******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var supports_webp__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! supports-webp */ "./node_modules/supports-webp/dist/supports-webp.common-js.js");
-/* harmony import */ var supports_webp__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(supports_webp__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var supports_webp__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! supports-webp */ "./node_modules/supports-webp/index.js");
 
-supports_webp__WEBPACK_IMPORTED_MODULE_0___default().then(function (supported) {
+supports_webp__WEBPACK_IMPORTED_MODULE_0__["default"].then(function (supported) {
   if (supported) {
     document.body.classList.add('webp');
   } else {
@@ -20,52 +19,51 @@ supports_webp__WEBPACK_IMPORTED_MODULE_0___default().then(function (supported) {
   }
 });
 
-/***/ }),
+/***/ },
 
-/***/ "./resources/scss/sqms.scss":
+/***/ "./resources/scss/sqms.scss"
 /*!**********************************!*\
   !*** ./resources/scss/sqms.scss ***!
   \**********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
 
-/***/ }),
+/***/ },
 
-/***/ "./resources/scss/flag-icons.scss":
+/***/ "./resources/scss/flag-icons.scss"
 /*!****************************************!*\
   !*** ./resources/scss/flag-icons.scss ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/supports-webp/dist/supports-webp.common-js.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/supports-webp/dist/supports-webp.common-js.js ***!
-  \********************************************************************/
-/***/ ((module) => {
+/***/ "./node_modules/supports-webp/index.js"
+/*!*********************************************!*\
+  !*** ./node_modules/supports-webp/index.js ***!
+  \*********************************************/
+(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
-/*! npm.im/supports-webp 2.0.1 */
-
-
-var index = new Promise(function (resolve) {
-	var image = new Image();
-	image.onerror = function () { return resolve(false); };
-	image.onload = function () { return resolve(image.width === 1); };
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new Promise(resolve => {
+	const image = new Image();
+	image.addEventListener('error', () => resolve(false));
+	image.addEventListener('load', () => resolve(image.width === 1));
 	image.src = 'data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vuUAAA=';
-}).catch(function () { return false; });
-
-module.exports = index;
+}).catch(() => false));
 
 
-/***/ })
+/***/ }
 
 /******/ 	});
 /************************************************************************/
@@ -78,6 +76,12 @@ module.exports = index;
 /******/ 		var cachedModule = __webpack_module_cache__[moduleId];
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Check if module exists (development only)
+/******/ 		if (__webpack_modules__[moduleId] === undefined) {
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
@@ -126,18 +130,6 @@ module.exports = index;
 /******/ 				}
 /******/ 			}
 /******/ 			return result;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
 /******/ 		};
 /******/ 	})();
 /******/ 	
