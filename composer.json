@@ -1,7 +1,12 @@
 {
     "name": "squadms/foundation",
     "description": "The foundation for SquadMS. Basically shared system dependencies.",
-    "keywords": ["laravel", "squad", "squadms", "foundation"],
+    "keywords": [
+        "laravel",
+        "squad",
+        "squadms",
+        "foundation"
+    ],
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -12,28 +17,27 @@
         }
     ],
     "require": {
-        "php": "^8.1",
-        "laravel/framework": "^9.0",
-        "xpaw/steamid": "^2.0.0",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "php": "^8.4",
+        "laravel/framework": "^12.0",
+        "xpaw/steamid": "^4.0.0",
+        "guzzlehttp/guzzle": "^7.10",
         "skyraptor/laravel-localized-routes": "^2.7.2",
-        "livewire/livewire": "^2.4.4",
+        "livewire/livewire": "^3.5",
         "skyraptor/laravel-encryptable-trait": "^1.5",
-        "jenssegers/agent": "^2.6",
-        "filament/filament": "^2.0",
-        "doctrine/dbal": "^3.3",
-        "filament/spatie-laravel-settings-plugin": "^2.13",
-        "filament/spatie-laravel-translatable-plugin": "^2.0",
-        "spatie/eloquent-sortable": "^4.0",
-        "spatie/laravel-permission": "^4.1 || ^5.0",
-        "spatie/laravel-menu": "^4.0",
+        "jenssegers/agent": "^2.6.4",
+        "filament/filament": "^4.0",
+        "filament/spatie-laravel-settings-plugin": "^4.0",
+        "filament/spatie-laravel-translatable-plugin": "^4.0",
+        "spatie/eloquent-sortable": "^5.0",
+        "spatie/laravel-permission": "^7.2",
+        "spatie/laravel-menu": "^4.2.1",
         "skyraptor/filament-navigation": "^0.3.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "~9.0",
-        "mockery/mockery": "^1.0",
-        "orchestra/testbench": "^7.0",
-        "laravel/pint": "^0.2.1 || ^1.0.0"
+        "phpunit/phpunit": "^11.5.3",
+        "mockery/mockery": "^1.6.12",
+        "orchestra/testbench": "^10.0",
+        "laravel/pint": "^1.27.1"
     },
     "autoload": {
         "psr-4": {

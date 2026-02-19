@@ -4,14 +4,17 @@
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
-	"settings": {},
-	"extensions": [
-		"bmewburn.vscode-intelephense-client",
-        "xdebug.php-debug",
-		"mikestead.dotenv",
-		"amiralizadeh9480.laravel-extra-intellisense",
-		"onecentlin.laravel5-snippets",
-		"onecentlin.laravel-blade"
-	],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"bmewburn.vscode-intelephense-client",
+				"xdebug.php-debug",
+				"mikestead.dotenv",
+				"amiralizadeh9480.laravel-extra-intellisense",
+				"onecentlin.laravel5-snippets",
+				"onecentlin.laravel-blade"
+			]
+		}
+	},
 	"postCreateCommand": ".devcontainer/postCreate.sh"
 }
